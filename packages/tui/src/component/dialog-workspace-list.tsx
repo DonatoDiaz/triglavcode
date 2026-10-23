@@ -71,7 +71,7 @@ export function DialogWorkspaceList() {
       setRemoving(undefined)
       toast.show({
         variant: "error",
-        title: "Failed to delete workspace",
+        title: "Не удалось удалить рабочее пространство",
         message: errorMessage(result.error),
       })
       return
@@ -94,7 +94,7 @@ export function DialogWorkspaceList() {
 
   return (
     <DialogSelect
-      title="Workspaces"
+      title="Рабочие пространства"
       options={options()}
       onMove={(option) => {
         setDeleting(undefined)
@@ -103,7 +103,7 @@ export function DialogWorkspaceList() {
       actions={[
         {
           command: "session.delete",
-          title: "delete",
+          title: "удалить",
           onTrigger: (option) => void remove(option.value.workspace),
         },
       ]}

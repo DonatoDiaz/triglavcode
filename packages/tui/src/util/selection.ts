@@ -36,7 +36,7 @@ export function copy(renderer: Renderer, toast: Toast, clipboard: ClipboardServi
 
   clipboard
     ?.write?.(clipboardText)
-    .then(() => toast.show({ message: "Copied to clipboard", variant: "info" }))
+    .then(() => toast.show({ message: "Скопировано в буфер обмена", variant: "info" }))
     .catch(toast.error)
 
   renderer.clearSelection()

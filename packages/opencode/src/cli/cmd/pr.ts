@@ -7,11 +7,11 @@ import { Process } from "@/util/process"
 
 export const PrCommand = effectCmd({
   command: "pr <number>",
-  describe: "fetch and checkout a GitHub PR branch, then run opencode",
+  describe: "получить и переключиться на ветку GitHub PR, затем запустить opencode",
   builder: (yargs) =>
     yargs.positional("number", {
       type: "number",
-      describe: "PR number to checkout",
+      describe: "номер PR для переключения",
       demandOption: true,
     }),
   handler: Effect.fn("Cli.pr")(function* (args) {
@@ -26,7 +26,7 @@ export const PrCommand = effectCmd({
 
     const prNumber = args.number
     const localBranchName = `pr/${prNumber}`
-    UI.println(`Fetching and checking out PR #${prNumber}...`)
+    UI.println(`Получаем и переключаемся на PR #${prNumber}...`)
 
     const checkout = yield* Effect.promise(() =>
       Process.run(["gh", "pr", "checkout", `${prNumber}`, "--branch", localBranchName, "--force"], { nothrow: true }),
@@ -64,7 +64,7 @@ export const PrCommand = effectCmd({
           yield* git.run(["remote", "add", remoteName, `https://github.com/${forkOwner}/${forkName}.git`], {
             cwd: worktree,
           })
-          UI.println(`Added fork remote: ${remoteName}`)
+          UI.println(`Добавлен remote форка: ${remoteName}`)
         }
 
         yield* git.run(["branch", `--set-upstream-to=${remoteName}/${prInfo.headRefName}`, localBranchName], {
@@ -76,8 +76,8 @@ export const PrCommand = effectCmd({
         const sessionMatch = prInfo.body.match(/https:\/\/opncd\.ai\/s\/([a-zA-Z0-9_-]+)/)
         if (sessionMatch) {
           const sessionUrl = sessionMatch[0]
-          UI.println(`Found opencode session: ${sessionUrl}`)
-          UI.println(`Importing session...`)
+          UI.println(`Найдена сессия opencode: ${sessionUrl}`)
+          UI.println(`Импортируем сессию...`)
 
           const importResult = yield* Effect.promise(() =>
             Process.text(["opencode", "import", sessionUrl], { nothrow: true }),
@@ -86,16 +86,16 @@ export const PrCommand = effectCmd({
             const sessionIdMatch = importResult.text.trim().match(/Imported session: ([a-zA-Z0-9_-]+)/)
             if (sessionIdMatch) {
               sessionId = sessionIdMatch[1]
-              UI.println(`Session imported: ${sessionId}`)
+              UI.println(`Сессия импортирована: ${sessionId}`)
             }
           }
         }
       }
     }
 
-    UI.println(`Successfully checked out PR #${prNumber} as branch '${localBranchName}'`)
+    UI.println(`PR #${prNumber} успешно выгружен в ветку '${localBranchName}'`)
     UI.println()
-    UI.println("Starting opencode...")
+    UI.println("Запускаем opencode...")
     UI.println()
 
     const opencodeArgs = sessionId ? ["-s", sessionId] : []

@@ -7,27 +7,27 @@ import { ProviderV2 } from "@opencode-ai/core/provider"
 
 export const ModelsCommand = effectCmd({
   command: "models [provider]",
-  describe: "list all available models",
+  describe: "показать все доступные модели",
   builder: (yargs) =>
     yargs
       .positional("provider", {
-        describe: "provider ID to filter models by",
+        describe: "ID провайдера для фильтрации моделей",
         type: "string",
         array: false,
       })
       .option("verbose", {
-        describe: "use more verbose model output (includes metadata like costs)",
+        describe: "подробный вывод моделей (включая метаданные, например стоимость)",
         type: "boolean",
       })
       .option("refresh", {
-        describe: "refresh the models cache from models.dev",
+        describe: "обновить кэш моделей с models.dev",
         type: "boolean",
       }),
   handler: Effect.fn("Cli.models")(function* (args) {
     const { Provider } = yield* Effect.promise(() => import("@/provider/provider"))
     if (args.refresh) {
       yield* ModelsDev.Service.use((s) => s.refresh(true))
-      UI.println(UI.Style.TEXT_SUCCESS_BOLD + "Models cache refreshed" + UI.Style.TEXT_NORMAL)
+      UI.println(UI.Style.TEXT_SUCCESS_BOLD + "Кэш моделей обновлён" + UI.Style.TEXT_NORMAL)
     }
 
     const provider = yield* Provider.Service

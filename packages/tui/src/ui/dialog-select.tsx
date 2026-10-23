@@ -373,7 +373,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
       commands: [
         {
           name: "dialog.select.prev",
-          title: "Previous item",
+          title: "Предыдущий элемент",
           category: "Dialog",
           run() {
             setStore("input", "keyboard")
@@ -382,7 +382,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
         },
         {
           name: "dialog.select.next",
-          title: "Next item",
+          title: "Следующий элемент",
           category: "Dialog",
           run() {
             setStore("input", "keyboard")
@@ -391,7 +391,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
         },
         {
           name: "dialog.select.page_up",
-          title: "Page up",
+          title: "Страница вверх",
           category: "Dialog",
           run() {
             setStore("input", "keyboard")
@@ -400,7 +400,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
         },
         {
           name: "dialog.select.page_down",
-          title: "Page down",
+          title: "Страница вниз",
           category: "Dialog",
           run() {
             setStore("input", "keyboard")
@@ -409,7 +409,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
         },
         {
           name: "dialog.select.home",
-          title: "First item",
+          title: "Первый элемент",
           category: "Dialog",
           run() {
             if (props.locked) return
@@ -419,7 +419,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
         },
         {
           name: "dialog.select.end",
-          title: "Last item",
+          title: "Последний элемент",
           category: "Dialog",
           run() {
             if (props.locked) return
@@ -429,7 +429,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
         },
         {
           name: "dialog.select.submit",
-          title: "Select item",
+          title: "Выбрать элемент",
           category: "Dialog",
           run: submit,
         },
@@ -462,14 +462,14 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
           ? [
               {
                 key: "tab",
-                desc: "Next dialog action",
-                group: "Dialog",
+                desc: "Следующее действие диалога",
+                group: "Диалог",
                 cmd: () => moveAction(1),
               },
               {
                 key: "shift+tab",
-                desc: "Previous dialog action",
-                group: "Dialog",
+                desc: "Предыдущее действие диалога",
+                group: "Диалог",
                 cmd: () => moveAction(-1),
               },
             ]
@@ -602,7 +602,7 @@ export function DialogSelect<T>(props: DialogSelectProps<T>) {
           fallback={
             props.emptyView ?? (
               <box paddingLeft={4} paddingRight={4} paddingTop={1}>
-                <text fg={theme.textMuted}>No results found</text>
+                <text fg={theme.textMuted}>Ничего не найдено</text>
               </box>
             )
           }

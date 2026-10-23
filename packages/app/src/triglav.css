@@ -1,0 +1,38 @@
+/* TriglavCode aggressive palette (dark-first, blood / ember / violet) */
+:root {
+  --v2-background-bg-deep: #fdf7f8;
+  --v2-background-bg-base: #f9eff1;
+  --v2-background-bg-layer-01: #f4e7ea;
+  --v2-background-bg-layer-02: #ecdde1;
+  --v2-background-bg-accent: #c2183a;
+  --v2-text-text-base: #1a0d12;
+  --v2-text-text-accent: #c2183a;
+  --v2-text-text-accent-hover: #a5122f;
+  --v2-icon-icon-accent: #c2183a;
+  --v2-icon-icon-accent-hover: #a5122f;
+  --v2-border-border-base: rgba(194, 24, 58, 0.22);
+  --surface-brand-base: #c2183a;
+  --surface-brand-hover: #a5122f;
+  --border-selected: #c2183a;
+  --icon-base: #6b4650;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --v2-background-bg-deep: #070407;
+    --v2-background-bg-base: #0f080c;
+    --v2-background-bg-layer-01: #171016;
+    --v2-background-bg-layer-02: #1f141b;
+    --v2-background-bg-accent: #ff1e3c;
+    --v2-text-text-base: #f5e6ea;
+    --v2-text-text-accent: #ff5c73;
+    --v2-text-text-accent-hover: #ff8095;
+    --v2-icon-icon-accent: #ff1e3c;
+    --v2-icon-icon-accent-hover: #ff5c73;
+    --v2-border-border-base: rgba(255, 30, 60, 0.2);
+    --surface-brand-base: #ff1e3c;
+    --surface-brand-hover: #ff4058;
+    --border-selected: #ff1e3c;
+    --icon-base: #c48f9e;
+  }
+}

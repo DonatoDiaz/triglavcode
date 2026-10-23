@@ -5,14 +5,14 @@ import { cmd } from "../cmd"
 
 export const SnapshotCommand = cmd({
   command: "snapshot",
-  describe: "snapshot debugging utilities",
+  describe: "утилиты отладки снапшотов",
   builder: (yargs) => yargs.command(TrackCommand).command(PatchCommand).command(DiffCommand).demandCommand(),
   async handler() {},
 })
 
 const TrackCommand = effectCmd({
   command: "track",
-  describe: "track current snapshot state",
+  describe: "отслеживать текущее состояние снапшота",
   handler: Effect.fn("Cli.debug.snapshot.track")(function* () {
     const out = yield* Snapshot.Service.use((svc) => svc.track())
     console.log(out)
@@ -21,7 +21,7 @@ const TrackCommand = effectCmd({
 
 const PatchCommand = effectCmd({
   command: "patch <hash>",
-  describe: "show patch for a snapshot hash",
+  describe: "показать патч для хеша снапшота",
   builder: (yargs) =>
     yargs.positional("hash", {
       type: "string",
@@ -36,7 +36,7 @@ const PatchCommand = effectCmd({
 
 const DiffCommand = effectCmd({
   command: "diff <hash>",
-  describe: "show diff for a snapshot hash",
+  describe: "показать diff для хеша снапшота",
   builder: (yargs) =>
     yargs.positional("hash", {
       type: "string",

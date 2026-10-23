@@ -111,7 +111,7 @@ export function ErrorComponent(props: { error: Error; reset: () => void; mode?: 
             opencode crashed
           </text>
           <Show when={showSubtext()}>
-            <text fg={colors.muted}>An unexpected error stopped the session.</text>
+            <text fg={colors.muted}>Непредвиденная ошибка остановила сессию.</text>
           </Show>
         </box>
 

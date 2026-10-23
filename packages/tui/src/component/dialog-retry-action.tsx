@@ -48,26 +48,26 @@ export function DialogRetryAction(props: DialogRetryActionProps) {
     bindings: [
       {
         key: "left",
-        desc: "Previous retry option",
-        group: "Dialog",
+        desc: "Предыдущий вариант повтора",
+        group: "Диалог",
         cmd: () => setSelected((value) => (value === "action" ? "dismiss" : "action")),
       },
       {
         key: "right",
-        desc: "Next retry option",
-        group: "Dialog",
+        desc: "Следующий вариант повтора",
+        group: "Диалог",
         cmd: () => setSelected((value) => (value === "action" ? "dismiss" : "action")),
       },
       {
         key: "tab",
-        desc: "Next retry option",
-        group: "Dialog",
+        desc: "Следующий вариант повтора",
+        group: "Диалог",
         cmd: () => setSelected((value) => (value === "action" ? "dismiss" : "action")),
       },
       {
         key: "return",
-        desc: "Confirm retry option",
-        group: "Dialog",
+        desc: "Подтвердить вариант повтора",
+        group: "Диалог",
         cmd: () => {
           if (selected() === "action") runAction(props, dialog)
           else dismiss(props, dialog)

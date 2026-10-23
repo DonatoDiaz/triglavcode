@@ -61,7 +61,7 @@ async function loadWorkspaceAdapters(input: {
     return response.data
   } catch (err) {
     input.toast.show({
-      title: "Failed to load workspace adapters",
+      title: "Не удалось загрузить адаптеры рабочих пространств",
       message: errorMessage(err),
       variant: "error",
     })
@@ -106,7 +106,7 @@ export async function warpWorkspaceSession(input: {
     })
   } catch (err) {
     input.toast.show({
-      title: "Failed to warp session",
+      title: "Не удалось перенести сессию",
       message: errorMessage(err),
       variant: "error",
     })
@@ -123,7 +123,7 @@ export async function warpWorkspaceSession(input: {
     }
 
     input.toast.show({
-      title: "Failed to warp session",
+      title: "Не удалось перенести сессию",
       message: errorMessage(result?.error ?? "no response"),
       variant: "error",
     })
@@ -214,9 +214,9 @@ export function DialogWorkspaceSelect(props: {
         category: "New workspace",
       })),
       {
-        title: "None",
+        title: "Нет",
         value: { type: "none" as const },
-        description: "Use the local project",
+        description: "Использовать локальный проект",
         category: "Choose workspace",
       },
       ...recent.map((workspace: Workspace) => ({
@@ -233,9 +233,9 @@ export function DialogWorkspaceSelect(props: {
       ...(hasMore
         ? [
             {
-              title: "View all workspaces",
+              title: "Все рабочие пространства",
               value: { type: "existing-list" as const },
-              description: "Choose from all workspaces",
+              description: "Выбрать из всех рабочих пространств",
               category: "Choose workspace",
             },
           ]
@@ -293,7 +293,7 @@ function DialogExistingWorkspaceSelect(props: {
 
   return (
     <DialogSelect<ExistingWorkspaceSelectValue>
-      title="Existing Workspace"
+      title="Существующее рабочее пространство"
       options={options()}
       onSelect={(option) => {
         void props.onSelect({

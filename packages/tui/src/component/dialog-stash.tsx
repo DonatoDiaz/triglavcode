@@ -54,7 +54,7 @@ export function DialogStash(props: { onSelect: (entry: StashEntry) => void }) {
 
   return (
     <DialogSelect
-      title="Stash"
+      title="Отложенные"
       options={options()}
       onMove={() => {
         setToDelete(undefined)
@@ -71,7 +71,7 @@ export function DialogStash(props: { onSelect: (entry: StashEntry) => void }) {
       actions={[
         {
           command: "stash.delete",
-          title: "delete",
+          title: "удалить",
           onTrigger: (option) => {
             if (toDelete() === option.value) {
               stash.remove(option.value)

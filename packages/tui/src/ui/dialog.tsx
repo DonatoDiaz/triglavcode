@@ -107,8 +107,8 @@ function init() {
     bindings: [
       {
         key: "escape",
-        desc: "Close dialog",
-        group: "Dialog",
+        desc: "Закрыть диалог",
+        group: "Диалог",
         cmd: () => {
           if (renderer.getSelection()) {
             renderer.clearSelection()
@@ -121,8 +121,8 @@ function init() {
       },
       {
         key: "ctrl+c",
-        desc: "Close dialog",
-        group: "Dialog",
+        desc: "Закрыть диалог",
+        group: "Диалог",
         cmd: () => {
           if (renderer.getSelection()) {
             renderer.clearSelection()
@@ -189,7 +189,7 @@ export function DialogProvider(props: ParentProps) {
     const text = renderer.getSelection()?.getSelectedText()
     if (!text || !clipboard.write) return false
     void clipboard.write(text).then(
-      () => toast.show({ message: "Copied to clipboard", variant: "info" }),
+      () => toast.show({ message: "Скопировано в буфер обмена", variant: "info" }),
       (error) => toast.error(error),
     )
     renderer.clearSelection()

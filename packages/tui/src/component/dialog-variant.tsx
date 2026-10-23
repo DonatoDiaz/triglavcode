@@ -11,7 +11,7 @@ export function DialogVariant() {
     return [
       {
         value: "default",
-        title: "Default",
+        title: "По умолчанию",
         onSelect: () => {
           dialog.clear()
           local.model.variant.set(undefined)

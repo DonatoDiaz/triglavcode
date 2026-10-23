@@ -52,7 +52,7 @@ const emptyCommands: PluginRuntimeCommands = {
     return false
   },
   async install() {
-    return { ok: false, message: "Plugin runtime is not available." }
+    return { ok: false, message: "Среда плагинов недоступна." }
   },
 }
 

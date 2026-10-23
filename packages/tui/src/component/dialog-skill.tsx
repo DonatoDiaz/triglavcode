@@ -50,8 +50,8 @@ export function DialogSkill(props: DialogSkillProps) {
 
   return (
     <DialogSelect
-      title="Skills"
-      placeholder="Search skills…"
+      title="Навыки"
+      placeholder="Поиск навыков…"
       options={options()}
       renderFilter={!showError()}
       locked={showError()}

@@ -18,7 +18,7 @@ import { V2Command } from "./v2"
 
 export const DebugCommand = cmd({
   command: "debug",
-  describe: "debugging and troubleshooting tools",
+  describe: "инструменты отладки и диагностики",
   builder: (yargs) =>
     yargs
       .command(ConfigCommand)
@@ -40,7 +40,7 @@ export const DebugCommand = cmd({
 
 const WaitCommand = effectCmd({
   command: "wait",
-  describe: "wait indefinitely (for debugging)",
+  describe: "ждать бесконечно (для отладки)",
   handler: Effect.fn("Cli.debug.wait")(function* () {
     yield* Effect.sleep(Duration.days(1))
   }),
@@ -48,7 +48,7 @@ const WaitCommand = effectCmd({
 
 const InfoCommand = effectCmd({
   command: "info",
-  describe: "show debug information",
+  describe: "показать отладочную информацию",
   handler: Effect.fn("Cli.debug.info")(function* () {
     const { Config } = yield* Effect.promise(() => import("@/config/config"))
     const { ConfigPlugin } = yield* Effect.promise(() => import("@/config/plugin"))
@@ -58,16 +58,16 @@ const InfoCommand = effectCmd({
       : undefined
     const terminal = [termProgram, process.env.TERM].filter((item): item is string => Boolean(item)).join(" / ")
 
-    console.log(`opencode version: ${InstallationVersion}`)
+    console.log(`версия opencode: ${InstallationVersion}`)
     console.log(`os: ${os.type()} ${os.release()} ${os.arch()}`)
-    console.log(`terminal: ${terminal || "unknown"}`)
-    console.log("plugins:")
+    console.log(`терминал: ${terminal || "неизвестно"}`)
+    console.log("плагины:")
     if (Flag.OPENCODE_PURE) {
-      console.log("external plugins disabled (--pure)")
+      console.log("внешние плагины отключены (--pure)")
       return
     }
     if (!config.plugin_origins?.length) {
-      console.log("none")
+      console.log("нет")
       return
     }
     for (const plugin of config.plugin_origins) {
@@ -78,7 +78,7 @@ const InfoCommand = effectCmd({
 
 const PathsCommand = cmd({
   command: "paths",
-  describe: "show global paths (data, config, cache, state)",
+  describe: "показать глобальные пути (data, config, cache, state)",
   handler() {
     for (const [key, value] of Object.entries(Global.Path)) {
       console.log(key.padEnd(10), value)

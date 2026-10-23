@@ -6,28 +6,28 @@ import { Effect } from "effect"
 const options = {
   port: {
     type: "number" as const,
-    describe: "port to listen on",
+    describe: "порт для прослушивания",
     default: 0,
   },
   hostname: {
     type: "string" as const,
-    describe: "hostname to listen on",
+    describe: "имя хоста для прослушивания",
     default: "127.0.0.1",
   },
   mdns: {
     type: "boolean" as const,
-    describe: "enable mDNS service discovery (defaults hostname to 0.0.0.0)",
+    describe: "включить обнаружение через mDNS (по умолчанию хост 0.0.0.0)",
     default: false,
   },
   "mdns-domain": {
     type: "string" as const,
-    describe: "custom domain name for mDNS service (default: opencode.local)",
+    describe: "своё доменное имя для mDNS (по умолчанию: opencode.local)",
     default: "opencode.local",
   },
   cors: {
     type: "string" as const,
     array: true,
-    describe: "additional domains to allow for CORS",
+    describe: "дополнительные домены, разрешённые для CORS",
     default: [] as string[],
   },
 }

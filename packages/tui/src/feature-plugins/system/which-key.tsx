@@ -289,8 +289,8 @@ function WhichKeyPanel(props: {
     commands: [
       {
         name: command.groupPrevious,
-        title: "Previous key binding group",
-        desc: "Show the previous which-key group",
+        title: "Предыдущая группа сочетаний",
+        desc: "Показать предыдущую группу which-key",
         category: "System",
         run() {
           moveGroup(-1)
@@ -298,8 +298,8 @@ function WhichKeyPanel(props: {
       },
       {
         name: command.groupNext,
-        title: "Next key binding group",
-        desc: "Show the next which-key group",
+        title: "Следующая группа сочетаний",
+        desc: "Показать следующую группу which-key",
         category: "System",
         run() {
           moveGroup(1)
@@ -307,8 +307,8 @@ function WhichKeyPanel(props: {
       },
       {
         name: command.scrollUp,
-        title: "Scroll key bindings up",
-        desc: "Scroll the which-key panel up",
+        title: "Прокрутить сочетания вверх",
+        desc: "Прокрутить панель which-key вверх",
         category: "System",
         run() {
           scroll(-columns())
@@ -316,8 +316,8 @@ function WhichKeyPanel(props: {
       },
       {
         name: command.scrollDown,
-        title: "Scroll key bindings down",
-        desc: "Scroll the which-key panel down",
+        title: "Прокрутить сочетания вниз",
+        desc: "Прокрутить панель which-key вниз",
         category: "System",
         run() {
           scroll(columns())
@@ -325,8 +325,8 @@ function WhichKeyPanel(props: {
       },
       {
         name: command.pageUp,
-        title: "Page key bindings up",
-        desc: "Page the which-key panel up",
+        title: "Сочетания: страница вверх",
+        desc: "Панель which-key: страница вверх",
         category: "System",
         run() {
           scroll(-pageSize())
@@ -334,8 +334,8 @@ function WhichKeyPanel(props: {
       },
       {
         name: command.pageDown,
-        title: "Page key bindings down",
-        desc: "Page the which-key panel down",
+        title: "Сочетания: страница вниз",
+        desc: "Панель which-key: страница вниз",
         category: "System",
         run() {
           scroll(pageSize())
@@ -343,8 +343,8 @@ function WhichKeyPanel(props: {
       },
       {
         name: command.home,
-        title: "First key binding",
-        desc: "Jump to the first which-key binding",
+        title: "Первое сочетание",
+        desc: "Перейти к первому сочетанию which-key",
         category: "System",
         run() {
           setOffset(0)
@@ -352,8 +352,8 @@ function WhichKeyPanel(props: {
       },
       {
         name: command.end,
-        title: "Last key binding",
-        desc: "Jump to the last which-key binding",
+        title: "Последнее сочетание",
+        desc: "Перейти к последнему сочетанию which-key",
         category: "System",
         run() {
           setOffset(maxOffset())
@@ -455,7 +455,7 @@ function WhichKeyPanel(props: {
           <box height={TAB_CONTENT_GAP} flexShrink={0} />
         </Show>
         <box height={rows()} flexShrink={0} flexDirection="column">
-          <Show when={shown().length > 0} fallback={<text fg={look().muted}>No reachable bindings</text>}>
+          <Show when={shown().length > 0} fallback={<text fg={look().muted}>Нет доступных сочетаний</text>}>
             <For each={rowIndexes()}>
               {(row) => (
                 <box width="100%" flexDirection="row" justifyContent="center" gap={COLUMN_GAP}>
@@ -539,8 +539,8 @@ const tui: TuiPlugin = async (api) => {
     commands: [
       {
         name: command.toggle,
-        title: "Show key bindings",
-        desc: "Toggle which-key overlay",
+        title: "Показать сочетания клавиш",
+        desc: "Переключить оверлей which-key",
         category: "System",
         run() {
           setPinned((value) => !value)
@@ -548,8 +548,8 @@ const tui: TuiPlugin = async (api) => {
       },
       {
         name: command.toggleLayout,
-        title: "Toggle key bindings layout",
-        desc: "Switch which-key between dock and overlay mode",
+        title: "Переключить раскладку сочетаний",
+        desc: "Переключать which-key между доком и оверлеем",
         category: "System",
         run() {
           setMode((value) => {
@@ -561,8 +561,8 @@ const tui: TuiPlugin = async (api) => {
       },
       {
         name: command.togglePending,
-        title: "Toggle pending key preview",
-        desc: "Automatically show which-key for pending key sequences in overlay mode",
+        title: "Переключить предпросмотр клавиши",
+        desc: "Автоматически показывать which-key для ожидающих последовательностей в оверлее",
         category: "System",
         run() {
           setPendingPreview((value) => {

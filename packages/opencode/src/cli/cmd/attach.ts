@@ -6,7 +6,7 @@ import { ServerAuth } from "@/server/auth"
 
 export const AttachCommand = cmd({
   command: "attach <url>",
-  describe: "attach to a running opencode server",
+  describe: "подключиться к запущенному серверу opencode",
   builder: (yargs) =>
     yargs
       .positional("url", {
@@ -20,31 +20,31 @@ export const AttachCommand = cmd({
       })
       .option("continue", {
         alias: ["c"],
-        describe: "continue the last session",
+        describe: "продолжить последнюю сессию",
         type: "boolean",
       })
       .option("session", {
         alias: ["s"],
         type: "string",
-        describe: "session id to continue",
+        describe: "ID сессии для продолжения",
       })
       .option("fork", {
         type: "boolean",
-        describe: "fork the session when continuing (use with --continue or --session)",
+        describe: "создать форк сессии при продолжении (используйте с --continue или --session)",
       })
       .option("password", {
         alias: ["p"],
         type: "string",
-        describe: "basic auth password (defaults to OPENCODE_SERVER_PASSWORD)",
+        describe: "пароль basic auth (по умолчанию OPENCODE_SERVER_PASSWORD)",
       })
       .option("username", {
         alias: ["u"],
         type: "string",
-        describe: "basic auth username (defaults to OPENCODE_SERVER_USERNAME or 'opencode')",
+        describe: "имя пользователя basic auth (по умолчанию OPENCODE_SERVER_USERNAME или 'opencode')",
       })
       .option("mini", {
         type: "boolean",
-        describe: "start the minimal interactive interface",
+        describe: "запустить минимальный интерактивный интерфейс",
         default: false,
       })
       .option("replay", {
@@ -53,11 +53,11 @@ export const AttachCommand = cmd({
       })
       .option("no-replay", {
         type: "boolean",
-        describe: "disable mini session history replay on resume and after resize",
+        describe: "отключить воспроизведение истории мини-сессии при возобновлении и изменении размера",
       })
       .option("replay-limit", {
         type: "number",
-        describe: "cap visible mini replay to the newest N messages",
+        describe: "ограничить видимое мини-воспроизведение N последними сообщениями",
       }),
   handler: async (args) => {
     if (args.replay === true) {

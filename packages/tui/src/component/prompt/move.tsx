@@ -60,7 +60,7 @@ export function usePromptMove(input: { projectID: () => string | undefined; sess
       homeDestination?.clear()
       setProgress(undefined)
       setCreating(false)
-      toast.show({ title: "Creating workspace failed", message: errorMessage(err), variant: "error" })
+      toast.show({ title: "Не удалось создать рабочее пространство", message: errorMessage(err), variant: "error" })
       return
     }
   }

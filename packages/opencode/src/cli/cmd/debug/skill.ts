@@ -5,7 +5,7 @@ import { effectCmd } from "../../effect-cmd"
 
 export const SkillCommand = effectCmd({
   command: "skill",
-  describe: "list all available skills",
+  describe: "показать все доступные навыки",
   builder: (yargs) => yargs,
   handler: Effect.fn("Cli.debug.skill")(function* () {
     const skill = yield* Skill.Service

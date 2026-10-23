@@ -11,7 +11,7 @@ function View(props: { api: TuiPluginApi; hidden: boolean; show: boolean; connec
     commands: [
       {
         name: "tips.toggle",
-        title: props.hidden ? "Show tips" : "Hide tips",
+        title: props.hidden ? "Показать советы" : "Скрыть советы",
         category: "System",
         namespace: "palette",
         run() {

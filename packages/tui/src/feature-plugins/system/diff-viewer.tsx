@@ -433,7 +433,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
   const commands = [
     {
       name: "diff.close",
-      title: "Close diff viewer",
+      title: "Закрыть просмотр diff",
       category: "VCS",
       run() {
         const returnRoute = params()?.returnRoute
@@ -447,7 +447,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.down",
-      title: "Move diff viewer down",
+      title: "Сдвинуть просмотр diff вниз",
       category: "VCS",
       run: focusRunner({
         files() {
@@ -461,7 +461,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.up",
-      title: "Move diff viewer up",
+      title: "Сдвинуть просмотр diff вверх",
       category: "VCS",
       run: focusRunner({
         files() {
@@ -475,7 +475,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.page.down",
-      title: "Page diff viewer down",
+      title: "Просмотр diff: страница вниз",
       category: "VCS",
       run: focusRunner({
         files() {
@@ -489,7 +489,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.page.up",
-      title: "Page diff viewer up",
+      title: "Просмотр diff: страница вверх",
       category: "VCS",
       run: focusRunner({
         files() {
@@ -503,7 +503,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.toggle",
-      title: "Toggle diff viewer item",
+      title: "Переключить элемент diff",
       category: "VCS",
       run: focusRunner({
         files() {
@@ -514,7 +514,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.expand",
-      title: "Expand diff viewer item",
+      title: "Развернуть элемент diff",
       category: "VCS",
       run: focusRunner({
         files() {
@@ -532,7 +532,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.expand_all",
-      title: "Expand all diff viewer folders",
+      title: "Развернуть все папки diff",
       category: "VCS",
       run: focusRunner({
         files() {
@@ -543,7 +543,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.collapse",
-      title: "Collapse diff viewer item",
+      title: "Свернуть элемент diff",
       category: "VCS",
       run: focusRunner({
         files() {
@@ -562,7 +562,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.next_hunk",
-      title: "Jump to next diff hunk",
+      title: "Перейти к следующему блоку diff",
       category: "VCS",
       run() {
         jumpRelativeHunk(1)
@@ -570,7 +570,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.previous_hunk",
-      title: "Jump to previous diff hunk",
+      title: "Перейти к предыдущему блоку diff",
       category: "VCS",
       run() {
         jumpRelativeHunk(-1)
@@ -578,7 +578,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.next_file",
-      title: "Jump to next diff file",
+      title: "Перейти к следующему файлу diff",
       category: "VCS",
       run() {
         jumpRelativePatchFile(1)
@@ -586,7 +586,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.previous_file",
-      title: "Jump to previous diff file",
+      title: "Перейти к предыдущему файлу diff",
       category: "VCS",
       run() {
         jumpRelativePatchFile(-1)
@@ -594,7 +594,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.mark_reviewed",
-      title: "Toggle selected diff file reviewed",
+      title: "Отметить выбранный файл diff просмотренным",
       category: "VCS",
       run() {
         toggleSelectedFileReviewed()
@@ -602,7 +602,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.switch_focus",
-      title: "Switch diff viewer focus",
+      title: "Переключить фокус просмотра diff",
       category: "VCS",
       run() {
         if (!showFileTree()) return
@@ -615,7 +615,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.toggle_file_tree",
-      title: "Toggle diff viewer file tree",
+      title: "Переключить дерево файлов diff",
       category: "VCS",
       run() {
         const next = !fileTreeEnabled()
@@ -626,7 +626,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.single_patch",
-      title: "Toggle single patch view",
+      title: "Переключить режим одного патча",
       category: "VCS",
       run() {
         setSelectedHunk(undefined)
@@ -653,7 +653,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.switch_source",
-      title: "Switch diff viewer source",
+      title: "Сменить источник diff",
       category: "VCS",
       run() {
         openSwitchDiffDialog()
@@ -661,7 +661,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.toggle_view",
-      title: "Toggle diff viewer split or unified view",
+      title: "Переключить раздельный/единый вид diff",
       category: "VCS",
       run() {
         if (!splitAvailable()) return
@@ -673,7 +673,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     },
     {
       name: "diff.help",
-      title: "Show more diff viewer shortcuts",
+      title: "Показать больше сочетаний diff",
       category: "VCS",
       run() {
         openHelpDialog()
@@ -685,23 +685,23 @@ function DiffViewer(props: { api: TuiPluginApi }) {
     const vcs = props.api.state.vcs
     return [
       {
-        title: "Working tree",
+        title: "Рабочее дерево",
         value: "git" as const,
-        description: "Show current git changes",
+        description: "Показать текущие изменения git",
       },
       ...(vcs?.branch && vcs.default_branch && vcs.branch !== vcs.default_branch
         ? [
             {
-              title: "Main branch",
+              title: "Основная ветка",
               value: "branch" as const,
-              description: "Show changes compared to main branch",
+              description: "Показать изменения относительно основной ветки",
             },
           ]
         : []),
       {
-        title: "Last turn",
+        title: "Последний ход",
         value: "last-turn" as const,
-        description: "Show changes from the last assistant turn",
+        description: "Показать изменения с последнего хода ассистента",
       },
     ]
   })
@@ -709,7 +709,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
   const openSwitchDiffDialog = () => {
     props.api.ui.dialog.replace(() => (
       <DialogSelect
-        title="Switch source"
+        title="Сменить источник"
         skipFilter={true}
         renderFilter={false}
         current={mode()}
@@ -737,11 +737,11 @@ function DiffViewer(props: { api: TuiPluginApi }) {
   useBindings(() => ({
     commands,
     bindings: [
-      { key: "j,down", cmd: "diff.down", desc: "Move diff viewer down" },
-      { key: "k,up", cmd: "diff.up", desc: "Move diff viewer up" },
-      { key: "pagedown,ctrl+f", cmd: "diff.page.down", desc: "Page diff viewer down" },
-      { key: "pageup,ctrl+b", cmd: "diff.page.up", desc: "Page diff viewer up" },
-      { key: "m", cmd: "diff.mark_reviewed", desc: "Mark selected file reviewed" },
+      { key: "j,down", cmd: "diff.down", desc: "Сдвинуть просмотр diff вниз" },
+      { key: "k,up", cmd: "diff.up", desc: "Сдвинуть просмотр diff вверх" },
+      { key: "pagedown,ctrl+f", cmd: "diff.page.down", desc: "Просмотр diff: страница вниз" },
+      { key: "pageup,ctrl+b", cmd: "diff.page.up", desc: "Просмотр diff: страница вверх" },
+      { key: "m", cmd: "diff.mark_reviewed", desc: "Отметить выбранный файл просмотренным" },
       ...props.api.tuiConfig.keybinds.gather(
         "diff",
         commands.map((command) => command.name),
@@ -766,19 +766,19 @@ function DiffViewer(props: { api: TuiPluginApi }) {
             <Match when={diff.loading}>
               <Separator axis="x" />
               <box flexGrow={1} paddingLeft={1}>
-                <text fg={theme().textMuted}>Loading diff…</text>
+                <text fg={theme().textMuted}>Загрузка diff…</text>
               </box>
             </Match>
             <Match when={!diff.loading && files().length === 0}>
               <Separator axis="x" />
               <box flexGrow={1} paddingLeft={1}>
-                <text fg={theme().textMuted}>No diff!</text>
+                <text fg={theme().textMuted}>Нет diff!</text>
               </box>
             </Match>
             <Match when={!diff.loading && diff.error}>
               <Separator axis="x" />
               <box flexGrow={1} paddingLeft={1}>
-                <text fg={theme().error}>Failed to load diff</text>
+                <text fg={theme().error}>Не удалось загрузить diff</text>
               </box>
             </Match>
             <Match when={!diff.loading}>
@@ -836,7 +836,7 @@ function DiffViewer(props: { api: TuiPluginApi }) {
                             <Separator axis="x" start={showFileTree() ? "edge" : undefined} />
                             <Show
                               when={entry.file.patch}
-                              fallback={<text fg={theme().textMuted}>No patch available for this file.</text>}
+                              fallback={<text fg={theme().textMuted}>Патч для этого файла недоступен.</text>}
                             >
                               {(patch) => (
                                 <box border={patchLeftBorder()} borderColor={theme().border}>
@@ -884,56 +884,56 @@ function DiffViewer(props: { api: TuiPluginApi }) {
           <Show when={switchFocusShortcut()}>
             {(shortcut) => (
               <text fg={theme().text}>
-                {shortcut()} <span style={{ fg: theme().textMuted }}>focus file tree</span>
+                {shortcut()} <span style={{ fg: theme().textMuted }}>к дереву файлов</span>
               </text>
             )}
           </Show>
           <Show when={nextFileShortcut()}>
             {(shortcut) => (
               <text fg={theme().text}>
-                {shortcut()} <span style={{ fg: theme().textMuted }}>next file</span>
+                {shortcut()} <span style={{ fg: theme().textMuted }}>следующий файл</span>
               </text>
             )}
           </Show>
           <Show when={nextHunkShortcut()}>
             {(shortcut) => (
               <text fg={theme().text}>
-                {shortcut()} <span style={{ fg: theme().textMuted }}>next hunk</span>
+                {shortcut()} <span style={{ fg: theme().textMuted }}>следующий блок</span>
               </text>
             )}
           </Show>
           <Show when={previousHunkShortcut()}>
             {(shortcut) => (
               <text fg={theme().text}>
-                {shortcut()} <span style={{ fg: theme().textMuted }}>previous hunk</span>
+                {shortcut()} <span style={{ fg: theme().textMuted }}>предыдущий блок</span>
               </text>
             )}
           </Show>
           <Show when={previousFileShortcut()}>
             {(shortcut) => (
               <text fg={theme().text}>
-                {shortcut()} <span style={{ fg: theme().textMuted }}>previous file</span>
+                {shortcut()} <span style={{ fg: theme().textMuted }}>предыдущий файл</span>
               </text>
             )}
           </Show>
           <Show when={switchSourceShortcut()}>
             {(shortcut) => (
               <text fg={theme().text}>
-                {shortcut()} <span style={{ fg: theme().textMuted }}>switch source</span>
+                {shortcut()} <span style={{ fg: theme().textMuted }}>сменить источник</span>
               </text>
             )}
           </Show>
           <Show when={markReviewedShortcut()}>
             {(shortcut) => (
               <text fg={theme().text}>
-                {shortcut()} <span style={{ fg: theme().textMuted }}>mark reviewed</span>
+                {shortcut()} <span style={{ fg: theme().textMuted }}>отметить просмотренным</span>
               </text>
             )}
           </Show>
           <Show when={helpShortcut()}>
             {(shortcut) => (
               <text fg={theme().text}>
-                {shortcut()} <span style={{ fg: theme().textMuted }}>all</span>
+                {shortcut()} <span style={{ fg: theme().textMuted }}>все</span>
               </text>
             )}
           </Show>
@@ -949,62 +949,62 @@ function DiffViewerHelpDialog() {
     {
       shortcut: () => "q",
       action: "Close viewer",
-      description: "Quit the diff viewer",
+      description: "Выйти из просмотра diff",
     },
     {
       shortcut: useCommandShortcut("diff.switch_focus"),
       action: "Focus file tree",
-      description: "Move keyboard focus between the file tree and patch pane",
+      description: "Переключать фокус между деревом файлов и панелью патча",
     },
     {
       shortcut: useCommandShortcut("diff.next_hunk"),
       action: "Next hunk",
-      description: "Jump to the next diff hunk",
+      description: "Перейти к следующему блоку diff",
     },
     {
       shortcut: useCommandShortcut("diff.previous_hunk"),
       action: "Previous hunk",
-      description: "Jump to the previous diff hunk",
+      description: "Перейти к предыдущему блоку diff",
     },
     {
       shortcut: useCommandShortcut("diff.next_file"),
       action: "Next file",
-      description: "Select the next changed file in file-tree order",
+      description: "Выбрать следующий изменённый файл в порядке дерева",
     },
     {
       shortcut: useCommandShortcut("diff.previous_file"),
       action: "Previous file",
-      description: "Select the previous changed file in file-tree order",
+      description: "Выбрать предыдущий изменённый файл в порядке дерева",
     },
     {
       shortcut: useCommandShortcut("diff.toggle_file_tree"),
       action: "Toggle file tree",
-      description: "Show or hide the file tree sidebar",
+      description: "Показать или скрыть дерево файлов",
     },
     {
       shortcut: useCommandShortcut("diff.single_patch"),
       action: "Toggle patches",
-      description: "Switch between one selected patch and all patches",
+      description: "Переключать один выбранный патч и все патчи",
     },
     {
       shortcut: useCommandShortcut("diff.switch_source"),
       action: "Switch source",
-      description: "Choose working tree, main branch, or last-turn changes",
+      description: "Выбрать рабочее дерево, основную ветку или изменения последнего хода",
     },
     {
       shortcut: useCommandShortcut("diff.toggle_view"),
       action: "Toggle view",
-      description: "Switch between split and unified diff layout",
+      description: "Переключить раздельный и единый вид diff",
     },
     {
       shortcut: useCommandShortcut("diff.expand_all"),
       action: "Expand all folders",
-      description: "Open every folder in the file tree",
+      description: "Развернуть все папки в дереве файлов",
     },
     {
       shortcut: useCommandShortcut("diff.mark_reviewed"),
       action: "Mark reviewed",
-      description: "Toggle reviewed state for the selected file",
+      description: "Переключить отметку просмотра для выбранного файла",
     },
   ]
 
@@ -1023,7 +1023,7 @@ function DiffViewerHelpDialog() {
         <text fg={theme.textMuted} width={22} wrapMode="none">
           Action
         </text>
-        <text fg={theme.textMuted}>Description</text>
+        <text fg={theme.textMuted}>Описание</text>
       </box>
       <For each={rows}>
         {(row) => (
@@ -1054,7 +1054,7 @@ const tui: TuiPlugin = async (api) => {
     commands: [
       {
         name: "diff.open",
-        title: "Open diff viewer",
+        title: "Открыть просмотр diff",
         slashName: "diff",
         category: "VCS",
         namespace: "palette",

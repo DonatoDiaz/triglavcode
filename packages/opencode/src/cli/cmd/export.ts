@@ -221,15 +221,15 @@ function sanitize(data: { info: Session.Info; messages: SessionV1.WithParts[] })
 
 export const ExportCommand = effectCmd({
   command: "export [sessionID]",
-  describe: "export session data as JSON",
+  describe: "экспортировать данные сессии в JSON",
   builder: (yargs) =>
     yargs
       .positional("sessionID", {
-        describe: "session id to export",
+        describe: "ID сессии для экспорта",
         type: "string",
       })
       .option("sanitize", {
-        describe: "redact sensitive transcript and file data",
+        describe: "скрыть конфиденциальные данные транскрипта и файлов",
         type: "boolean",
       }),
   handler: Effect.fn("Cli.export")(function* (args) {
@@ -240,7 +240,7 @@ export const ExportCommand = effectCmd({
 const run = Effect.fn("Cli.export.body")(function* (args: { sessionID?: string; sanitize?: boolean }) {
   const svc = yield* Session.Service
   let sessionID = args.sessionID ? SessionID.make(args.sessionID) : undefined
-  process.stderr.write(`Exporting session: ${sessionID ?? "latest"}\n`)
+  process.stderr.write(`Экспорт сессии: ${sessionID ?? "latest"}\n`)
 
   if (!sessionID) {
     UI.empty()

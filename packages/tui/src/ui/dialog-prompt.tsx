@@ -38,7 +38,7 @@ export function DialogPrompt(props: DialogPromptProps) {
     commands: [
       {
         name: "dialog.prompt.submit",
-        title: "Submit dialog prompt",
+        title: "Отправить ответ диалога",
         category: "Dialog",
         run: confirm,
       },
@@ -103,10 +103,10 @@ export function DialogPrompt(props: DialogPromptProps) {
         </Show>
       </box>
       <box paddingBottom={1} gap={1} flexDirection="row">
-        <Show when={!props.busy} fallback={<text fg={theme.textMuted}>processing…</text>}>
+        <Show when={!props.busy} fallback={<text fg={theme.textMuted}>обработка…</text>}>
           <Show when={submitShortcut()}>
             <text fg={theme.text}>
-              {submitShortcut()} <span style={{ fg: theme.textMuted }}>submit</span>
+              {submitShortcut()} <span style={{ fg: theme.textMuted }}>отправить</span>
             </text>
           </Show>
         </Show>

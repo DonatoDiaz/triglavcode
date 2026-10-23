@@ -25,9 +25,9 @@ export function DialogWorkspaceUnavailable(props: { onRestore?: () => boolean | 
 
   useBindings(() => ({
     bindings: [
-      { key: "return", desc: "Confirm workspace option", group: "Dialog", cmd: () => void confirm() },
-      { key: "left", desc: "Cancel workspace restore", group: "Dialog", cmd: () => setStore("active", "cancel") },
-      { key: "right", desc: "Restore workspace", group: "Dialog", cmd: () => setStore("active", "restore") },
+      { key: "return", desc: "Подтвердить вариант рабочего пространства", group: "Диалог", cmd: () => void confirm() },
+      { key: "left", desc: "Отменить восстановление рабочего пространства", group: "Диалог", cmd: () => setStore("active", "cancel") },
+      { key: "right", desc: "Восстановить рабочее пространство", group: "Диалог", cmd: () => setStore("active", "restore") },
     ],
   }))
 

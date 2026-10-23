@@ -584,7 +584,7 @@ export function Autocomplete(props: {
     commands: [
       {
         name: "prompt.autocomplete.prev",
-        title: "Previous autocomplete item",
+        title: "Предыдущий вариант автодополнения",
         category: "Autocomplete",
         run() {
           setStore("input", "keyboard")
@@ -593,7 +593,7 @@ export function Autocomplete(props: {
       },
       {
         name: "prompt.autocomplete.next",
-        title: "Next autocomplete item",
+        title: "Следующий вариант автодополнения",
         category: "Autocomplete",
         run() {
           setStore("input", "keyboard")
@@ -602,7 +602,7 @@ export function Autocomplete(props: {
       },
       {
         name: "prompt.autocomplete.hide",
-        title: "Hide autocomplete",
+        title: "Скрыть автодополнение",
         category: "Autocomplete",
         run() {
           hide()
@@ -610,7 +610,7 @@ export function Autocomplete(props: {
       },
       {
         name: "prompt.autocomplete.select",
-        title: "Select autocomplete item",
+        title: "Выбрать вариант автодополнения",
         category: "Autocomplete",
         run() {
           select()
@@ -618,7 +618,7 @@ export function Autocomplete(props: {
       },
       {
         name: "prompt.autocomplete.complete",
-        title: "Complete autocomplete item",
+        title: "Завершить автодополнение",
         category: "Autocomplete",
         run() {
           const selected = options()[store.selected]

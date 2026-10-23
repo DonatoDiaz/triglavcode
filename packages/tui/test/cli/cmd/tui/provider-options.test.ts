@@ -4,8 +4,8 @@ import { normalizeCustomProviderID, providerOptions } from "../../../../src/comp
 describe("providerOptions", () => {
   test("includes a synthetic Other option for custom providers", () => {
     expect(providerOptions([{ id: "openai", name: "OpenAI" }]).at(-1)).toMatchObject({
-      title: "Other",
-      description: "Custom provider",
+      title: "Другое",
+      description: "Свой провайдер",
       category: "Providers",
     })
   })

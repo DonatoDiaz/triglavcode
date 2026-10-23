@@ -180,7 +180,7 @@ export const LoginCommand = effectCmd({
   instance: false,
   builder: (yargs) =>
     yargs.positional("url", {
-      describe: "server URL",
+      describe: "URL сервера",
       type: "string",
     }),
   handler: Effect.fn("Cli.account.login")(function* (args) {
@@ -195,7 +195,7 @@ export const LogoutCommand = effectCmd({
   instance: false,
   builder: (yargs) =>
     yargs.positional("email", {
-      describe: "account email to log out from",
+      describe: "email аккаунта для выхода",
       type: "string",
     }),
   handler: Effect.fn("Cli.account.logout")(function* (args) {
@@ -241,23 +241,23 @@ export const ConsoleCommand = cmd({
     yargs
       .command({
         ...LoginCommand,
-        describe: "log in to console",
+        describe: "войти в консоль",
       })
       .command({
         ...LogoutCommand,
-        describe: "log out from console",
+        describe: "выйти из консоли",
       })
       .command({
         ...SwitchCommand,
-        describe: "switch active org",
+        describe: "переключить активную организацию",
       })
       .command({
         ...OrgsCommand,
-        describe: "list orgs",
+        describe: "показать организации",
       })
       .command({
         ...OpenCommand,
-        describe: "open active console account",
+        describe: "открыть активный аккаунт консоли",
       })
       .demandCommand(),
   async handler() {},

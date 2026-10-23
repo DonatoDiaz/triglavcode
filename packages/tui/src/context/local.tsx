@@ -292,7 +292,7 @@ export const { use: useLocal, provider: LocalProvider } = createSimpleContext({
           if (!favorites.length) {
             toast.show({
               variant: "info",
-              message: "Add a favorite model to use this shortcut",
+              message: "Добавьте избранную модель, чтобы использовать это сочетание",
               duration: 3000,
             })
             return

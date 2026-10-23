@@ -71,43 +71,43 @@ export function resolveThreadDirectory(project?: string, envPWD = process.env.PW
 
 export const TuiThreadCommand = cmd({
   command: "$0 [project]",
-  describe: "start opencode tui",
+  describe: "запустить TUI opencode",
   builder: (yargs) =>
     withNetworkOptions(yargs)
       .positional("project", {
         type: "string",
-        describe: "path to start opencode in",
+        describe: "путь, в котором запустить opencode",
       })
       .option("model", {
         type: "string",
         alias: ["m"],
-        describe: "model to use in the format of provider/model",
+        describe: "модель в формате провайдер/модель",
       })
       .option("continue", {
         alias: ["c"],
-        describe: "continue the last session",
+        describe: "продолжить последнюю сессию",
         type: "boolean",
       })
       .option("session", {
         alias: ["s"],
         type: "string",
-        describe: "session id to continue",
+        describe: "ID сессии для продолжения",
       })
       .option("fork", {
         type: "boolean",
-        describe: "fork the session when continuing (use with --continue or --session)",
+        describe: "создать форк сессии при продолжении (используйте с --continue или --session)",
       })
       .option("prompt", {
         type: "string",
-        describe: "prompt to use",
+        describe: "используемый запрос",
       })
       .option("agent", {
         type: "string",
-        describe: "agent to use",
+        describe: "используемый агент",
       })
       .option("auto", {
         type: "boolean",
-        describe: "auto-approve permissions that are not explicitly denied (dangerous!)",
+        describe: "автоматически одобрять разрешения, не запрещённые явно (опасно!)",
         default: false,
       })
       .option("yolo", {
@@ -122,7 +122,7 @@ export const TuiThreadCommand = cmd({
       })
       .option("mini", {
         type: "boolean",
-        describe: "start the minimal interactive interface",
+        describe: "запустить минимальный интерактивный интерфейс",
         default: false,
       })
       .option("replay", {
@@ -131,11 +131,11 @@ export const TuiThreadCommand = cmd({
       })
       .option("no-replay", {
         type: "boolean",
-        describe: "disable mini session history replay on resume and after resize",
+        describe: "отключить воспроизведение истории мини-сессии при возобновлении и изменении размера",
       })
       .option("replay-limit", {
         type: "number",
-        describe: "cap visible mini replay to the newest N messages",
+        describe: "ограничить видимое мини-воспроизведение N последними сообщениями",
       })
       .option("demo", {
         type: "boolean",
@@ -202,7 +202,7 @@ export const TuiThreadCommand = cmd({
       try {
         process.chdir(next)
       } catch {
-        UI.error("Failed to change directory to " + next)
+        UI.error("Не удалось перейти в каталог " + next)
         return
       }
       const cwd = Filesystem.resolve(process.cwd())

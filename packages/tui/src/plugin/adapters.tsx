@@ -324,7 +324,7 @@ export function createTuiApiAdapters(input: Input): Omit<TuiPluginApi, "lifecycl
       async install() {
         return {
           ok: false,
-          message: "plugins.install is only available in plugin context",
+          message: "plugins.install доступен только в контексте плагина",
         }
       },
     },

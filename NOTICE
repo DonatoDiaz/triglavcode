@@ -1,0 +1,26 @@
+TriglavCode
+===========
+
+TriglavCode is an unofficial fork of opencode, based on upstream release v1.18.29.
+
+Upstream project:
+  opencode
+  https://github.com/anomalyco/opencode
+  Copyright (c) 2025 opencode
+  Licensed under the MIT License (see LICENSE)
+
+Modifications for TriglavCode:
+  Copyright (c) 2026 TriglavCode contributors
+  Distributed under the same MIT License.
+
+TriglavCode is not affiliated with, sponsored by, or endorsed by the
+opencode project or its maintainers. "opencode" and related marks belong to
+their respective owners.
+
+The MIT License permits modification and redistribution provided that the
+original copyright notice and permission notice are retained. This NOTICE and
+the LICENSE file are included for that purpose.
+
+Third-party components bundled in this repository and in compiled binaries
+retain their own licenses. See the respective package manifests and license
+files under node_modules/ and packages/.

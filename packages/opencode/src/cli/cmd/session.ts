@@ -43,17 +43,17 @@ function pagerCmd(): string[] {
 
 export const SessionCommand = cmd({
   command: "session",
-  describe: "manage sessions",
+  describe: "управление сессиями",
   builder: (yargs: Argv) => yargs.command(SessionListCommand).command(SessionDeleteCommand).demandCommand(),
   async handler() {},
 })
 
 export const SessionDeleteCommand = effectCmd({
   command: "delete <sessionID>",
-  describe: "delete a session",
+  describe: "удалить сессию",
   builder: (yargs) =>
     yargs.positional("sessionID", {
-      describe: "session ID to delete",
+      describe: "ID сессии для удаления",
       type: "string",
       demandOption: true,
     }),
@@ -63,22 +63,22 @@ export const SessionDeleteCommand = effectCmd({
     yield* svc
       .remove(sessionID)
       .pipe(Effect.catchIf(NotFoundError.isInstance, () => fail(`Session not found: ${args.sessionID}`)))
-    UI.println(UI.Style.TEXT_SUCCESS_BOLD + `Session ${args.sessionID} deleted` + UI.Style.TEXT_NORMAL)
+    UI.println(UI.Style.TEXT_SUCCESS_BOLD + `Сессия ${args.sessionID} удалена` + UI.Style.TEXT_NORMAL)
   }),
 })
 
 export const SessionListCommand = effectCmd({
   command: "list",
-  describe: "list sessions",
+  describe: "показать сессии",
   builder: (yargs) =>
     yargs
       .option("max-count", {
         alias: "n",
-        describe: "limit to N most recent sessions",
+        describe: "ограничить N последними сессиями",
         type: "number",
       })
       .option("format", {
-        describe: "output format",
+        describe: "формат вывода",
         type: "string",
         choices: ["table", "json"],
         default: "table",

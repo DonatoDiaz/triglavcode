@@ -315,7 +315,7 @@ describe("opencode run (non-interactive subprocess)", () => {
         })
 
         expect(result.exitCode).not.toBe(0)
-        expect(result.stderr).toContain("Cannot attach local directory without a shared filesystem")
+        expect(result.stderr).toContain("Нельзя прикрепить локальный каталог без общей файловой системы")
       }),
     30_000,
   )

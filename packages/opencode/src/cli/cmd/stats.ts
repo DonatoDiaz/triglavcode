@@ -48,22 +48,22 @@ interface SessionStats {
 
 export const StatsCommand = effectCmd({
   command: "stats",
-  describe: "show token usage and cost statistics",
+  describe: "показать статистику токенов и затрат",
   builder: (yargs) =>
     yargs
       .option("days", {
-        describe: "show stats for the last N days (default: all time)",
+        describe: "статистика за последние N дней (по умолчанию: всё время)",
         type: "number",
       })
       .option("tools", {
-        describe: "number of tools to show (default: all)",
+        describe: "сколько инструментов показать (по умолчанию: все)",
         type: "number",
       })
       .option("models", {
-        describe: "show model statistics (default: hidden). Pass a number to show top N, otherwise shows all",
+        describe: "статистика моделей (по умолчанию скрыта). Передайте число, чтобы показать топ-N, иначе — все",
       })
       .option("project", {
-        describe: "filter by project (default: all projects, empty string: current project)",
+        describe: "фильтр по проекту (по умолчанию: все проекты, пустая строка: текущий проект)",
         type: "string",
       }),
   handler: Effect.fn("Cli.stats")(function* (args) {
@@ -147,7 +147,7 @@ const aggregateSessionStats = Effect.fn("Cli.stats.aggregate")(function* (
   }
 
   if (filteredSessions.length > 1000) {
-    console.log(`Large dataset detected (${filteredSessions.length} sessions). This may take a while...`)
+    console.log(`Обнаружен большой набор данных (сессий: ${filteredSessions.length}). Это может занять время...`)
   }
 
   if (filteredSessions.length === 0) {
@@ -303,9 +303,9 @@ export function displayStats(stats: SessionStats, toolLimit?: number, modelLimit
   console.log("┌────────────────────────────────────────────────────────┐")
   console.log("│                       OVERVIEW                         │")
   console.log("├────────────────────────────────────────────────────────┤")
-  console.log(renderRow("Sessions", stats.totalSessions.toLocaleString()))
-  console.log(renderRow("Messages", stats.totalMessages.toLocaleString()))
-  console.log(renderRow("Days", stats.days.toString()))
+  console.log(renderRow("Сессии", stats.totalSessions.toLocaleString()))
+  console.log(renderRow("Сообщения", stats.totalMessages.toLocaleString()))
+  console.log(renderRow("Дни", stats.days.toString()))
   console.log("└────────────────────────────────────────────────────────┘")
   console.log()
 
@@ -316,15 +316,15 @@ export function displayStats(stats: SessionStats, toolLimit?: number, modelLimit
   const cost = isNaN(stats.totalCost) ? 0 : stats.totalCost
   const costPerDay = isNaN(stats.costPerDay) ? 0 : stats.costPerDay
   const tokensPerSession = isNaN(stats.tokensPerSession) ? 0 : stats.tokensPerSession
-  console.log(renderRow("Total Cost", `$${cost.toFixed(2)}`))
-  console.log(renderRow("Avg Cost/Day", `$${costPerDay.toFixed(2)}`))
-  console.log(renderRow("Avg Tokens/Session", formatNumber(Math.round(tokensPerSession))))
+  console.log(renderRow("Общая стоимость", `$${cost.toFixed(2)}`))
+  console.log(renderRow("Средняя стоимость/день", `$${costPerDay.toFixed(2)}`))
+  console.log(renderRow("Среднее токенов/сессия", formatNumber(Math.round(tokensPerSession))))
   const medianTokensPerSession = isNaN(stats.medianTokensPerSession) ? 0 : stats.medianTokensPerSession
-  console.log(renderRow("Median Tokens/Session", formatNumber(Math.round(medianTokensPerSession))))
-  console.log(renderRow("Input", formatNumber(stats.totalTokens.input)))
-  console.log(renderRow("Output", formatNumber(stats.totalTokens.output)))
-  console.log(renderRow("Cache Read", formatNumber(stats.totalTokens.cache.read)))
-  console.log(renderRow("Cache Write", formatNumber(stats.totalTokens.cache.write)))
+  console.log(renderRow("Медиана токенов/сессия", formatNumber(Math.round(medianTokensPerSession))))
+  console.log(renderRow("Ввод", formatNumber(stats.totalTokens.input)))
+  console.log(renderRow("Вывод", formatNumber(stats.totalTokens.output)))
+  console.log(renderRow("Чтение кэша", formatNumber(stats.totalTokens.cache.read)))
+  console.log(renderRow("Запись кэша", formatNumber(stats.totalTokens.cache.write)))
   console.log("└────────────────────────────────────────────────────────┘")
   console.log()
 

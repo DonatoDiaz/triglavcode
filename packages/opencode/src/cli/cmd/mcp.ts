@@ -94,7 +94,7 @@ function authState() {
 
 export const McpCommand = cmd({
   command: "mcp",
-  describe: "manage MCP (Model Context Protocol) servers",
+  describe: "управление серверами MCP (Model Context Protocol)",
   builder: (yargs) =>
     yargs
       .command(McpAddCommand)
@@ -109,7 +109,7 @@ export const McpCommand = cmd({
 export const McpListCommand = effectCmd({
   command: "list",
   aliases: ["ls"],
-  describe: "list MCP servers and their status",
+  describe: "показать MCP-серверы и их статус",
   handler: Effect.fn("Cli.mcp.list")(function* () {
     UI.empty()
     prompts.intro("MCP Servers")
@@ -169,11 +169,11 @@ export const McpListCommand = effectCmd({
 
 export const McpAuthCommand = effectCmd({
   command: "auth [name]",
-  describe: "authenticate with an OAuth-enabled MCP server",
+  describe: "авторизоваться на MCP-сервере с поддержкой OAuth",
   builder: (yargs) =>
     yargs
       .positional("name", {
-        describe: "name of the MCP server",
+        describe: "имя MCP-сервера",
         type: "string",
       })
       .command(McpAuthListCommand),
@@ -306,7 +306,7 @@ export const McpAuthCommand = effectCmd({
 export const McpAuthListCommand = effectCmd({
   command: "list",
   aliases: ["ls"],
-  describe: "list OAuth-capable MCP servers and their auth status",
+  describe: "показать MCP-серверы с OAuth и статус авторизации",
   handler: Effect.fn("Cli.mcp.auth.list")(function* () {
     UI.empty()
     prompts.intro("MCP OAuth Status")
@@ -335,10 +335,10 @@ export const McpAuthListCommand = effectCmd({
 
 export const McpLogoutCommand = effectCmd({
   command: "logout [name]",
-  describe: "remove OAuth credentials for an MCP server",
+  describe: "удалить учётные данные OAuth для MCP-сервера",
   builder: (yargs) =>
     yargs.positional("name", {
-      describe: "name of the MCP server",
+      describe: "имя MCP-сервера",
       type: "string",
     }),
   handler: Effect.fn("Cli.mcp.logout")(function* (args) {
@@ -428,24 +428,24 @@ async function addMcpToConfig(name: string, mcpConfig: ConfigMCPV1.Info, configP
 
 export const McpAddCommand = effectCmd({
   command: "add [name]",
-  describe: "add an MCP server",
+  describe: "добавить MCP-сервер",
   builder: (yargs) =>
     yargs
       .positional("name", {
-        describe: "name of the MCP server",
+        describe: "имя MCP-сервера",
         type: "string",
       })
       .option("url", {
-        describe: "URL for a remote MCP server",
+        describe: "URL удалённого MCP-сервера",
         type: "string",
       })
       .option("env", {
-        describe: "environment variable for a local MCP server (KEY=VALUE)",
+        describe: "переменная окружения локального MCP-сервера (KEY=VALUE)",
         type: "string",
         array: true,
       })
       .option("header", {
-        describe: "HTTP header for a remote MCP server (KEY=VALUE)",
+        describe: "HTTP-заголовок удалённого MCP-сервера (KEY=VALUE)",
         type: "string",
         array: true,
       }),
@@ -658,10 +658,10 @@ export const McpAddCommand = effectCmd({
 
 export const McpDebugCommand = effectCmd({
   command: "debug <name>",
-  describe: "debug OAuth connection for an MCP server",
+  describe: "отладка OAuth-подключения к MCP-серверу",
   builder: (yargs) =>
     yargs.positional("name", {
-      describe: "name of the MCP server",
+      describe: "имя MCP-сервера",
       type: "string",
       demandOption: true,
     }),

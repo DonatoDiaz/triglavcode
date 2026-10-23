@@ -564,6 +564,7 @@
       "version": "1.18.29",
       "bin": {
         "opencode": "./bin/opencode",
+        "triglavcode": "./bin/triglavcode",
       },
       "dependencies": {
         "@actions/core": "1.11.1",

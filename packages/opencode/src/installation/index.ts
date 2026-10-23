@@ -17,6 +17,11 @@ import { InstallationEvent } from "@opencode-ai/schema/installation-event"
 
 export type Method = "curl" | "npm" | "yarn" | "pnpm" | "bun" | "brew" | "scoop" | "choco" | "unknown"
 
+// Fork builds ship from source. The upstream installer (opencode.ai/install,
+// npm opencode-ai, anomalyco taps) would overwrite the TriglavCode binary with
+// an upstream release, so self-update stays off unless explicitly re-enabled.
+const SELF_UPDATE = process.env.TRIGLAV_SELF_UPDATE === "1"
+
 export type ReleaseType = "patch" | "minor" | "major"
 
 export const Event = InstallationEvent
@@ -206,6 +211,8 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         return "unknown" as Method
       }),
       latest: Effect.fn("Installation.latest")(function* (installMethod?: Method) {
+        if (!SELF_UPDATE) return InstallationVersion
+
         const detectedMethod = installMethod || (yield* result.method())
 
         if (detectedMethod === "brew") {
@@ -263,6 +270,11 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         return data.tag_name.replace(/^v/, "")
       }, Effect.orDie),
       upgrade: Effect.fn("Installation.upgrade")(function* (m: Method, target: string) {
+        if (!SELF_UPDATE)
+          return yield* new UpgradeFailedError({
+            stderr: "Self-update is disabled in TriglavCode builds. Rebuild from source to update.",
+          })
+
         let upgradeResult: { code: number; stdout: string; stderr: string } | undefined
         switch (m) {
           case "curl":

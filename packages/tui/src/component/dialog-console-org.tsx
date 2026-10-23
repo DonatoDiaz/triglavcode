@@ -51,7 +51,7 @@ export function DialogConsoleOrg() {
     if (listed === undefined) {
       return [
         {
-          title: "Loading orgs…",
+          title: "Загрузка организаций…",
           value: "loading",
           onSelect: () => {},
         },
@@ -61,7 +61,7 @@ export function DialogConsoleOrg() {
     if (listed.length === 0) {
       return [
         {
-          title: "No orgs found",
+          title: "Организации не найдены",
           value: "empty",
           onSelect: () => {},
         },
@@ -115,7 +115,7 @@ export function DialogConsoleOrg() {
 
   return (
     <DialogSelect<string | OrgOption>
-      title="Switch org"
+      title="Сменить организацию"
       options={options()}
       current={current()}
       renderFilter={!showError()}

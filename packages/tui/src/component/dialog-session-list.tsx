@@ -110,7 +110,7 @@ export function DialogSessionList() {
           result = await sdk.client.experimental.workspace.create({ type: selection.workspaceType, branch: null })
         } catch (err) {
           toast.show({
-            title: "Failed to create workspace",
+            title: "Не удалось создать рабочее пространство",
             message: errorMessage(err),
             variant: "error",
           })
@@ -119,7 +119,7 @@ export function DialogSessionList() {
         const workspace = result?.data
         if (!workspace) {
           toast.show({
-            title: "Failed to create workspace",
+            title: "Не удалось создать рабочее пространство",
             message: errorMessage(result?.error ?? "no response"),
             variant: "error",
           })
@@ -154,7 +154,7 @@ export function DialogSessionList() {
           if (result.error) {
             toast.show({
               variant: "error",
-              title: "Failed to delete workspace",
+              title: "Не удалось удалить рабочее пространство",
               message: errorMessage(result.error),
             })
             return false
@@ -202,7 +202,7 @@ export function DialogSessionList() {
   })
   const quickSwitchFooterHints = createMemo(() => {
     const hint = quickSwitchHint()
-    return hint && local.session.slots().length > 0 ? [{ title: "switch", label: hint }] : []
+    return hint && local.session.slots().length > 0 ? [{ title: "переключить", label: hint }] : []
   })
 
   const options = createMemo(() => {
@@ -271,7 +271,7 @@ export function DialogSessionList() {
 
   return (
     <DialogSelect
-      title="Sessions"
+      title="Сессии"
       options={options()}
       skipFilter={true}
       preserveSelection={true}
@@ -290,14 +290,14 @@ export function DialogSessionList() {
       actions={[
         {
           command: "session.pin.toggle",
-          title: "pin/unpin",
+          title: "закрепить/открепить",
           onTrigger: (option: { value: string }) => {
             local.session.togglePin(option.value)
           },
         },
         {
           command: "session.delete",
-          title: "delete",
+          title: "удалить",
           onTrigger: async (option) => {
             if (toDelete() === option.value) {
               const session = sessions().find((item) => item.id === option.value)
@@ -313,7 +313,7 @@ export function DialogSessionList() {
                   } else {
                     toast.show({
                       variant: "error",
-                      title: "Failed to delete session",
+                      title: "Не удалось удалить сессию",
                       message: errorMessage(result.error),
                     })
                   }
@@ -326,7 +326,7 @@ export function DialogSessionList() {
                 } else {
                   toast.show({
                     variant: "error",
-                    title: "Failed to delete session",
+                    title: "Не удалось удалить сессию",
                     message: errorMessage(err),
                   })
                 }
@@ -346,7 +346,7 @@ export function DialogSessionList() {
         },
         {
           command: "session.rename",
-          title: "rename",
+          title: "переименовать",
           onTrigger: async (option) => {
             dialog.replace(() => <DialogSessionRename session={option.value} />)
           },

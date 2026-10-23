@@ -21,14 +21,14 @@ export function DialogSessionDeleteFailed(props: {
   const options = [
     {
       id: "delete" as const,
-      title: "Delete workspace",
-      description: "Delete the workspace and all sessions attached to it.",
+      title: "Удалить рабочее пространство",
+      description: "Удалить рабочее пространство и все привязанные к нему сессии.",
       run: props.onDelete,
     },
     {
       id: "restore" as const,
-      title: "Restore to new workspace",
-      description: "Try to restore this session into a new workspace.",
+      title: "Восстановить в новое рабочее пространство",
+      description: "Попробовать восстановить сессию в новом рабочем пространстве.",
       run: props.onRestore,
     },
   ]
@@ -42,11 +42,11 @@ export function DialogSessionDeleteFailed(props: {
 
   useBindings(() => ({
     bindings: [
-      { key: "return", desc: "Confirm recovery option", group: "Dialog", cmd: () => void confirm() },
-      { key: "left", desc: "Delete broken session", group: "Dialog", cmd: () => setStore("active", "delete") },
-      { key: "up", desc: "Delete broken session", group: "Dialog", cmd: () => setStore("active", "delete") },
-      { key: "right", desc: "Restore broken session", group: "Dialog", cmd: () => setStore("active", "restore") },
-      { key: "down", desc: "Restore broken session", group: "Dialog", cmd: () => setStore("active", "restore") },
+      { key: "return", desc: "Подтвердить вариант восстановления", group: "Диалог", cmd: () => void confirm() },
+      { key: "left", desc: "Удалить повреждённую сессию", group: "Диалог", cmd: () => setStore("active", "delete") },
+      { key: "up", desc: "Удалить повреждённую сессию", group: "Диалог", cmd: () => setStore("active", "delete") },
+      { key: "right", desc: "Восстановить повреждённую сессию", group: "Диалог", cmd: () => setStore("active", "restore") },
+      { key: "down", desc: "Восстановить повреждённую сессию", group: "Диалог", cmd: () => setStore("active", "restore") },
     ],
   }))
 
