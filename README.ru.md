@@ -79,85 +79,45 @@
 
 ### Установка
 
-```bash
-# YOLO
-curl -fsSL https://opencode.ai/install | bash
+TriglavCode распространяется как standalone-бинарник. Скачайте последний релиз со
+[страницы релизов](https://github.com/DonatoDiaz/triglavcode/releases) или соберите из исходников:
 
-# Менеджеры пакетов
-npm i -g opencode-ai@latest        # или bun/pnpm/yarn
-scoop install opencode             # Windows
-choco install opencode             # Windows
-brew install anomalyco/tap/opencode # macOS и Linux (рекомендуем, всегда актуально)
-brew install opencode              # macOS и Linux (официальная формула brew, обновляется реже)
-sudo pacman -S opencode            # Arch Linux (Stable)
-paru -S opencode-bin               # Arch Linux (Latest from AUR)
-mise use -g opencode               # любая ОС
-nix run nixpkgs#opencode           # или github:anomalyco/opencode для самой свежей ветки dev
+```bash
+# Требуется Bun 1.3.14 (см. BASELINE.md)
+bun run --cwd packages/opencode build:triglav
+# Результат: packages/opencode/dist/triglavcode-linux-x64/bin/triglavcode
 ```
 
-> [!TIP]
-> Перед установкой удалите версии старше 0.1.x.
+Затем положите бинарь в `PATH` (например, симлинк в `~/.local/bin/triglavcode`).
 
-### Десктопное приложение (BETA)
-
-OpenCode также доступен как десктопное приложение. Скачайте его со [страницы релизов](https://github.com/anomalyco/opencode/releases) или с [opencode.ai/download](https://opencode.ai/download).
-
-| Платформа             | Загрузка                           |
-| --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `opencode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `opencode-desktop-mac-x64.dmg`     |
-| Windows               | `opencode-desktop-windows-x64.exe` |
-| Linux                 | `.deb`, `.rpm` или AppImage        |
+### Использование
 
 ```bash
-# macOS (Homebrew)
-brew install --cask opencode-desktop
-# Windows (Scoop)
-scoop bucket add extras; scoop install extras/opencode-desktop
-```
-
-#### Каталог установки
-
-Скрипт установки выбирает путь установки в следующем порядке приоритета:
-
-1. `$OPENCODE_INSTALL_DIR` - Пользовательский каталог установки
-2. `$XDG_BIN_DIR` - Путь, совместимый со спецификацией XDG Base Directory
-3. `$HOME/bin` - Стандартный каталог пользовательских бинарников (если существует или можно создать)
-4. `$HOME/.opencode/bin` - Fallback по умолчанию
-
-```bash
-# Примеры
-OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://opencode.ai/install | bash
+triglavcode                 # запуск TUI
+triglavcode run "почини тесты"   # разовый запуск
+triglavcode serve           # headless-сервер
+triglavcode env             # показать все переменные TRIGLAV_*
 ```
 
 ### Agents
 
-В OpenCode есть два встроенных агента, между которыми можно переключаться клавишей `Tab`.
-
-- **build** - По умолчанию, агент с полным доступом для разработки
-- **plan** - Агент только для чтения для анализа и изучения кода
-  - По умолчанию запрещает редактирование файлов
-  - Запрашивает разрешение перед выполнением bash-команд
-  - Идеален для изучения незнакомых кодовых баз или планирования изменений
-
-Также включен сабагент **general** для сложных поисков и многошаговых задач.
-Он используется внутренне и может быть вызван в сообщениях через `@general`.
-
-Подробнее об [agents](https://opencode.ai/docs/agents).
+В TriglavCode есть агенты из апстрима плюс агент **sandbox**
+(`.opencode/agent/sandbox.md`): read-only инструменты, а `bash` только после явного
+подтверждения (permission `ask`). Используется `/vet-skill` для изолированного
+прогона скиллов с вердиктом `review`.
 
 ### Документация
 
-Больше информации о том, как настроить OpenCode: [**наши docs**](https://opencode.ai/docs).
+- [README.md](README.md) — английская версия
+- [ROADMAP.ru.md](ROADMAP.ru.md) — планы развития
+- [BASELINE.md](BASELINE.md) — baseline и тулчейн сборки
 
 ### Вклад
 
-Если вы хотите внести вклад в OpenCode, прочитайте [contributing docs](./CONTRIBUTING.md) перед тем, как отправлять pull request.
-
-### Разработка на базе OpenCode
-
-Если вы делаете проект, связанный с OpenCode, и используете "opencode" как часть имени (например, "opencode-dashboard" или "opencode-mobile"), добавьте примечание в README, чтобы уточнить, что проект не создан командой OpenCode и не аффилирован с нами.
+Сначала форкните [anomalyco/opencode](https://github.com/anomalyco/opencode); TriglavCode —
+тонкий форк поверх него. Сохраняйте ключи совместимости (`app="opencode"`, `OPENCODE_*`,
+npm-скоуп) — на них завязан opencode-rag. Атрибуция: [NOTICE](NOTICE).
 
 ---
 
-**Присоединяйтесь к нашему сообществу** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
+**Комьюнити исходного проекта** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)

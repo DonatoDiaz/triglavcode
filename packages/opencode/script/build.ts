@@ -133,7 +133,9 @@ const targets = singleFlag
 
       return true
     })
-  : allTargets
+  : process.env.OPENCODE_TARGET_OS
+    ? allTargets.filter((item) => item.os === process.env.OPENCODE_TARGET_OS)
+    : allTargets
 
 await $`rm -rf dist`
 

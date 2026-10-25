@@ -79,85 +79,45 @@ Run `triglavcode env` to inspect current values.
 
 ### Installation
 
-```bash
-# YOLO
-curl -fsSL https://opencode.ai/install | bash
+TriglavCode is distributed as a standalone binary. Grab the latest release from the
+[Releases page](https://github.com/DonatoDiaz/triglavcode/releases), or build from source:
 
-# Package managers
-npm i -g opencode-ai@latest        # or bun/pnpm/yarn
-scoop install opencode             # Windows
-choco install opencode             # Windows
-brew install anomalyco/tap/opencode # macOS and Linux (recommended, always up to date)
-brew install opencode              # macOS and Linux (official brew formula, updated less)
-sudo pacman -S opencode            # Arch Linux (Stable)
-paru -S opencode-bin               # Arch Linux (Latest from AUR)
-mise use -g opencode               # Any OS
-nix run nixpkgs#opencode           # or github:anomalyco/opencode for latest dev branch
+```bash
+# Requires Bun 1.3.14 (see BASELINE.md)
+bun run --cwd packages/opencode build:triglav
+# Output: packages/opencode/dist/triglavcode-linux-x64/bin/triglavcode
 ```
 
-> [!TIP]
-> Remove versions older than 0.1.x before installing.
+Then put the binary on your `PATH` (e.g. symlink it to `~/.local/bin/triglavcode`).
 
-### Desktop App (BETA)
-
-OpenCode is also available as a desktop application. Download directly from the [releases page](https://github.com/anomalyco/opencode/releases) or [opencode.ai/download](https://opencode.ai/download).
-
-| Platform              | Download                           |
-| --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `opencode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `opencode-desktop-mac-x64.dmg`     |
-| Windows               | `opencode-desktop-windows-x64.exe` |
-| Linux                 | `.deb`, `.rpm`, or `.AppImage`     |
+### Usage
 
 ```bash
-# macOS (Homebrew)
-brew install --cask opencode-desktop
-# Windows (Scoop)
-scoop bucket add extras; scoop install extras/opencode-desktop
-```
-
-#### Installation Directory
-
-The install script respects the following priority order for the installation path:
-
-1. `$OPENCODE_INSTALL_DIR` - Custom installation directory
-2. `$XDG_BIN_DIR` - XDG Base Directory Specification compliant path
-3. `$HOME/bin` - Standard user binary directory (if it exists or can be created)
-4. `$HOME/.opencode/bin` - Default fallback
-
-```bash
-# Examples
-OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://opencode.ai/install | bash
+triglavcode                 # start TUI
+triglavcode run "fix the tests"   # one-shot run
+triglavcode serve           # headless server
+triglavcode env             # inspect all TRIGLAV_* variables
 ```
 
 ### Agents
 
-OpenCode includes two built-in agents you can switch between with the `Tab` key.
-
-- **build** - Default, full-access agent for development work
-- **plan** - Read-only agent for analysis and code exploration
-  - Denies file edits by default
-  - Asks permission before running bash commands
-  - Ideal for exploring unfamiliar codebases or planning changes
-
-Also included is a **general** subagent for complex searches and multistep tasks.
-This is used internally and can be invoked using `@general` in messages.
-
-Learn more about [agents](https://opencode.ai/docs/agents).
+TriglavCode includes the upstream agents plus a **sandbox** agent
+(`.opencode/agent/sandbox.md`): read-only tools with `bash` gated behind an
+explicit approval prompt. It is used by `/vet-skill` to run `review`-verdict
+skills in isolation.
 
 ### Documentation
 
-For more info on how to configure OpenCode, [**head over to our docs**](https://opencode.ai/docs).
+- [README.ru.md](README.ru.md) — русская версия
+- [ROADMAP.md](ROADMAP.md) — планы развития
+- [BASELINE.md](BASELINE.md) — baseline и тулчейн сборки
 
 ### Contributing
 
-If you're interested in contributing to OpenCode, please read our [contributing docs](./CONTRIBUTING.md) before submitting a pull request.
-
-### Building on OpenCode
-
-If you are working on a project that's related to OpenCode and is using "opencode" as part of its name, for example "opencode-dashboard" or "opencode-mobile", please add a note to your README to clarify that it is not built by the OpenCode team and is not affiliated with us in any way.
+Fork [anomalyco/opencode](https://github.com/anomalyco/opencode) first; TriglavCode
+is a thin fork on top of it. Keep compatibility keys (`app="opencode"`, `OPENCODE_*`,
+npm scope) intact — opencode-rag relies on them. See [NOTICE](NOTICE) for attribution.
 
 ---
 
-**Join our community** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
+**Комьюнити исходного проекта** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
