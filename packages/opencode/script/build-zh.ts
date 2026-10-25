@@ -3,10 +3,13 @@
 // Применяет словарь locales/zh.json к исходникам, собирает обычный бинарь,
 // затем git restore — исходники возвращаются в исходное состояние.
 // Использование (из корня репозитория):
-//   bun run --cwd packages/opencode script/build-zh.ts
+//   bun run --cwd packages/opencode script/build-zh.ts [--os win32|linux|darwin]
 import { $ } from "bun"
 import path from "path"
 import fs from "fs"
+
+const targetOsFlag = process.argv.find((a) => a.startsWith("--os="))
+const targetOs = targetOsFlag ? targetOsFlag.slice(5) : "linux"
 
 const opencodeDir = path.resolve(import.meta.dirname, "..")
 const repoRoot = path.resolve(opencodeDir, "../..")
@@ -70,7 +73,9 @@ console.log(`Applied ${replacedTotal} replacements across ${changedFiles} files 
 console.log("Running build...")
 
 try {
-  await $`OPENCODE_VERSION=${process.env.OPENCODE_VERSION ?? "1.18.29-triglav.1"} bun run script/build.ts --single --skip-install --skip-embed-web-ui`.cwd(opencodeDir)
+  const buildArgs = []
+  if (process.env.OPENCODE_VERSION) buildArgs.push(`OPENCODE_VERSION=${process.env.OPENCODE_VERSION}`)
+  await $`${buildArgs.length ? buildArgs.join(" ") + " " : ""}bun run script/build.ts --os=${targetOs} --skip-install --skip-embed-web-ui`.cwd(opencodeDir)
 } finally {
   // git restore вне зависимости от результата сборки (пути от корня репозитория)
   await $`git restore packages/opencode/src packages/tui/src packages/core/src`.cwd(repoRoot).catch(() => {})

@@ -17,6 +17,7 @@ import { Script } from "@opencode-ai/script"
 import pkg from "../package.json"
 
 const singleFlag = process.argv.includes("--single")
+const osFlag = process.argv.find((a) => a.startsWith("--os="))
 const baselineFlag = process.argv.includes("--baseline")
 const skipInstall = process.argv.includes("--skip-install")
 const sourcemapsFlag = process.argv.includes("--sourcemaps")
@@ -133,9 +134,11 @@ const targets = singleFlag
 
       return true
     })
-  : process.env.OPENCODE_TARGET_OS
-    ? allTargets.filter((item) => item.os === process.env.OPENCODE_TARGET_OS)
-    : allTargets
+  : osFlag
+    ? allTargets.filter((item) => item.os === osFlag.slice(5))
+    : process.env.OPENCODE_TARGET_OS
+      ? allTargets.filter((item) => item.os === process.env.OPENCODE_TARGET_OS)
+      : allTargets
 
 await $`rm -rf dist`
 
