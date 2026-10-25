@@ -1,4 +1,7 @@
 <h1 align="center">TRIGLAVCODE</h1>
+<p align="center">
+  <a href="README.md">English</a> | <a href="README.ru.md">Русский</a> | <a href="README.zh.md">中文</a>
+</p>
 <p align="center">Открытый AI-агент для программирования — форк TriglavCode.</p>
 
 > [!IMPORTANT]
