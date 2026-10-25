@@ -8,6 +8,20 @@
 > The installation instructions below describe upstream opencode; TriglavCode is built locally with
 > `bun run --cwd packages/opencode build:triglav` (Bun 1.3.14 required, see [BASELINE.md](BASELINE.md)).
 
+## Comparison with OpenCode
+
+| Feature | OpenCode (upstream) | TriglavCode |
+| --- | --- | --- |
+| Version | Current | `1.18.29-triglav.1` (fork of v1.18.29) |
+| Binary | `opencode` | `triglavcode` |
+| Branding / theme | Original | Triglav dark theme (blood/amber/violet), ASCII wordmark |
+| TUI/CLI localization | None/minimal | Full localization of user-facing TUI/CLI strings (Russian) |
+| Self-update | Enabled | Disabled (only with `TRIGLAV_SELF_UPDATE=1`) |
+| Local Ollama models + tool calling | Manual setup | Ready fallback: `ollama/qwen2.5:latest`, `ollama/qwen2.5-coder-64k`, `ollama/qwen2.5-coder:7b` (via `opencode-ollama-toolcall-proxy`) |
+| opencode-rag compatibility | Native | Preserved (`app="opencode"`, `OPENCODE_*`, npm scope unchanged) |
+| README/NOTICE | EN | `README.ru.md`, `NOTICE.ru.md` added |
+| Install/run | `opencode` | `triglavcode` (symlink/binary) |
+
 <p align="center">
   <a href="README.md">English</a> |
   <a href="README.zh.md">简体中文</a> |
