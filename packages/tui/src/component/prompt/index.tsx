@@ -853,6 +853,26 @@ export function Prompt(props: PromptProps) {
       target: inputTarget,
       enabled: (() => {
         cursorVersion()
+        return inputTarget() !== undefined && !props.disabled && store.mode === "normal"
+      })(),
+      bindings: [
+        {
+          key: "f2",
+          desc: "Переключить локальную/облачную модель",
+          group: "Запрос",
+          cmd: () => {
+            local.model.toggleFallback()
+          },
+        },
+      ],
+    }
+  })
+
+  useBindings(() => {
+    return {
+      target: inputTarget,
+      enabled: (() => {
+        cursorVersion()
         return inputTarget() !== undefined && store.mode === "shell" && input?.visualCursor.offset === 0
       })(),
       bindings: [{ key: "backspace", desc: "Выйти из режима shell", group: "Запрос", cmd: () => setStore("mode", "normal") }],
@@ -1460,6 +1480,9 @@ export function Prompt(props: PromptProps) {
                             fg={fadeColor(leader() ? theme.textMuted : theme.text, modelMetaAlpha())}
                           >
                             {local.model.parsed().model}
+                            <Show when={local.model.parsed().providerID === "ollama"}>
+                              <span style={{ fg: theme.success, bold: true }}> ●</span>
+                            </Show>
                           </text>
                           <text fg={fadeColor(theme.textMuted, modelMetaAlpha())}>{currentProviderLabel()}</text>
                           <Show when={showVariant()}>

@@ -261,6 +261,8 @@ export const { use: useLocal, provider: LocalProvider } = createSimpleContext({
             return {
               provider: "Connect a provider",
               model: "No provider selected",
+              providerID: undefined,
+              modelID: undefined,
               reasoning: false,
             }
           }
@@ -269,6 +271,8 @@ export const { use: useLocal, provider: LocalProvider } = createSimpleContext({
           return {
             provider: provider?.name ?? value.providerID,
             model: info?.name ?? value.modelID,
+            providerID: value.providerID,
+            modelID: value.modelID,
             reasoning: info?.capabilities?.reasoning ?? false,
           }
         }),
@@ -334,6 +338,54 @@ export const { use: useLocal, provider: LocalProvider } = createSimpleContext({
               setModelStore("recent", recentModels(model, modelStore.recent))
               save()
             }
+          })
+        },
+        toggleFallback() {
+          batch(() => {
+            const spec = process.env.TRIGLAV_FALLBACK_MODEL
+            if (!spec) {
+              toast.show({
+                message: "Запасная модель не задана (TRIGLAV_FALLBACK_MODEL)",
+                variant: "warning",
+                duration: 3000,
+              })
+              return
+            }
+            const slash = spec.indexOf("/")
+            if (slash <= 0 || slash === spec.length - 1) {
+              toast.show({
+                message: `Неверный формат TRIGLAV_FALLBACK_MODEL: ${spec}`,
+                variant: "warning",
+                duration: 3000,
+              })
+              return
+            }
+            const current = currentModel()
+            if (!current) return
+            const fallback = { providerID: spec.slice(0, slash), modelID: spec.slice(slash + 1) }
+            const nowOnFallback = current.providerID === fallback.providerID && current.modelID === fallback.modelID
+            const a = agent.current()
+            if (!a) return
+            const target = nowOnFallback ? (modelStore.favorite[0] ?? undefined) : fallback
+            if (!target) return
+            if (!isModelValid(target)) {
+              toast.show({
+                message: `Модель ${target.providerID}/${target.modelID} недоступна`,
+                variant: "warning",
+                duration: 3000,
+              })
+              return
+            }
+            setModelStore("model", a.name, { ...target })
+            setModelStore("recent", recentModels(target, modelStore.recent))
+            save()
+            toast.show({
+              variant: "success",
+              message: nowOnFallback
+                ? `Локальная модель выключена: ${current.providerID}/${current.modelID}`
+                : `Локальная модель: ${fallback.providerID}/${fallback.modelID}`,
+              duration: 2500,
+            })
           })
         },
         toggleFavorite(model: { providerID: string; modelID: string }) {

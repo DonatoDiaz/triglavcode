@@ -23,7 +23,8 @@
 | README/NOTICE | EN | `README.ru.md`, `NOTICE.ru.md` added |
 | Roadmap | — | `ROADMAP.md`, `ROADMAP.ru.md` |
 | Guardrail commands (Hermes-style wrap) | External scripts | Built-in: `/vet-skill`, `/heal`, `/review`, `/parallel`, `/complexity`, `/weekly`, `/tooling`; commit hygiene gate |
-| Auto-fallback to local Ollama | Manual | `bin/triglav-router` (probe primary provider → `ollama/qwen2.5:latest`) |
+| Auto-fallback to local Ollama | Manual | Native in-binary: `TRIGLAV_FALLBACK_MODEL` (provider down → retry with `ollama/qwen2.5:latest`, notice text injected); also `bin/triglav-router` wrapper |
+| TUI local-model switch | — | `F2` toggles cloud↔local instantly; local models marked with `●` |
 | Install/run | `opencode` | `triglavcode` (symlink/binary) |
 | Build requirements | — | Bun 1.3.14 (see `BASELINE.md`) |
 

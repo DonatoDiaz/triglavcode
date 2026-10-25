@@ -6,8 +6,10 @@ import { SessionV1 } from "@opencode-ai/core/v1/session"
 import { serviceUse } from "@opencode-ai/core/effect/service-use"
 import { Context, Effect, Layer } from "effect"
 import * as Stream from "effect/Stream"
-import { streamText, wrapLanguageModel, type ModelMessage, type Tool } from "ai"
-import type { LLMEvent } from "@opencode-ai/llm"
+import { LLMEvent } from "@opencode-ai/llm"
+import { APICallError, streamText, wrapLanguageModel, type ModelMessage, type Tool } from "ai"
+import { ProviderV2 } from "@opencode-ai/core/provider"
+import { ModelV2 } from "@opencode-ai/core/model"
 import { LLMClient } from "@opencode-ai/llm/route"
 import type { LLMClientService } from "@opencode-ai/llm/route"
 import { GitLabWorkflowLanguageModel } from "gitlab-ai-provider"
@@ -32,6 +34,22 @@ import { LLMRequestPrep } from "./llm/request"
 
 export const OUTPUT_TOKEN_MAX = ProviderTransform.OUTPUT_TOKEN_MAX
 
+// TriglavCode: при каких ошибках считать провайдера «недоступным» для fallback
+// на запасную модель (сетевые сбои, недоступность агрегатора, лимиты).
+function isProviderDown(error: unknown): boolean {
+  if (error instanceof APICallError) {
+    const status = error.statusCode
+    if (!status) return true
+    if (status === 401 || status === 403 || status === 429) return true
+    if (status >= 500) return true
+    return false
+  }
+  const message = error instanceof Error ? error.message : String(error)
+  return /fetch failed|ECONNREFUSED|ENOTFOUND|ETIMEDOUT|ECONNRESET|socket hang up|network\s*error|getaddrinfo|call failed/i.test(
+    message,
+  )
+}
+
 export type StreamInput = {
   user: SessionV1.User
   sessionID: string
@@ -45,6 +63,8 @@ export type StreamInput = {
   tools: Record<string, Tool>
   retries?: number
   toolChoice?: "auto" | "required" | "none"
+  /** Контекст для fallback-логики: первичный modelID и счётчик попыток. */
+  _fallback?: { primary: Provider.Model; attempt: number }
 }
 
 export type StreamRequest = StreamInput & {
@@ -354,7 +374,9 @@ const live: Layer.Layer<
       }
     })
 
-    const stream: Interface["stream"] = (input) =>
+    const stream: Interface["stream"] = (input) => attemptStream(input)
+
+    const attemptStream = (input: StreamInput): Stream.Stream<LLMEvent, unknown> =>
       Stream.scoped(
         Stream.unwrap(
           Effect.gen(function* () {
@@ -364,21 +386,73 @@ const live: Layer.Layer<
             )
 
             const result = yield* run({ ...input, abort: ctrl.signal })
+            const base =
+              result.type === "native"
+                ? result.stream
+                : // Adapter seam: both runtimes expose the same LLMEvent stream. Native
+                  // already returns one; AI SDK streams are converted here.
+                  (() => {
+                    const state = LLMAISDK.adapterState()
+                    return Stream.fromAsyncIterable(result.result.fullStream, (e) =>
+                      e instanceof Error ? e : new Error(String(e)),
+                    ).pipe(
+                      Stream.mapEffect((event) => LLMAISDK.toLLMEvents(state, event)),
+                      Stream.flatMap((events) => Stream.fromIterable(events)),
+                    )
+                  })()
 
-            if (result.type === "native") return result.stream
-
-            // Adapter seam: both runtimes expose the same LLMEvent stream. Native
-            // already returns one; AI SDK streams are converted here.
-            const state = LLMAISDK.adapterState()
-            return Stream.fromAsyncIterable(result.result.fullStream, (e) =>
-              e instanceof Error ? e : new Error(String(e)),
-            ).pipe(
-              Stream.mapEffect((event) => LLMAISDK.toLLMEvents(state, event)),
-              Stream.flatMap((events) => Stream.fromIterable(events)),
+            return base.pipe(
+              Stream.catch((error) => fallbackStream(error, input)),
             )
           }),
         ),
       )
+
+    // TriglavCode: если основной провайдер недоступен (сетевая ошибка / auth /
+    // лимит), а задан TRIGLAV_FALLBACK_MODEL — переподключаемся на запасную модель
+    // (например локальную Ollama) и предваряем поток заметкой-уведомлением.
+    const fallbackStream = (error: unknown, input: StreamInput): Stream.Stream<LLMEvent, unknown> => {
+      const spec = process.env.TRIGLAV_FALLBACK_MODEL
+      const seen = input._fallback
+      // Повторный fallback событий уже был — не ходим по кругу.
+      if (!spec || seen) return Stream.fail(error)
+      if (!isProviderDown(error)) return Stream.fail(error)
+
+      const slash = spec.indexOf("/")
+      if (slash <= 0 || slash === spec.length - 1) return Stream.fail(error)
+      const fallbackProvider = ProviderV2.ID.make(spec.slice(0, slash))
+      const fallbackModelID = ModelV2.ID.make(spec.slice(slash + 1))
+      if (fallbackProvider === input.model.providerID && fallbackModelID === input.model.id)
+        return Stream.fail(error)
+
+      return Stream.unwrap(
+        Effect.gen(function* () {
+          const fallbackModel = yield* provider
+            .getModel(fallbackProvider, fallbackModelID)
+            .pipe(Effect.option)
+          if (!Option.isSome(fallbackModel)) return Stream.fail(error)
+
+          const note = `⚠ Провайдер ${input.model.providerID}/${input.model.id} недоступен — переключение на ${fallbackProvider}/${fallbackModelID}.`
+          const events: LLMEvent[] = [
+            LLMEvent.stepStart({ index: 0 }),
+            LLMEvent.textStart({ id: `fallback-${Date.now()}` }),
+            LLMEvent.textDelta({ id: `fallback-${Date.now()}`, text: note }),
+            LLMEvent.textEnd({ id: `fallback-${Date.now()}` }),
+            LLMEvent.stepFinish({ index: 0, reason: "stop" }),
+            LLMEvent.finish({ reason: "stop" }),
+          ]
+          return Stream.fromIterable(events).pipe(
+            Stream.concat(
+              attemptStream({
+                ...input,
+                model: fallbackModel.value,
+                _fallback: { primary: input.model, attempt: 1 },
+              }),
+            ),
+          )
+        }),
+      )
+    }
 
     return Service.of({ stream })
   }),

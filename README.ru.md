@@ -23,7 +23,8 @@
 | README/NOTICE | EN | Добавлены `README.ru.md`, `NOTICE.ru.md` |
 | Roadmap | — | `ROADMAP.md`, `ROADMAP.ru.md` |
 | Встроенные guardrails (аналог Hermes-обвязки) | Внешние скрипты/координатор | Нативно: `/vet-skill`, `/heal`, `/review`, `/parallel`, `/complexity`, `/weekly`, `/tooling`; hygiene-gate в `/commit` |
-| Авто-fallback на локальную Ollama | Вручную | `bin/triglav-router` (проверка основного провайдера → `ollama/qwen2.5:latest`) |
+| Авто-fallback на локальную Ollama | Вручную | Нативно в бинаре: `TRIGLAV_FALLBACK_MODEL` (провайдер недоступен → повтор с `ollama/qwen2.5:latest`, в поток вставляется уведомление); также обёртка `bin/triglav-router` |
+| Быстрое переключение модели в TUI | — | `F2` — мгновенный toggle облако↔локально; локальные модели помечены `●` |
 | Установка/запуск | `opencode` | `triglavcode` (симлинк/бинарь) |
 | Требования к сборке | — | Bun 1.3.14 (см. `BASELINE.md`) |
 

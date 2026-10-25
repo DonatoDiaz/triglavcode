@@ -13,6 +13,9 @@
 - [x] `parallel` (параллельный запуск подзадач), `complexity` (оценка сложности), `weekly` (ретро уроков сессий)
 - [x] `tooling` (репутационный индекс скиллов + `.opencode/tooling-index.json`)
 - [x] `bin/triglav-router` — авто-fallback: основной провайдер недоступен → `ollama/qwen2.5:latest`
+- [x] Нативный fallback в бинаре (`TRIGLAV_FALLBACK_MODEL`), проверено end-to-end
+- [x] TUI: `F2` — переключение облако/локально + индикатор `●` локальной модели
+- [x] CI: `.github/workflows/triglav-release.yml` (сборка релизов Linux/macOS/Windows)
 
 ## В работе / планируется
 - [ ] Автообновление данных (список провайдеров/моделей/статус) — low priority
