@@ -821,6 +821,47 @@ describe("session.message-v2.toModelMessage", () => {
     ])
   })
 
+  test("does not truncate quality-critical tools (read/edit/grep/glob)", async () => {
+    const userID = "m-user"
+    const assistantID = "m-assistant"
+
+    const input: SessionV1.WithParts[] = [
+      {
+        info: userInfo(userID),
+        parts: [
+          {
+            ...basePart(userID, "u1"),
+            type: "text",
+            text: "read file",
+          },
+        ] as SessionV1.Part[],
+      },
+      {
+        info: assistantInfo(assistantID, userID),
+        parts: [
+          {
+            ...basePart(assistantID, "a1"),
+            type: "tool",
+            callID: "call-1",
+            tool: "read",
+            state: {
+              status: "completed",
+              input: { filePath: "/tmp/big.ts" },
+              output: "abcdefghijklmnopqrstuvwxyz0123456789",
+              title: "Read",
+              metadata: {},
+              time: { start: 0, end: 1 },
+            },
+          },
+        ] as SessionV1.Part[],
+      },
+    ]
+
+    const result = await MessageV2.toModelMessages(input, model, { toolOutputMaxChars: 4 })
+    const output = result[2].content[0] as { type: "tool-result"; output: { type: "text"; value: string } }
+    expect(output.output.value).toBe("abcdefghijklmnopqrstuvwxyz0123456789")
+  })
+
   test("converts assistant tool error into error-text tool result", async () => {
     const userID = "m-user"
     const assistantID = "m-assistant"

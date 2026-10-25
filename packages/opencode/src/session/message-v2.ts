@@ -61,7 +61,16 @@ function truncateToolOutput(text: string, maxChars?: number) {
  */
 export const DEFAULT_TOOL_OUTPUT_MAX_CHARS = 24_000
 
-function toolOutputMaxChars(options?: { toolOutputMaxChars?: number }) {
+/**
+ * Tool outputs that are the model's primary "eyes" on the codebase: the model
+ * reasons about complete file contents, match lines, and search results. For
+ * these, intact output beats token savings — truncating them would materially
+ * hurt generation quality.
+ */
+const UNTRUNCATED_TOOLS = new Set(["read", "edit", "grep", "glob"])
+
+function toolOutputMaxChars(options?: { toolOutputMaxChars?: number }, toolName?: string) {
+  if (toolName && UNTRUNCATED_TOOLS.has(toolName)) return undefined
   if (options?.toolOutputMaxChars !== undefined) return options.toolOutputMaxChars
   const raw = process.env.TRIGLAV_TOOL_OUTPUT_MAX_CHARS
   const parsed = raw && /^\d+$/.test(raw) ? Number(raw) : NaN
@@ -308,7 +317,7 @@ export const toModelMessagesEffect = Effect.fnUntraced(function* (
           if (part.state.status === "completed") {
             const outputText = part.state.time.compacted
               ? "[Old tool result content cleared]"
-              : truncateToolOutput(part.state.output, toolOutputMaxChars(options))
+              : truncateToolOutput(part.state.output, toolOutputMaxChars(options, part.tool))
             const attachments = part.state.time.compacted || options?.stripMedia ? [] : (part.state.attachments ?? [])
 
             // For providers that don't support media in tool results, extract media files

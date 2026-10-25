@@ -19,7 +19,7 @@
 - [x] `vet-skill`: sandbox/vault pipeline for third-party skills (Hermes parity)
 - [x] Auto-close GitHub issues command (`/close-issues`) (Hermes parity)
 - [x] `systematic-debugger` skill alongside `/heal` (Hermes parity)
-- [x] Token efficiency: tool-output cap 24k (`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`) per turn
+- [x] Token efficiency: non-critical tool output capped 24k (`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`) per turn; quality-critical tools (`read`/`edit`/`grep`/`glob`) never truncated
 
 ## Remaining gaps vs Hermes
 - [ ] Auto-close issues via GitHub Actions on PR merge (requires `workflow` scope push; `gh workflow` once GITHUB_TOKEN has access)

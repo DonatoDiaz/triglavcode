@@ -25,7 +25,7 @@
 | Guardrail commands (Hermes-style wrap) | External scripts | Built-in: `/vet-skill`, `/heal`, `/review`, `/parallel`, `/complexity`, `/weekly`, `/tooling`; commit hygiene gate |
 | Auto-fallback to local Ollama | Manual | Native in-binary: `TRIGLAV_FALLBACK_MODEL` (provider down → retry with `ollama/qwen2.5:latest`, notice text injected); also `bin/triglav-router` wrapper |
 | TUI local-model switch | — | `F2` toggles cloud↔local instantly; local models marked with `●` |
-| Token efficiency | Full tool outputs re-sent every turn | Tool-result text capped at 24k chars (`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`); prompt caching for Anthropic/OpenRouter/Bedrock; compaction reserves output window |
+| Token efficiency | Full tool outputs re-sent every turn | Non-critical tool results capped at 24k chars (`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`); quality-critical tools (`read`, `edit`, `grep`, `glob`) are never truncated; prompt caching; compaction reserves output window |
 | Install/run | `opencode` | `triglavcode` (symlink/binary) |
 | Build requirements | — | Bun 1.3.14 (see `BASELINE.md`) |
 
