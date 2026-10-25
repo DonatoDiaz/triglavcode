@@ -20,6 +20,9 @@
 - [x] Авто-close GitHub issues — команда `/close-issues` (паритет с Hermes)
 - [x] Скилл `systematic-debugger` рядом с `/heal` (паритет с Hermes)
 - [x] Экономия токенов: второстепенный вывод тулзов режется до 24k (`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`) на каждом шаге; критичные для качества тулы (`read`/`edit`/`grep`/`glob`) никогда не обрезаются
+- [x] `/status` показывает готовность локального fallback (проверка health Ollama)
+- [x] Команда `triglavcode env` и полная документация `TRIGLAV_*` в README
+- [x] Self-update через GitHub Releases (`TRIGLAV_RELEASES_REPO`, по умолчанию `DonatoDiaz/triglavcode`)
 
 ## Осталось до паритета с Hermes
 - [ ] Авто-close issues через GitHub Actions при мерже PR (нужен push со scope `workflow`)

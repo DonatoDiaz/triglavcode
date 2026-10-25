@@ -20,6 +20,9 @@
 - [x] Auto-close GitHub issues command (`/close-issues`) (Hermes parity)
 - [x] `systematic-debugger` skill alongside `/heal` (Hermes parity)
 - [x] Token efficiency: non-critical tool output capped 24k (`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`) per turn; quality-critical tools (`read`/`edit`/`grep`/`glob`) never truncated
+- [x] `/status` shows local-fallback readiness (Ollama health probe)
+- [x] `triglavcode env` command and full `TRIGLAV_*` docs in README
+- [x] Self-update via GitHub Releases (`TRIGLAV_RELEASES_REPO`, default `DonatoDiaz/triglavcode`)
 
 ## Remaining gaps vs Hermes
 - [ ] Auto-close issues via GitHub Actions on PR merge (requires `workflow` scope push; `gh workflow` once GITHUB_TOKEN has access)

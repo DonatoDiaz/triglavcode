@@ -29,6 +29,25 @@
 | Установка/запуск | `opencode` | `triglavcode` (симлинк/бинарь) |
 | Требования к сборке | — | Bun 1.3.14 (см. `BASELINE.md`) |
 
+## Переменные окружения TriglavCode
+
+| Переменная | По умолчанию | Назначение |
+| --- | --- | --- |
+| `TRIGLAV_SELF_UPDATE` | выкл | `1` включает проверку обновлений (`triglav upgrade`). В fork-сборках по умолчанию выключено. |
+| `TRIGLAV_MODELS_URL` | — | Альтернативный источник каталога моделей/провайдеров (как `OPENCODE_MODELS_URL`). |
+| `TRIGLAV_MODELS_PATH` | — | Путь к локальному файлу каталога моделей вместо URL. |
+| `TRIGLAV_DISABLE_MODELS_FETCH` | выкл | `1` — не загружать каталог моделей. |
+| `TRIGLAV_FALLBACK_MODEL` | — | Запасная модель при недоступности основного провайдера (например `ollama/qwen2.5:latest`). В поток вставляется уведомление. |
+| `TRIGLAV_OLLAMA_URL` | `http://localhost:11434` | Базовый URL для проверки доступности Ollama в `/status`. |
+| `TRIGLAV_TOOL_OUTPUT_MAX_CHARS` | `24000` | Лимит второстепенного вывода тулзов в контекст за шаг. `read`, `edit`, `grep`, `glob` не обрезаются никогда. |
+| `TRIGLAV_RELEASES_REPO` | `DonatoDiaz/triglavcode` | GitHub-репозиторий для `triglav upgrade` (ищет последний релиз `triglav-*`). |
+| `TRIGLAV_PROBE_URL` | `https://api.aitunnel.ru/v1/models` | URL проверки доступности основного провайдера для `bin/triglav-router`. |
+| `TRIGLAV_PROBE_TIMEOUT` | `5` | Таймаут проверки (сек) для `bin/triglav-router`. |
+| `TRIGLAV_ROUTER` | `1` | `0` отключает авто-роутер `bin/triglav-router`. |
+| `TRIGLAV_BIN` | `triglavcode` | Имя бинаря для `bin/triglav-router`. |
+
+Текущие значения: `triglavcode env` (или `triglavcode env --all`).
+
 <p align="center">
   <a href="README.md">English</a> |
   <a href="README.zh.md">简体中文</a> |

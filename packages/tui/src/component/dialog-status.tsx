@@ -3,7 +3,7 @@ import { fileURLToPath } from "bun"
 import { useTheme } from "../context/theme"
 import { useDialog } from "../ui/dialog"
 import { useSync } from "../context/sync"
-import { For, Match, Switch, Show, createMemo } from "solid-js"
+import { For, Match, Switch, Show, createMemo, createResource } from "solid-js"
 
 export type DialogStatusProps = {}
 
@@ -11,6 +11,20 @@ export function DialogStatus() {
   const sync = useSync()
   const { theme } = useTheme()
   const dialog = useDialog()
+
+  const [fallback] = createResource(async () => {
+    const spec = process.env.TRIGLAV_FALLBACK_MODEL
+    const baseURL = process.env.TRIGLAV_OLLAMA_URL ?? "http://localhost:11434"
+    if (!spec) return { spec: undefined as string | undefined, ready: undefined as boolean | undefined }
+    let ready = false
+    try {
+      const res = await fetch(`${baseURL}/api/tags`, { signal: AbortSignal.timeout(1500) })
+      ready = res.ok
+    } catch {
+      ready = false
+    }
+    return { spec, ready }
+  })
 
   const enabledFormatters = createMemo(() => sync.data.formatter.filter((f) => f.enabled))
 
@@ -162,6 +176,31 @@ export function DialogStatus() {
             )}
           </For>
         </box>
+      </Show>
+      <Show when={fallback()}>
+        {(f) => (
+          <box>
+            <text fg={theme.text}>Локальный fallback</text>
+            <box flexDirection="row" gap={1}>
+              <text
+                flexShrink={0}
+                style={{
+                  fg: f().ready ? theme.success : theme.error,
+                }}
+              >
+                •
+              </text>
+              <text wrapMode="word" fg={theme.text}>
+                <b>{f().ready ? "Ollama: доступен" : "Ollama: недоступен"}</b>
+                <span style={{ fg: theme.textMuted }}>
+                  {" "}
+                  {f().spec}
+                  {!f().ready && " (fallback не сработает)"}
+                </span>
+              </text>
+            </box>
+          </box>
+        )}
       </Show>
     </box>
   )

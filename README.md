@@ -29,6 +29,25 @@
 | Install/run | `opencode` | `triglavcode` (symlink/binary) |
 | Build requirements | — | Bun 1.3.14 (see `BASELINE.md`) |
 
+## TriglavCode environment variables
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `TRIGLAV_SELF_UPDATE` | off | Set `1` to enable self-update checks (`triglav upgrade`). Off by default in fork builds. |
+| `TRIGLAV_MODELS_URL` | — | Override the model/provider catalog source (same as `OPENCODE_MODELS_URL`). |
+| `TRIGLAV_MODELS_PATH` | — | Path to a local models catalog file instead of a URL. |
+| `TRIGLAV_DISABLE_MODELS_FETCH` | off | Set `1` to skip fetching the models catalog. |
+| `TRIGLAV_FALLBACK_MODEL` | — | Fallback model used automatically when the primary provider is down (e.g. `ollama/qwen2.5:latest`). Notice text is injected into the stream. |
+| `TRIGLAV_OLLAMA_URL` | `http://localhost:11434` | Base URL used by `/status` to probe local Ollama health. |
+| `TRIGLAV_TOOL_OUTPUT_MAX_CHARS` | `24000` | Cap on non-critical tool-result text sent to the model each turn. `read`, `edit`, `grep` and `glob` are never truncated. |
+| `TRIGLAV_RELEASES_REPO` | `DonatoDiaz/triglavcode` | GitHub repo used by `triglav upgrade` to find the latest `triglav-*` release. |
+| `TRIGLAV_PROBE_URL` | `https://api.aitunnel.ru/v1/models` | Primary-provider health URL for `bin/triglav-router`. |
+| `TRIGLAV_PROBE_TIMEOUT` | `5` | Probe timeout (seconds) for `bin/triglav-router`. |
+| `TRIGLAV_ROUTER` | `1` | Set `0` to disable the `bin/triglav-router` auto-fallback wrapper. |
+| `TRIGLAV_BIN` | `triglavcode` | Binary name used by `bin/triglav-router`. |
+
+Run `triglavcode env` to inspect current values.
+
 <p align="center">
   <a href="README.md">English</a> |
   <a href="README.zh.md">简体中文</a> |
