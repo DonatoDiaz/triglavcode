@@ -21,6 +21,9 @@
 - [ ] Auto-refresh provider/model/status data (low priority)
 - [ ] Review provider presets for Triglav defaults if needed
 - [ ] Verify GUI build once `@solidjs/start` is available
+- [ ] `vet-skill`: add sandbox/vault execution for third-party skills (Hermes parity; currently static audit only)
+- [ ] Auto-close GitHub issues on PR merge (Hermes parity)
+- [ ] Dedicated systematic-debugger skill alongside `/heal` (Hermes parity)
 
 ## Principles
 - Minimal diff vs upstream, keep compatibility keys intact
