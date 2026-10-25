@@ -9,6 +9,7 @@ import path from "path"
 import fs from "fs"
 
 const opencodeDir = path.resolve(import.meta.dirname, "..")
+const repoRoot = path.resolve(opencodeDir, "../..")
 const dictPath = path.join(opencodeDir, "locales", "zh.json")
 const srcDirs = [
   path.join(opencodeDir, "src"),
@@ -16,7 +17,29 @@ const srcDirs = [
   path.join(opencodeDir, "../core/src"),
 ]
 const dict = JSON.parse(fs.readFileSync(dictPath, "utf8")) as Record<string, string>
-const keys = Object.keys(dict).sort((a, b) => b.length - a.length)
+
+// Нормализация: значение должно нести ту же обрамляющую строку, что и ключ.
+// Ключи вида "X" / `X` / 'X' — значение отправляется модели без оболочки, поэтому
+// восстанавливаем её здесь, а не полагаемся на ответ LLM.
+function normalizeDict() {
+  const out: Record<string, string> = {}
+  for (const [k, v] of Object.entries(dict)) {
+    const wrap = k.length >= 2 ? k[0] : ""
+    const closes = k.length >= 2 ? k[k.length - 1] : ""
+    const pairs = [["\"", "\""], ["`", "`"], ["'", "'"]]
+    const matching = pairs.find(([a, b]) => a === wrap && b === closes)
+    if (matching && v.startsWith(matching[0]) && v.endsWith(matching[1])) {
+      out[k] = v
+    } else if (matching) {
+      out[k] = `${matching[0]}${v}${matching[1]}`
+    } else {
+      out[k] = v
+    }
+  }
+  return out
+}
+const normalized = normalizeDict()
+const keys = Object.keys(normalized).sort((a, b) => b.length - a.length)
 
 let changedFiles = 0
 let replacedTotal = 0
@@ -31,7 +54,7 @@ for (const root of srcDirs) {
     for (const k of keys) {
       const count = out.split(k).length - 1
       if (count > 0) {
-        out = out.split(k).join(dict[k])
+        out = out.split(k).join(normalized[k])
         replaced += count
       }
     }
@@ -49,8 +72,7 @@ console.log("Running build...")
 try {
   await $`OPENCODE_VERSION=${process.env.OPENCODE_VERSION ?? "1.18.29-triglav.1"} bun run script/build.ts --single --skip-install --skip-embed-web-ui`.cwd(opencodeDir)
 } finally {
-  // git restore вне зависимости от результата сборки
-  console.log("Restoring sources...")
-  await $`git restore src packages/tui/src packages/core/src`.cwd(process.cwd()).catch(() => {})
+  // git restore вне зависимости от результата сборки (пути от корня репозитория)
+  await $`git restore packages/opencode/src packages/tui/src packages/core/src`.cwd(repoRoot).catch(() => {})
   console.log("Sources restored. Chinese binary in packages/opencode/dist/triglavcode-*/bin/triglavcode")
 }
