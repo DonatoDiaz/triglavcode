@@ -18,9 +18,12 @@
 | TUI/CLI localization | None/minimal | Full localization of user-facing TUI/CLI strings (Russian) |
 | Self-update | Enabled | Disabled (only with `TRIGLAV_SELF_UPDATE=1`) |
 | Local Ollama models + tool calling | Manual setup | Ready fallback: `ollama/qwen2.5:latest`, `ollama/qwen2.5-coder-64k`, `ollama/qwen2.5-coder:7b` (via `opencode-ollama-toolcall-proxy`) |
+| Auto-refresh model/provider catalog | `OPENCODE_MODELS_URL` / `OPENCODE_MODELS_PATH` / `OPENCODE_DISABLE_MODELS_FETCH` | Same + `TRIGLAV_MODELS_URL` / `TRIGLAV_MODELS_PATH` / `TRIGLAV_DISABLE_MODELS_FETCH` (built-in 60-min refresh, 5-min cache TTL) |
 | opencode-rag compatibility | Native | Preserved (`app="opencode"`, `OPENCODE_*`, npm scope unchanged) |
 | README/NOTICE | EN | `README.ru.md`, `NOTICE.ru.md` added |
+| Roadmap | — | `ROADMAP.md`, `ROADMAP.ru.md` |
 | Install/run | `opencode` | `triglavcode` (symlink/binary) |
+| Build requirements | — | Bun 1.3.14 (see `BASELINE.md`) |
 
 <p align="center">
   <a href="README.md">English</a> |

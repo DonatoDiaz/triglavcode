@@ -19,8 +19,11 @@
 | Self-update | Включён | Отключён (только при `TRIGLAV_SELF_UPDATE=1`) |
 | Локальные модели Ollama + tool calling | Требует ручной настройки | Готовый fallback: `ollama/qwen2.5:latest`, `ollama/qwen2.5-coder-64k`, `ollama/qwen2.5-coder:7b` (с плагином `opencode-ollama-toolcall-proxy`) |
 | Совместимость с opencode-rag | Нативная | Сохранена (`app="opencode"`, `OPENCODE_*`, npm-скоуп не изменены) |
+| Автообновление каталога моделей/провайдеров | `OPENCODE_MODELS_URL` / `OPENCODE_MODELS_PATH` / `OPENCODE_DISABLE_MODELS_FETCH` | То же + `TRIGLAV_MODELS_URL` / `TRIGLAV_MODELS_PATH` / `TRIGLAV_DISABLE_MODELS_FETCH` (встроенный рефреш раз в 60 мин, кэш TTL 5 мин) |
 | README/NOTICE | EN | Добавлены `README.ru.md`, `NOTICE.ru.md` |
+| Roadmap | — | `ROADMAP.md`, `ROADMAP.ru.md` |
 | Установка/запуск | `opencode` | `triglavcode` (симлинк/бинарь) |
+| Требования к сборке | — | Bun 1.3.14 (см. `BASELINE.md`) |
 
 <p align="center">
   <a href="README.md">English</a> |
