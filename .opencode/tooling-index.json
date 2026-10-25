@@ -16,6 +16,12 @@
       "path": ".opencode/skills/rtl-aware-development",
       "reputation": "trusted",
       "tags": ["rtl", "i18n", "style"]
+    },
+    {
+      "name": "systematic-debugger",
+      "path": ".opencode/skills/systematic-debugger",
+      "reputation": "trusted",
+      "tags": ["debug", "debugging", "heal", "bisect"]
     }
   ],
   "review": [],

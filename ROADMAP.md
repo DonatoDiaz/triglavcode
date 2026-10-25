@@ -16,14 +16,17 @@
 - [x] Native in-binary fallback (`TRIGLAV_FALLBACK_MODEL`) verified end-to-end
 - [x] TUI F2 local/cloud model toggle + `●` local model indicator
 - [x] CI: `.github/workflows/triglav-release.yml` (Linux/macOS/Windows release builds) — file ready locally; push deferred (needs GitHub `workflow` scope for OAuth token)
+- [x] `vet-skill`: sandbox/vault pipeline for third-party skills (Hermes parity)
+- [x] Auto-close GitHub issues command (`/close-issues`) (Hermes parity)
+- [x] `systematic-debugger` skill alongside `/heal` (Hermes parity)
+
+## Remaining gaps vs Hermes
+- [ ] Auto-close issues via GitHub Actions on PR merge (requires `workflow` scope push; `gh workflow` once GITHUB_TOKEN has access)
 
 ## Planned
 - [ ] Auto-refresh provider/model/status data (low priority)
 - [ ] Review provider presets for Triglav defaults if needed
 - [ ] Verify GUI build once `@solidjs/start` is available
-- [ ] `vet-skill`: add sandbox/vault execution for third-party skills (Hermes parity; currently static audit only)
-- [ ] Auto-close GitHub issues on PR merge (Hermes parity)
-- [ ] Dedicated systematic-debugger skill alongside `/heal` (Hermes parity)
 
 ## Principles
 - Minimal diff vs upstream, keep compatibility keys intact

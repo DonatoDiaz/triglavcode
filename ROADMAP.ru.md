@@ -16,14 +16,17 @@
 - [x] Нативный fallback в бинаре (`TRIGLAV_FALLBACK_MODEL`), проверено end-to-end
 - [x] TUI: `F2` — переключение облако/локально + индикатор `●` локальной модели
 - [x] CI: `.github/workflows/triglav-release.yml` (сборка релизов Linux/macOS/Windows) — файл готов локально; пуш отложен (нужен scope `workflow` у OAuth-токена)
+- [x] `vet-skill`: sandbox/vault-конвейер для сторонних скиллов (паритет с Hermes)
+- [x] Авто-close GitHub issues — команда `/close-issues` (паритет с Hermes)
+- [x] Скилл `systematic-debugger` рядом с `/heal` (паритет с Hermes)
+
+## Осталось до паритета с Hermes
+- [ ] Авто-close issues через GitHub Actions при мерже PR (нужен push со scope `workflow`)
 
 ## В работе / планируется
 - [ ] Автообновление данных (список провайдеров/моделей/статус) — low priority
 - [ ] Уточнить пресеты провайдеров под TriglavCode (при необходимости)
 - [ ] Проверка GUI-сборки при появлении доступа к @solidjs/start
-- [ ] `vet-skill`: sandbox/vault-исполнение сторонних скиллов (паритет с Hermes; пока только статический аудит)
-- [ ] Авто-close GitHub issues при мерже PR (паритет с Hermes)
-- [ ] Отдельный systematic-debugger скилл рядом с `/heal` (паритет с Hermes)
 
 ## Принципы
 - Минимальный diff относительно upstream, без изменения ключей совместимости
