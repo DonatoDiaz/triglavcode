@@ -52,6 +52,22 @@ function truncateToolOutput(text: string, maxChars?: number) {
   return `${text.slice(0, maxChars)}\n[Tool output truncated for compaction: omitted ${omitted} chars]`
 }
 
+/**
+ * Desfault cap for tool-result text sent to the model. Keep the tail of huge
+ * tool outputs (git pointers list, logs, JSON dumps) out of the context window:
+ * models rarely need more than this to reason about a result, and every char
+ * here costs tokens on every provider turn. Override with
+ * TRIGLAV_TOOL_OUTPUT_MAX_CHARS.
+ */
+export const DEFAULT_TOOL_OUTPUT_MAX_CHARS = 24_000
+
+function toolOutputMaxChars(options?: { toolOutputMaxChars?: number }) {
+  if (options?.toolOutputMaxChars !== undefined) return options.toolOutputMaxChars
+  const raw = process.env.TRIGLAV_TOOL_OUTPUT_MAX_CHARS
+  const parsed = raw && /^\d+$/.test(raw) ? Number(raw) : NaN
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : DEFAULT_TOOL_OUTPUT_MAX_CHARS
+}
+
 export const Event = {
   Updated: SessionV1.Event.MessageUpdated,
   Removed: SessionV1.Event.MessageRemoved,
@@ -292,7 +308,7 @@ export const toModelMessagesEffect = Effect.fnUntraced(function* (
           if (part.state.status === "completed") {
             const outputText = part.state.time.compacted
               ? "[Old tool result content cleared]"
-              : truncateToolOutput(part.state.output, options?.toolOutputMaxChars)
+              : truncateToolOutput(part.state.output, toolOutputMaxChars(options))
             const attachments = part.state.time.compacted || options?.stripMedia ? [] : (part.state.attachments ?? [])
 
             // For providers that don't support media in tool results, extract media files

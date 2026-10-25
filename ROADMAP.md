@@ -19,6 +19,7 @@
 - [x] `vet-skill`: sandbox/vault pipeline for third-party skills (Hermes parity)
 - [x] Auto-close GitHub issues command (`/close-issues`) (Hermes parity)
 - [x] `systematic-debugger` skill alongside `/heal` (Hermes parity)
+- [x] Token efficiency: tool-output cap 24k (`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`) per turn
 
 ## Remaining gaps vs Hermes
 - [ ] Auto-close issues via GitHub Actions on PR merge (requires `workflow` scope push; `gh workflow` once GITHUB_TOKEN has access)
@@ -27,6 +28,7 @@
 - [ ] Auto-refresh provider/model/status data (low priority)
 - [ ] Review provider presets for Triglav defaults if needed
 - [ ] Verify GUI build once `@solidjs/start` is available
+- [ ] Adaptive tool-output cap per model context (e.g. 5% of context window)
 
 ## Principles
 - Minimal diff vs upstream, keep compatibility keys intact

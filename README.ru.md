@@ -25,6 +25,7 @@
 | Встроенные guardrails (аналог Hermes-обвязки) | Внешние скрипты/координатор | Нативно: `/vet-skill`, `/heal`, `/review`, `/parallel`, `/complexity`, `/weekly`, `/tooling`; hygiene-gate в `/commit` |
 | Авто-fallback на локальную Ollama | Вручную | Нативно в бинаре: `TRIGLAV_FALLBACK_MODEL` (провайдер недоступен → повтор с `ollama/qwen2.5:latest`, в поток вставляется уведомление); также обёртка `bin/triglav-router` |
 | Быстрое переключение модели в TUI | — | `F2` — мгновенный toggle облако↔локально; локальные модели помечены `●` |
+| Экономия токенов | Полные tool-output отправляются заново в каждом шаге | Вывод тулзов обрезается до 24k символов (`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`); prompt caching для Anthropic/OpenRouter/Bedrock; компакция резервирует окно вывода |
 | Установка/запуск | `opencode` | `triglavcode` (симлинк/бинарь) |
 | Требования к сборке | — | Bun 1.3.14 (см. `BASELINE.md`) |
 
