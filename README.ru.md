@@ -22,6 +22,8 @@
 | Автообновление каталога моделей/провайдеров | `OPENCODE_MODELS_URL` / `OPENCODE_MODELS_PATH` / `OPENCODE_DISABLE_MODELS_FETCH` | То же + `TRIGLAV_MODELS_URL` / `TRIGLAV_MODELS_PATH` / `TRIGLAV_DISABLE_MODELS_FETCH` (встроенный рефреш раз в 60 мин, кэш TTL 5 мин) |
 | README/NOTICE | EN | Добавлены `README.ru.md`, `NOTICE.ru.md` |
 | Roadmap | — | `ROADMAP.md`, `ROADMAP.ru.md` |
+| Встроенные guardrails (аналог Hermes-обвязки) | Внешние скрипты/координатор | Нативно: `/vet-skill`, `/heal`, `/review`, `/parallel`, `/complexity`, `/weekly`, `/tooling`; hygiene-gate в `/commit` |
+| Авто-fallback на локальную Ollama | Вручную | `bin/triglav-router` (проверка основного провайдера → `ollama/qwen2.5:latest`) |
 | Установка/запуск | `opencode` | `triglavcode` (симлинк/бинарь) |
 | Требования к сборке | — | Bun 1.3.14 (см. `BASELINE.md`) |
 

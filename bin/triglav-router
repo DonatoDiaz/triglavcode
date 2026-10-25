@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# TriglavCode auto-router: пробует основной провайдер, при недоступности переключается на локальную Ollama.
+# Проверяет health основного агрегатора (aitunnel) коротким HTTP-запросом.
+# Любой HTTP-ответ (даже 401) = провайдер жив; сетевой отказ/таймаут = fallback на ollama/qwen2.5:latest.
+#
+# Использование: triglav-router [аргументы opencode...]
+#   - основной провайдер: из config model (или --model ...)
+#   - fallback: ollama/qwen2.5:latest
+# Отключить: TRIGLAV_ROUTER=0 triglav-router ...
+
+set -euo pipefail
+
+PROBE_URL="${TRIGLAV_PROBE_URL:-https://api.aitunnel.ru/v1/models}"
+PROBE_TIMEOUT="${TRIGLAV_PROBE_TIMEOUT:-5}"
+FALLBACK_MODEL="${TRIGLAV_FALLBACK_MODEL:-ollama/qwen2.5:latest}"
+OPCODE_BIN="${TRIGLAV_BIN:-triglavcode}"
+
+join() { local IFS=' '; echo "$*"; }
+
+if [[ "${TRIGLAV_ROUTER:-1}" == "0" ]]; then
+  exec "$OPCODE_BIN" "$@"
+fi
+
+args=("$@")
+model_given=0
+for i in "${!args[@]}"; do
+  if [[ "${args[$i]}" == "--model" || "${args[$i]}" == "-m" ]]; then
+    model_given=1
+    break
+  fi
+done
+
+if curl -fsS --max-time "$PROBE_TIMEOUT" -o /dev/null "$PROBE_URL" 2>/dev/null; then
+  exec "$OPCODE_BIN" "${args[@]}"
+fi
+echo "triglav-router: провайдер ${PROBE_URL} недоступен, fallback на ${FALLBACK_MODEL}" >&2
+if [[ "$model_given" == "1" ]]; then
+  echo "triglav-router: --model задан явно, рассматриваю его как локальный/запасной и использую как есть" >&2
+  exec "$OPCODE_BIN" "${args[@]}"
+fi
+exec "$OPCODE_BIN" "${args[@]}" --model "$FALLBACK_MODEL"

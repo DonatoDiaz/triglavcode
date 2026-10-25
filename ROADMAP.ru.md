@@ -10,6 +10,9 @@
 - [x] Локальные модели Ollama + tool calling (fallback): `qwen2.5:latest`, `qwen2.5-coder-64k`, `qwen2.5-coder:7b`
 - [x] Сравнительная таблица TriglavCode vs OpenCode
 - [x] Встроенные команды-guardrails: `vet-skill` (security pipeline), `heal` (цикл авто-починки), `review` (gated PR review), hygiene-gate в `commit`
+- [x] `parallel` (параллельный запуск подзадач), `complexity` (оценка сложности), `weekly` (ретро уроков сессий)
+- [x] `tooling` (репутационный индекс скиллов + `.opencode/tooling-index.json`)
+- [x] `bin/triglav-router` — авто-fallback: основной провайдер недоступен → `ollama/qwen2.5:latest`
 
 ## В работе / планируется
 - [ ] Автообновление данных (список провайдеров/моделей/статус) — low priority

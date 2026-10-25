@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "sources": [
+    ".opencode/skills",
+    ".opencode/command"
+  ],
+  "trusted": [
+    {
+      "name": "effect",
+      "path": ".opencode/skills/effect",
+      "reputation": "trusted",
+      "tags": ["effect", "tp", "sdk"]
+    },
+    {
+      "name": "rtl-aware-development",
+      "path": ".opencode/skills/rtl-aware-development",
+      "reputation": "trusted",
+      "tags": ["rtl", "i18n", "style"]
+    }
+  ],
+  "review": [],
+  "quarantine": []
+}

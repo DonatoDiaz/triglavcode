@@ -22,6 +22,8 @@
 | opencode-rag compatibility | Native | Preserved (`app="opencode"`, `OPENCODE_*`, npm scope unchanged) |
 | README/NOTICE | EN | `README.ru.md`, `NOTICE.ru.md` added |
 | Roadmap | — | `ROADMAP.md`, `ROADMAP.ru.md` |
+| Guardrail commands (Hermes-style wrap) | External scripts | Built-in: `/vet-skill`, `/heal`, `/review`, `/parallel`, `/complexity`, `/weekly`, `/tooling`; commit hygiene gate |
+| Auto-fallback to local Ollama | Manual | `bin/triglav-router` (probe primary provider → `ollama/qwen2.5:latest`) |
 | Install/run | `opencode` | `triglavcode` (symlink/binary) |
 | Build requirements | — | Bun 1.3.14 (see `BASELINE.md`) |
 

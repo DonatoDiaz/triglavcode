@@ -10,6 +10,9 @@
 - [x] Local Ollama models with tool calling fallback: `qwen2.5:latest`, `qwen2.5-coder-64k`, `qwen2.5-coder:7b`
 - [x] Comparison table added to README
 - [x] Built-in guardrail commands: `vet-skill` (security pipeline), `heal` (auto-heal loop), `review` (gated PR review), `commit` hygiene gate
+- [x] `parallel` (parallel dispatch), `complexity` (triage), `weekly` (session lessons retro)
+- [x] `tooling` (dynamic/reputation-gated skill index + `.opencode/tooling-index.json`)
+- [x] `bin/triglav-router` auto-fallback: primary provider down → `ollama/qwen2.5:latest`
 
 ## Planned
 - [ ] Auto-refresh provider/model/status data (low priority)
