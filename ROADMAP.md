@@ -15,7 +15,7 @@
 - [x] `bin/triglav-router` auto-fallback: primary provider down → `ollama/qwen2.5:latest`
 - [x] Native in-binary fallback (`TRIGLAV_FALLBACK_MODEL`) verified end-to-end
 - [x] TUI F2 local/cloud model toggle + `●` local model indicator
-- [x] CI: `.github/workflows/triglav-release.yml` (Linux/macOS/Windows release builds)
+- [x] CI: `.github/workflows/triglav-release.yml` (Linux/macOS/Windows release builds) — file ready locally; push deferred (needs GitHub `workflow` scope for OAuth token)
 
 ## Planned
 - [ ] Auto-refresh provider/model/status data (low priority)

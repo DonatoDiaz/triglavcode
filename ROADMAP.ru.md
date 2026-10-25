@@ -15,7 +15,7 @@
 - [x] `bin/triglav-router` — авто-fallback: основной провайдер недоступен → `ollama/qwen2.5:latest`
 - [x] Нативный fallback в бинаре (`TRIGLAV_FALLBACK_MODEL`), проверено end-to-end
 - [x] TUI: `F2` — переключение облако/локально + индикатор `●` локальной модели
-- [x] CI: `.github/workflows/triglav-release.yml` (сборка релизов Linux/macOS/Windows)
+- [x] CI: `.github/workflows/triglav-release.yml` (сборка релизов Linux/macOS/Windows) — файл готов локально; пуш отложен (нужен scope `workflow` у OAuth-токена)
 
 ## В работе / планируется
 - [ ] Автообновление данных (список провайдеров/моделей/статус) — low priority
