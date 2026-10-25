@@ -79,25 +79,52 @@
 
 ### Установка
 
-TriglavCode распространяется как standalone-бинарник. Скачайте последний релиз со
-[страницы релизов](https://github.com/DonatoDiaz/triglavcode/releases) или соберите из исходников:
+TriglavCode распространяется в виде готовых бинарников для Linux и Windows на двух локализациях:
+**RU** (по умолчанию) и **ZH** (中文). Последний релиз — [страница релизов](https://github.com/DonatoDiaz/triglavcode/releases).
+
+| Файл | Платформа | Интерфейс / Язык |
+| --- | --- | --- |
+| `triglavcode` | Linux x64 | TUI+web GUI / RU |
+| `triglavcode-windows-x64-gui.zip` | Windows x64 | TUI+web GUI / RU |
+| `triglavcode-windows-arm64-gui.zip` | Windows arm64 | TUI+web GUI / RU |
+| `triglavcode-linux-x64-zh.zip` | Linux x64 | TUI+web GUI / 中文 |
+| `triglavcode-windows-x64-zh.zip` | Windows x64 | TUI+web GUI / 中文 |
+| `triglavcode-windows-arm64-zh.zip` | Windows arm64 | TUI+web GUI / 中文 |
+
+В Linux распакуйте и добавьте в `PATH` (например, симлинком):
+
+```bash
+mkdir -p ~/.local/bin
+ln -s "$PWD/triglavcode" ~/.local/bin/triglavcode
+```
+
+В Windows распакуйте архив и добавьте папку в `PATH`, запустите `triglavcode`.
+
+Встроенный веб-GUI доступен командой `triglavcode web`.
+
+Сборка из исходников:
 
 ```bash
 # Требуется Bun 1.3.14 (см. BASELINE.md)
 bun run --cwd packages/opencode build:triglav
 # Результат: packages/opencode/dist/triglavcode-linux-x64/bin/triglavcode
-```
 
-Затем положите бинарь в `PATH` (например, симлинк в `~/.local/bin/triglavcode`).
+# Китайская сборка:
+bun run --cwd packages/opencode script/build-zh.ts            # Linux
+bun run --cwd packages/opencode script/build-zh.ts --os=win32 # Windows
+```
 
 ### Использование
 
 ```bash
 triglavcode                 # запуск TUI
-triglavcode run "почини тесты"   # разовый запуск
+triglavcode web             # встроенный веб-GUI
+triglavcode run "исправь тесты"   # разовый запуск
 triglavcode serve           # headless-сервер
 triglavcode env             # показать все переменные TRIGLAV_*
 ```
+
+Нажмите `F2` в TUI для переключения облако ↔ локально (Ollama). Локальные модели помечены `●`.
 
 ### Agents
 

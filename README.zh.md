@@ -1,128 +1,94 @@
+<h1 align="center">TRIGLAVCODE</h1>
 <p align="center">
-  <a href="https://opencode.ai">
-    <picture>
-      <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
-      <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="OpenCode logo">
-    </picture>
-  </a>
-</p>
-<p align="center">开源的 AI Coding Agent。</p>
-<p align="center">
-  <a href="https://opencode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/opencode-ai"><img alt="npm" src="https://img.shields.io/npm/v/opencode-ai?style=flat-square" /></a>
-  <a href="https://github.com/anomalyco/opencode/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/anomalyco/opencode/publish.yml?style=flat-square&branch=dev" /></a>
+  <a href="README.md">English</a> | <a href="README.ru.md">Русский</a> | <a href="README.zh.md">中文</a>
 </p>
 
-<p align="center">
-  <a href="README.md">English</a> |
-  <a href="README.zh.md">简体中文</a> |
-  <a href="README.zht.md">繁體中文</a> |
-  <a href="README.ko.md">한국어</a> |
-  <a href="README.de.md">Deutsch</a> |
-  <a href="README.es.md">Español</a> |
-  <a href="README.fr.md">Français</a> |
-  <a href="README.it.md">Italiano</a> |
-  <a href="README.da.md">Dansk</a> |
-  <a href="README.ja.md">日本語</a> |
-  <a href="README.pl.md">Polski</a> |
-  <a href="README.ru.md">Русский</a> |
-  <a href="README.bs.md">Bosanski</a> |
-  <a href="README.ar.md">العربية</a> |
-  <a href="README.no.md">Norsk</a> |
-  <a href="README.br.md">Português (Brasil)</a> |
-  <a href="README.th.md">ไทย</a> |
-  <a href="README.tr.md">Türkçe</a> |
-  <a href="README.uk.md">Українська</a> |
-  <a href="README.bn.md">বাংলা</a> |
-  <a href="README.gr.md">Ελληνικά</a> |
-  <a href="README.vi.md">Tiếng Việt</a>
-</p>
+> [!IMPORTANT]
+> TriglavCode 是基于 [opencode](https://github.com/anomalyco/opencode) v1.18.29 的深度定制分支。
+> 目标是提供俄语/中文界面、原生 Ollama 本地降级、Token 节省以及内置的防护命令。
 
-[![OpenCode Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://opencode.ai)
+## 特性
+
+- **多语言界面** — TUI/CLI 支持俄语（RU）和中文（ZH），通过不同构建包分发。
+- **嵌入式 Web GUI** — 二进制内置前端，运行 `triglavcode web` 即可打开浏览器界面。
+- **原生自动降级** — 设置 `TRIGLAV_FALLBACK_MODEL`（如 `ollama/qwen2.5-coder:7b`）即可在云端失败时自动切换到本地模型。TUI 中 `F2` 切换云端/本地，`●` 标识本地模型。
+- **Ollama 工具调用代理** — 兼容 Qwen/Coder 等不完全遵循 OpenAI 工具调用格式的 Ollama 模型。
+- **Token 优化** — 对次要工具输出进行截断（`TRIGLAV_TOOL_OUTPUT_MAX_CHARS`，默认 24000），但 `read/edit/grep/glob` 输出永不截断。
+- **防护命令** — `/vet-skill`、`/heal`、`/review`、`/parallel`、`/complexity`、`/weekly`、`/tooling`、`/close-issues`、`/rmslop`，以及 `/commit` 的 hygiene-gate。
+- **沙箱 Agent** — `.opencode/agent/sandbox.md`，默认只读工具，`bash` 需显式批准，供 `/vet-skill` 隔离审查。
+- **本地模型管理** — `/status` 可检查 Ollama 健康状态，`triglavcode env` 查看全部 `TRIGLAV_*` 配置。
+- **自更新** — 默认关闭，设置 `TRIGLAV_SELF_UPDATE=1` 并使用 GitHub Releases 源 `TRIGLAV_RELEASES_REPO`。
+- **Triglav 主题** — 深色配色，自定义 ASCII Logo。
+
+## 安装
+
+TriglavCode 提供 Linux、Windows 的独立二进制包，支持两种语言：**RU**（默认）和 **ZH**（中文）。
+
+最新版本请前往 [Releases 页面](https://github.com/DonatoDiaz/triglavcode/releases) 下载：
+
+| 文件 | 平台 | 界面 / 语言 |
+| --- | --- | --- |
+| `triglavcode` | Linux x64 | TUI + Web GUI / RU |
+| `triglavcode-windows-x64-gui.zip` | Windows x64 | TUI + Web GUI / RU |
+| `triglavcode-windows-arm64-gui.zip` | Windows arm64 | TUI + Web GUI / RU |
+| `triglavcode-linux-x64-zh.zip` | Linux x64 | TUI + Web GUI / 中文 |
+| `triglavcode-windows-x64-zh.zip` | Windows x64 | TUI + Web GUI / 中文 |
+| `triglavcode-windows-arm64-zh.zip` | Windows arm64 | TUI + Web GUI / 中文 |
+
+**Linux：** 解压后将二进制放入 `PATH`（如创建软链接）：
+
+```bash
+mkdir -p ~/.local/bin
+ln -s "$PWD/triglavcode" ~/.local/bin/triglavcode
+```
+
+**Windows：** 解压 ZIP，将文件夹添加到 `PATH`，然后运行 `triglavcode`。
+
+内置 Web GUI：运行 `triglavcode web`，浏览器会自动打开或显示链接。
+
+### 从源码构建
+
+需要 **Bun 1.3.14**（参见 [BASELINE.md](BASELINE.md)）：
+
+```bash
+# 构建默认（RU）版本
+bun run --cwd packages/opencode build:triglav
+# 输出：packages/opencode/dist/triglavcode-linux-x64/bin/triglavcode
+
+# 构建中文（ZH）版本
+bun run --cwd packages/opencode script/build-zh.ts            # Linux
+bun run --cwd packages/opencode script/build-zh.ts --os=win32 # Windows
+```
+
+## 使用方法
+
+```bash
+triglavcode                 # 启动 TUI
+triglavcode web             # 启动嵌入式 Web GUI
+triglavcode run "修复测试"   # 一次性运行
+triglavcode serve           # 无头服务模式
+triglavcode env             # 查看所有 TRIGLAV_* 环境变量
+```
+
+在 TUI 中按 `F2` 切换云端/本地（Ollama）模型。本地模型会标记 `●`。
+
+## Agent
+
+TriglavCode 包含上游的所有 agent，额外新增 **sandbox**（`.opencode/agent/sandbox.md`）：
+默认只读工具，`bash` 必须显式确认。该 agent 用于 `/vet-skill` 在隔离环境中运行审查类 skill。
+
+## 文档
+
+- [README.md](README.md) — English
+- [README.ru.md](README.ru.md) — Русский
+- [ROADMAP.md](ROADMAP.md) — 开发路线
+- [BASELINE.md](BASELINE.md) — 构建基线与工具链
+- [NOTICE](NOTICE) — 归属声明
+
+## 贡献
+
+本项目是 [anomalyco/opencode](https://github.com/anomalyco/opencode) 的精简 fork。请保留兼容性键（`app = "opencode"`、`OPENCODE_*`、npm scope `@opencode-ai/*`）——`opencode-rag` 依赖这些键。
 
 ---
 
-### 安装
-
-```bash
-# 直接安装 (YOLO)
-curl -fsSL https://opencode.ai/install | bash
-
-# 软件包管理器
-npm i -g opencode-ai@latest        # 也可使用 bun/pnpm/yarn
-scoop install opencode             # Windows
-choco install opencode             # Windows
-brew install anomalyco/tap/opencode # macOS 和 Linux（推荐，始终保持最新）
-brew install opencode              # macOS 和 Linux（官方 brew formula，更新频率较低）
-sudo pacman -S opencode            # Arch Linux (Stable)
-paru -S opencode-bin               # Arch Linux (Latest from AUR)
-mise use -g opencode               # 任意系统
-nix run nixpkgs#opencode           # 或用 github:anomalyco/opencode 获取最新 dev 分支
-```
-
-> [!TIP]
-> 安装前请先移除 0.1.x 之前的旧版本。
-
-### 桌面应用程序 (BETA)
-
-OpenCode 也提供桌面版应用。可直接从 [发布页 (releases page)](https://github.com/anomalyco/opencode/releases) 或 [opencode.ai/download](https://opencode.ai/download) 下载。
-
-| 平台                  | 下载文件                           |
-| --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `opencode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `opencode-desktop-mac-x64.dmg`     |
-| Windows               | `opencode-desktop-windows-x64.exe` |
-| Linux                 | `.deb`、`.rpm` 或 AppImage         |
-
-```bash
-# macOS (Homebrew Cask)
-brew install --cask opencode-desktop
-# Windows (Scoop)
-scoop bucket add extras; scoop install extras/opencode-desktop
-```
-
-#### 安装目录
-
-安装脚本按照以下优先级决定安装路径：
-
-1. `$OPENCODE_INSTALL_DIR` - 自定义安装目录
-2. `$XDG_BIN_DIR` - 符合 XDG 基础目录规范的路径
-3. `$HOME/bin` - 如果存在或可创建的用户二进制目录
-4. `$HOME/.opencode/bin` - 默认备用路径
-
-```bash
-# 示例
-OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://opencode.ai/install | bash
-```
-
-### Agents
-
-OpenCode 内置两种 Agent，可用 `Tab` 键快速切换：
-
-- **build** - 默认模式，具备完整权限，适合开发工作
-- **plan** - 只读模式，适合代码分析与探索
-  - 默认拒绝修改文件
-  - 运行 bash 命令前会询问
-  - 便于探索未知代码库或规划改动
-
-另外还包含一个 **general** 子 Agent，用于复杂搜索和多步任务，内部使用，也可在消息中输入 `@general` 调用。
-
-了解更多 [Agents](https://opencode.ai/docs/agents) 相关信息。
-
-### 文档
-
-更多配置说明请查看我们的 [**官方文档**](https://opencode.ai/docs)。
-
-### 参与贡献
-
-如有兴趣贡献代码，请在提交 PR 前阅读 [贡献指南 (Contributing Docs)](./CONTRIBUTING.md)。
-
-### 基于 OpenCode 进行开发
-
-如果你在项目名中使用了 “opencode”（如 “opencode-dashboard” 或 “opencode-mobile”），请在 README 里注明该项目不是 OpenCode 团队官方开发，且不存在隶属关系。
-
----
-
-**加入我们的社区** [飞书](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=52ao9352-5623-4fa0-b7dd-3407c392c1af&qr_code=true) | [X.com](https://x.com/opencode)
+**社区（原始项目）** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)

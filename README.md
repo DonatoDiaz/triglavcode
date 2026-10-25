@@ -79,25 +79,55 @@ Run `triglavcode env` to inspect current values.
 
 ### Installation
 
-TriglavCode is distributed as a standalone binary. Grab the latest release from the
-[Releases page](https://github.com/DonatoDiaz/triglavcode/releases), or build from source:
+TriglavCode ships as standalone binaries for Linux and Windows, in two locales:
+**RU** (default) and **ZH** (中文). Grab the latest release from the
+[Releases page](https://github.com/DonatoDiaz/triglavcode/releases):
+
+| Asset | Platform | UI / Locale |
+| --- | --- | --- |
+| `triglavcode` | Linux x64 | TUI+web GUI / RU |
+| `triglavcode-windows-x64-gui.zip` | Windows x64 | TUI+web GUI / RU |
+| `triglavcode-windows-arm64-gui.zip` | Windows arm64 | TUI+web GUI / RU |
+| `triglavcode-linux-x64-zh.zip` | Linux x64 | TUI+web GUI / 中文 |
+| `triglavcode-windows-x64-zh.zip` | Windows x64 | TUI+web GUI / 中文 |
+| `triglavcode-windows-arm64-zh.zip` | Windows arm64 | TUI+web GUI / 中文 |
+
+On Linux, unzip and symlink the binary into your `PATH`:
+
+```bash
+mkdir -p ~/.local/bin
+ln -s "$PWD/triglavcode" ~/.local/bin/triglavcode
+```
+
+On Windows, unzip and add the folder to `PATH`, then run `triglavcode`.
+
+The GUI/web UI is embedded in the binary — run `triglavcode web` and open the
+printed URL, or just use the terminal TUI (`triglavcode`).
+
+Or build from source:
 
 ```bash
 # Requires Bun 1.3.14 (see BASELINE.md)
 bun run --cwd packages/opencode build:triglav
 # Output: packages/opencode/dist/triglavcode-linux-x64/bin/triglavcode
-```
 
-Then put the binary on your `PATH` (e.g. symlink it to `~/.local/bin/triglavcode`).
+# Chinese build:
+bun run --cwd packages/opencode script/build-zh.ts            # Linux
+bun run --cwd packages/opencode script/build-zh.ts --os=win32 # Windows
+```
 
 ### Usage
 
 ```bash
 triglavcode                 # start TUI
+triglavcode web             # launch embedded web GUI
 triglavcode run "fix the tests"   # one-shot run
 triglavcode serve           # headless server
 triglavcode env             # inspect all TRIGLAV_* variables
 ```
+
+Press `F2` inside the TUI to toggle between cloud and local (Ollama) models;
+local models are marked with `●`.
 
 ### Agents
 
