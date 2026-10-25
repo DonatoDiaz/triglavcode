@@ -12,7 +12,7 @@
     "bench:test": "bun run script/bench-test-suite.ts",
     "profile:test": "bun run script/profile-test-files.ts",
     "build": "bun run script/build.ts",
-    "build:triglav": "OPENCODE_VERSION=1.18.29-triglav.1 bun run script/build.ts --single --skip-install --skip-embed-web-ui",
+    "build:triglav": "OPENCODE_VERSION=1.18.29-triglav.1 bun run script/build.ts --single --skip-install ",
     "dev": "bun run ./src/index.ts",
     "dev:temporary": "bun run ./src/temporary.ts"
   },
