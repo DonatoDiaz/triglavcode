@@ -23,6 +23,7 @@
 - [x] `/status` shows local-fallback readiness (Ollama health probe)
 - [x] `triglavcode env` command and full `TRIGLAV_*` docs in README
 - [x] Self-update via GitHub Releases (`TRIGLAV_RELEASES_REPO`, default `DonatoDiaz/triglavcode`)
+- [x] Sandbox agent (`.opencode/agent/sandbox.md`): read-only tools + bash-on-ask; `/vet-skill` runs `review` skills through it
 
 ## Remaining gaps vs Hermes
 - [ ] Auto-close issues via GitHub Actions on PR merge (requires `workflow` scope push; `gh workflow` once GITHUB_TOKEN has access)

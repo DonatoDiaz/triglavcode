@@ -23,6 +23,7 @@
 - [x] `/status` показывает готовность локального fallback (проверка health Ollama)
 - [x] Команда `triglavcode env` и полная документация `TRIGLAV_*` в README
 - [x] Self-update через GitHub Releases (`TRIGLAV_RELEASES_REPO`, по умолчанию `DonatoDiaz/triglavcode`)
+- [x] Агент-песочница (`.opencode/agent/sandbox.md`): read-only инструменты + bash через подтверждение; `/vet-skill` прогоняет `review`-скиллы через него
 
 ## Осталось до паритета с Hermes
 - [ ] Авто-close issues через GitHub Actions при мерже PR (нужен push со scope `workflow`)
