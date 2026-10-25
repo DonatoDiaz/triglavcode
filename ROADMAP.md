@@ -9,6 +9,7 @@
 - [x] Preserved opencode-rag compatibility (`app="opencode"`, `OPENCODE_*`)
 - [x] Local Ollama models with tool calling fallback: `qwen2.5:latest`, `qwen2.5-coder-64k`, `qwen2.5-coder:7b`
 - [x] Comparison table added to README
+- [x] Built-in guardrail commands: `vet-skill` (security pipeline), `heal` (auto-heal loop), `review` (gated PR review), `commit` hygiene gate
 
 ## Planned
 - [ ] Auto-refresh provider/model/status data (low priority)

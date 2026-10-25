@@ -9,6 +9,7 @@
 - [x] Сохранена совместимость с opencode-rag (`app="opencode"`, `OPENCODE_*`)
 - [x] Локальные модели Ollama + tool calling (fallback): `qwen2.5:latest`, `qwen2.5-coder-64k`, `qwen2.5-coder:7b`
 - [x] Сравнительная таблица TriglavCode vs OpenCode
+- [x] Встроенные команды-guardrails: `vet-skill` (security pipeline), `heal` (цикл авто-починки), `review` (gated PR review), hygiene-gate в `commit`
 
 ## В работе / планируется
 - [ ] Автообновление данных (список провайдеров/моделей/статус) — low priority

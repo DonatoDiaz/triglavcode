@@ -24,6 +24,17 @@ about what user facing changes were made
 
 if there are conflicts DO NOT FIX THEM. notify me and I will fix them
 
+## Hygiene gate (выполни ДО коммита)
+
+Проверь staged diff по чек-листу. Если что-то найдено — НЕ коммить, остановись и сообщи:
+
+- Секреты и ключи: `.env`, api-токены, пароли, приватные ключи
+- Отладочный мусор: `console.log`, `debugger`, `print()`
+- Конфликтные маркеры: `<<<<<<<`, `=======`, `>>>>>>>`
+- Болванки: `TODO`, `FIXME`, зашитые пути `/path/to/`, `example.com`
+- Лишние бинарники и сгенерированный мусор (dist, node_modules, .cache)
+- AI-слоп и неаккуратности стиля (см. `/rmslop` при необходимости)
+
 ## GIT DIFF
 
 !`git diff`
