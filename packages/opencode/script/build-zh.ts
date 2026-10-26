@@ -75,7 +75,7 @@ console.log("Running build...")
 try {
   const buildArgs = []
   if (process.env.OPENCODE_VERSION) buildArgs.push(`OPENCODE_VERSION=${process.env.OPENCODE_VERSION}`)
-  await $`${buildArgs.length ? buildArgs.join(" ") + " " : ""}bun run script/build.ts --os=${targetOs} --skip-install --skip-embed-web-ui`.cwd(opencodeDir)
+  await $`${buildArgs.length ? buildArgs.join(" ") + " " : ""}bun run script/build.ts --os=${targetOs} --skip-install`.cwd(opencodeDir)
 } finally {
   // git restore вне зависимости от результата сборки (пути от корня репозитория)
   await $`git restore packages/opencode/src packages/tui/src packages/core/src`.cwd(repoRoot).catch(() => {})
