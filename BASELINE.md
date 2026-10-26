@@ -51,7 +51,7 @@ packages/session-ui/src/v2/components/prompt-input/index.tsx:163
 | lint (root `oxlint`) | 1 error (та же upstream), 4902 warnings |
 | test `packages/opencode` | **3562 pass / 22 skip / 1 todo / 0 fail** (254 файла, 285 с) |
 | test `packages/tui` | **193 pass / 1 skip / 0 fail** (45 файлов, 5.4 с) |
-| сборка | `dist/triglavcode-linux-x64/bin/triglavcode`, `--version` = `1.18.29-triglav.1` |
+| сборка | `dist/triglavcode-linux-x64/bin/triglavcode`, `--version` = `1.18.29-triglav.2` |
 
 - Удалены 9 неактуальных тестов `installation` (self-update отключён, см. ниже);
   остальные 3 проверяют отключённое поведение и определение метода установки.
@@ -80,7 +80,7 @@ packages/session-ui/src/v2/components/prompt-input/index.tsx:163
 
 ```
 cd packages/opencode
-OPENCODE_VERSION=1.18.29-triglav.1 ~/.bun/bin/bun run script/build.ts \
+OPENCODE_VERSION=1.18.29-triglav.2 ~/.bun/bin/bun run script/build.ts \
   --single --skip-install --skip-embed-web-ui
 ```
 
