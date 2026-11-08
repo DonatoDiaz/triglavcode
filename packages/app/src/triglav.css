@@ -1,38 +1,43 @@
-/* TriglavCode aggressive palette (dark-first, blood / ember / violet) */
+/* TriglavCode — purple hacker palette (dark-first). Mirrors the TUI theme. */
 :root {
-  --v2-background-bg-deep: #fdf7f8;
-  --v2-background-bg-base: #f9eff1;
-  --v2-background-bg-layer-01: #f4e7ea;
-  --v2-background-bg-layer-02: #ecdde1;
-  --v2-background-bg-accent: #c2183a;
-  --v2-text-text-base: #1a0d12;
-  --v2-text-text-accent: #c2183a;
-  --v2-text-text-accent-hover: #a5122f;
-  --v2-icon-icon-accent: #c2183a;
-  --v2-icon-icon-accent-hover: #a5122f;
-  --v2-border-border-base: rgba(194, 24, 58, 0.22);
-  --surface-brand-base: #c2183a;
-  --surface-brand-hover: #a5122f;
-  --border-selected: #c2183a;
-  --icon-base: #6b4650;
+  --v2-background-bg-deep: #fdf8ff;
+  --v2-background-bg-base: #f6f0ff;
+  --v2-background-bg-layer-01: #efe4fb;
+  --v2-background-bg-layer-02: #e6d7f7;
+  --v2-background-bg-accent: #7a1fa8;
+  --v2-text-text-base: #1a0a2a;
+  --v2-text-text-accent: #a3157f;
+  --v2-text-text-accent-hover: #c2188f;
+  --v2-icon-icon-accent: #7a1fa8;
+  --v2-icon-icon-accent-hover: #a3157f;
+  --v2-border-border-base: rgba(122, 31, 168, 0.22);
+  --surface-brand-base: #7a1fa8;
+  --surface-brand-hover: #a3157f;
+  --border-selected: #7a1fa8;
+  --icon-base: #6a4c93;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --v2-background-bg-deep: #070407;
-    --v2-background-bg-base: #0f080c;
-    --v2-background-bg-layer-01: #171016;
-    --v2-background-bg-layer-02: #1f141b;
-    --v2-background-bg-accent: #ff1e3c;
-    --v2-text-text-base: #f5e6ea;
-    --v2-text-text-accent: #ff5c73;
-    --v2-text-text-accent-hover: #ff8095;
-    --v2-icon-icon-accent: #ff1e3c;
-    --v2-icon-icon-accent-hover: #ff5c73;
-    --v2-border-border-base: rgba(255, 30, 60, 0.2);
-    --surface-brand-base: #ff1e3c;
-    --surface-brand-hover: #ff4058;
-    --border-selected: #ff1e3c;
-    --icon-base: #c48f9e;
+    --v2-background-bg-deep: #08020d;
+    --v2-background-bg-base: #0d0512;
+    --v2-background-bg-layer-01: #14001f;
+    --v2-background-bg-layer-02: #1a0033;
+    --v2-background-bg-accent: #b026ff;
+    --v2-text-text-base: #e0c8ff;
+    --v2-text-text-accent: #ff2bd6;
+    --v2-text-text-accent-hover: #ff79ff;
+    --v2-icon-icon-accent: #ff2bd6;
+    --v2-icon-icon-accent-hover: #ff79ff;
+    --v2-border-border-base: rgba(176, 38, 255, 0.2);
+    --surface-brand-base: #b026ff;
+    --surface-brand-hover: #ff2bd6;
+    --border-selected: #b026ff;
+    --icon-base: #c77dff;
   }
+}
+
+html,
+body {
+  background-color: var(--v2-background-bg-base);
 }

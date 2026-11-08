@@ -25,8 +25,17 @@
 - [x] Self-update via GitHub Releases (`TRIGLAV_RELEASES_REPO`, default `DonatoDiaz/triglavcode`)
 - [x] Sandbox agent (`.opencode/agent/sandbox.md`): read-only tools + bash-on-ask; `/vet-skill` runs `review` skills through it
 
+## Done (plugins, custom `.opencode/plugins`)
+- [x] `usage-analytics`: local SQLite token/cost/tool tracking + `usage_stats` tool (cost shown in CNY + RUB)
+- [x] `auto-learn`: per-session activity log (`.opencode/learnings/sessions.jsonl`, falls back to `~/.local/share/triglavcode/learnings/<hash>` when the worktree is read-only) + compaction context injection
+- [x] `auto-close-issues`: `close_linked_issues` tool (fixes/closes/resolves #N) + opt-in `TRIGLAV_AUTOCLOSE=1`
+- [x] `rag-auto-context`: injects `opencode-rag` hits into system prompt + `rag_query` tool + optional auto-index
+- [x] `decision-log`: MADR records in `docs/adr` (`adr_add` / `adr_list`) + compaction context
+- [x] `statusline` TUI plugin: model, local/cloud, branch, session tokens/cost, Ollama health
+- [x] Theme `triglav` aligned with the VSCode "Triglav Hacker" palette (built-in asset + `~/.opencode/themes/triglav.json` override)
+
 ## Remaining gaps vs Hermes
-- [ ] Auto-close issues via GitHub Actions on PR merge (requires `workflow` scope push; `gh workflow` once GITHUB_TOKEN has access)
+- [x] Auto-close issues on merge — handled by the `auto-close-issues` plugin (`close_linked_issues`); GitHub Actions route no longer required
 
 ## Planned
 - [ ] Auto-refresh provider/model/status data (low priority)

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "version": "1.18.29",
+  "version": "1.19.0-triglav.1",
   "name": "opencode",
   "type": "module",
   "license": "MIT",

@@ -1,17 +1,17 @@
 {
-  "name": "opencode",
-  "displayName": "opencode",
-  "description": "opencode for VS Code",
-  "version": "1.18.29",
-  "publisher": "sst-dev",
+  "name": "triglavcode",
+  "displayName": "TriglavCode",
+  "description": "TriglavCode AI coding agent for VS Code, with the Triglav Hacker purple theme",
+  "version": "1.19.0-triglav.1",
+  "publisher": "donatodiaz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anomalyco/opencode"
+    "url": "https://github.com/DonatoDiaz/triglavcode"
   },
   "license": "MIT",
   "icon": "images/icon.png",
   "galleryBanner": {
-    "color": "#000000",
+    "color": "#1a0033",
     "theme": "dark"
   },
   "engines": {
@@ -25,58 +25,65 @@
   "contributes": {
     "commands": [
       {
-        "command": "opencode.openTerminal",
-        "title": "Open opencode",
+        "command": "triglavcode.openTerminal",
+        "title": "Open TriglavCode",
         "icon": {
           "light": "images/button-dark.svg",
           "dark": "images/button-light.svg"
         }
       },
       {
-        "command": "opencode.openNewTerminal",
-        "title": "Open opencode in new tab",
+        "command": "triglavcode.openNewTerminal",
+        "title": "Open TriglavCode in new tab",
         "icon": {
           "light": "images/button-dark.svg",
           "dark": "images/button-light.svg"
         }
       },
       {
-        "command": "opencode.addFilepathToTerminal",
-        "title": "Add Filepath to Terminal"
+        "command": "triglavcode.addFilepathToTerminal",
+        "title": "Add Filepath to TriglavCode"
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "opencode.openNewTerminal",
+          "command": "triglavcode.openNewTerminal",
           "group": "navigation"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "opencode.openTerminal",
-        "title": "Run opencode",
+        "command": "triglavcode.openTerminal",
+        "title": "Run TriglavCode",
         "key": "cmd+escape",
         "mac": "cmd+escape",
         "win": "ctrl+escape",
         "linux": "ctrl+escape"
       },
       {
-        "command": "opencode.openNewTerminal",
-        "title": "Run opencode",
+        "command": "triglavcode.openNewTerminal",
+        "title": "Run TriglavCode",
         "key": "cmd+shift+escape",
         "mac": "cmd+shift+escape",
         "win": "ctrl+shift+escape",
         "linux": "ctrl+shift+escape"
       },
       {
-        "command": "opencode.addFilepathToTerminal",
-        "title": "opencode: Insert At-Mentioned",
+        "command": "triglavcode.addFilepathToTerminal",
+        "title": "TriglavCode: Insert At-Mentioned",
         "key": "cmd+alt+k",
         "mac": "cmd+alt+k",
         "win": "ctrl+alt+K",
         "linux": "ctrl+alt+K"
+      }
+    ],
+    "themes": [
+      {
+        "label": "Triglav Hacker",
+        "uiTheme": "vs-dark",
+        "path": "./themes/triglav-hacker-color-theme.json"
       }
     ]
   },

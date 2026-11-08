@@ -12,6 +12,14 @@
       "description": "Contains opencode logs and data",
     },
   },
+  "plugin": [
+    "./plugins/freelance-radar/index.js",
+    "./plugins/usage-analytics/index.js",
+    "./plugins/auto-learn/index.js",
+    "./plugins/auto-close-issues/index.js",
+    "./plugins/rag-auto-context/index.js",
+    "./plugins/decision-log/index.js",
+  ],
   "mcp": {},
   "tools": {
     "github-triage": false,

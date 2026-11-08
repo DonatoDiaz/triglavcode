@@ -26,13 +26,9 @@
 //   to the next pending request or to the prompt view.
 import type { Event, Part, PermissionRequest, QuestionRequest, ToolPart } from "@opencode-ai/sdk/v2"
 import * as Locale from "@/util/locale"
+import { formatCost } from "@opencode-ai/core/util/money"
 import { toolView } from "./tool"
 import type { FooterOutput, FooterPatch, FooterView, StreamCommit } from "./types"
-
-const money = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-})
 
 type Tokens = {
   input?: number
@@ -145,7 +141,7 @@ function formatUsage(
 
   if (total <= 0) {
     if (typeof cost === "number" && cost > 0) {
-      return money.format(cost)
+      return formatCost(cost)
     }
     return undefined
   }
@@ -154,7 +150,7 @@ function formatUsage(
     limit && limit > 0 ? `${Locale.number(total)} (${Math.round((total / limit) * 100)}%)` : Locale.number(total)
 
   if (typeof cost === "number" && cost > 0) {
-    return `${text} · ${money.format(cost)}`
+    return `${text} · ${formatCost(cost)}`
   }
 
   return text

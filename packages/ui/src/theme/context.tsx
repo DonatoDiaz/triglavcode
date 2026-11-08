@@ -78,6 +78,7 @@ const names: Record<string, string> = {
   solarized: "Solarized",
   synthwave84: "Synthwave '84",
   tokyonight: "Tokyonight",
+  triglav: "Triglav Hacker",
   vercel: "Vercel",
   vesper: "Vesper",
   zenburn: "Zenburn",
