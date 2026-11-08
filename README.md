@@ -10,14 +10,35 @@
 > See [NOTICE](NOTICE) for attribution.
 > The installation instructions below describe upstream opencode; TriglavCode is built locally with
 > `bun run --cwd packages/opencode build:triglav` (Bun 1.3.14 required, see [BASELINE.md](BASELINE.md)).
+> Prebuilt binaries and the plugin pack are published on the [releases page](https://github.com/DonatoDiaz/triglavcode/releases).
+
+## What's new in 1.19.0-triglav.1
+
+- **Web UI** now matches the TUI: the **Triglav Hacker** purple theme is the default; the themed UI is embedded into the binary.
+- **VSCode extension** rebranded to TriglavCode and ships the Triglav Hacker theme (`sdks/vscode`).
+- **Plugin pack** (`extras/triglav-plugins`, installer `extras/install.sh`):
+  `economics` (project cost + client quote with margin/tax/tiers), `test-data-gen`, `delegation-control`,
+  `brigade` (+ `analyst`/`developer`/`tester` agents), `event-triggers`, `calendar`, `knowledge-base`,
+  `media-gen`, `threed` (STL + Blender), `design-ux`.
+- **OSINT as an MCP server**: separate Rust repo [triglav-osint](https://github.com/DonatoDiaz/triglav-osint) (`triglav_*` tools).
+- **Docs**: [PDF guide](docs/guides/triglavcode-guide.pdf).
+- **RAG**: dedicated `~/knowledge` workspace with free official textbooks (Rust, Python, TypeScript, Bash, opencode docs).
+- **Release**: [v1.19.0-triglav.1](https://github.com/DonatoDiaz/triglavcode/releases/tag/v1.19.0-triglav.1) — Linux x64 binary + plugin pack + guide.
+
+Install from the release instead of the upstream steps below:
+
+```bash
+tar -xzf triglavcode-1.19.0-triglav.1-linux-x64.tar.gz -C ~/.local/bin
+bash extras/install.sh
+```
 
 ## Comparison with OpenCode
 
 | Feature | OpenCode (upstream) | TriglavCode |
 | --- | --- | --- |
-| Version | Current | `1.18.29-triglav.2` (fork of v1.18.29) |
+| Version | Current | `1.19.0-triglav.1` (fork of v1.18.29) |
 | Binary | `opencode` | `triglavcode` |
-| Branding / theme | Original | Triglav dark theme (blood/amber/violet), ASCII wordmark |
+| Branding / theme | Original | Triglav Hacker — purple hacker theme (TUI + web), VSCode theme, ASCII wordmark |
 | TUI/CLI localization | None/minimal | Full localization of user-facing TUI/CLI strings (Russian) |
 | Self-update | Enabled | Disabled (only with `TRIGLAV_SELF_UPDATE=1`) |
 | Local Ollama models + tool calling | Manual setup | Ready fallback: `ollama/qwen2.5:latest`, `ollama/qwen2.5-coder-64k`, `ollama/qwen2.5-coder:7b` (via `opencode-ollama-toolcall-proxy`) |

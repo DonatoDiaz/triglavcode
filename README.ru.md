@@ -10,14 +10,35 @@
 > Атрибуция — в [NOTICE](NOTICE) и [NOTICE.ru.md](NOTICE.ru.md).
 > Инструкции по установке ниже относятся к upstream opencode; TriglavCode собирается локально командой
 > `bun run --cwd packages/opencode build:triglav` (требуется Bun 1.3.14, см. [BASELINE.md](BASELINE.md)).
+> Готовые сборки и пакет плагинов публикуются на [странице релизов](https://github.com/DonatoDiaz/triglavcode/releases).
+
+## Что нового в 1.19.0-triglav.1
+
+- **Веб-интерфейс** приведён к стилю TUI: тема **Triglav Hacker** (фиолетовая «хакерская») стала дефолтной; темизированный UI встроен в бинарь.
+- **VSCode-расширение** перебрендировано в TriglavCode и содержит тему Triglav Hacker (`sdks/vscode`).
+- **Пакет плагинов** (`extras/triglav-plugins`, установщик `extras/install.sh`):
+  `economics` (себестоимость + коммерческое предложение заказчику с маржой/налогом/тарифами), `test-data-gen`,
+  `delegation-control`, `brigade` (+ агенты `analyst`/`developer`/`tester`), `event-triggers`, `calendar`,
+  `knowledge-base`, `media-gen`, `threed` (STL + Blender), `design-ux`.
+- **OSINT как MCP-сервер**: отдельный репозиторий на Rust [triglav-osint](https://github.com/DonatoDiaz/triglav-osint) (инструменты `triglav_*`).
+- **Документация**: [PDF-руководство](docs/guides/triglavcode-guide.pdf).
+- **RAG**: отдельный workspace `~/knowledge` со свободными официальными учебниками (Rust, Python, TypeScript, Bash, docs opencode).
+- **Релиз**: [v1.19.0-triglav.1](https://github.com/DonatoDiaz/triglavcode/releases/tag/v1.19.0-triglav.1) — бинарь Linux x64 + пакет плагинов + гайд.
+
+Установка из релиза (вместо инструкций upstream ниже):
+
+```bash
+tar -xzf triglavcode-1.19.0-triglav.1-linux-x64.tar.gz -C ~/.local/bin
+bash extras/install.sh
+```
 
 ## Сравнение с OpenCode
 
 | Возможность | OpenCode (upstream) | TriglavCode |
 | ------------ | ------------------- | ----------- |
-| Версия | Актуальная | `1.18.29-triglav.2` (форк на базе v1.18.29) |
+| Версия | Актуальная | `1.19.0-triglav.1` (форк на базе v1.18.29) |
 | Бинарник | `opencode` | `triglavcode` |
-| Брендинг / тема | Оригинальный | Triglav — тёмная тема (кровь/янтарь/фиолет), ASCII-вордмарк |
+| Брендинг / тема | Оригинальный | Triglav Hacker — фиолетовая «хакерская» тема (TUI + web), тема VSCode, ASCII-вордмарк |
 | Русификация TUI/CLI | Отсутствует/минимальная | Полная русификация пользовательских строк TUI и CLI |
 | Self-update | Включён | Отключён (только при `TRIGLAV_SELF_UPDATE=1`) |
 | Локальные модели Ollama + tool calling | Требует ручной настройки | Готовый fallback: `ollama/qwen2.5:latest`, `ollama/qwen2.5-coder-64k`, `ollama/qwen2.5-coder:7b` (с плагином `opencode-ollama-toolcall-proxy`) |
