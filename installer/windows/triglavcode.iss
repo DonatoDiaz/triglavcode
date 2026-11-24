@@ -72,11 +72,11 @@ Source: "{#IconFile}"; DestDir: "{app}"; DestName: "triglavcode.ico"; Flags: ign
 Source: "{#GuideFile}"; DestDir: "{app}"; DestName: "triglavcode-guide.pdf"; Flags: ignoreversion skipifsourcedoesntexist
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#LauncherName}"; WorkingDir: "{userprofile}"; IconFilename: "{app}\triglavcode.ico"; Comment: "Запустить {#MyAppName}"
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#LauncherName}"; WorkingDir: "{%USERPROFILE}"; IconFilename: "{app}\triglavcode.ico"; Comment: "Запустить {#MyAppName}"
 Name: "{group}\Быстрый старт"; Filename: "{app}\Быстрый старт.txt"
-Name: "{group}\Руководство (PDF)"; Filename: "{app}\triglavcode-guide.pdf"; Flags: skipifsourcedoesntexist
+Name: "{group}\Руководство (PDF)"; Filename: "{app}\triglavcode-guide.pdf"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#LauncherName}"; WorkingDir: "{userprofile}"; IconFilename: "{app}\triglavcode.ico"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#LauncherName}"; WorkingDir: "{%USERPROFILE}"; IconFilename: "{app}\triglavcode.ico"; Tasks: desktopicon
 
 [Run]
 ; .cmd нельзя запустить через CreateProcess напрямую — оборачиваем в cmd /c.
