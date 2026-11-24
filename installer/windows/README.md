@@ -30,22 +30,16 @@ pwsh ./installer/windows/build-installer.ps1 -Version 1.19.0-triglav.1
 
 ## CI
 
-Готовый workflow лежит в `triglav-release.workflow.yml`. Чтобы включить
-автосборку, скопируйте его в репозиторий:
-
-```bash
-cp installer/windows/triglav-release.workflow.yml .github/workflows/triglav-release.yml
-git add .github/workflows/triglav-release.yml
-```
-
-> Добавление файлов в `.github/workflows/` требует у токена/push-ключа права
-> `workflow` у GitHub (иначе push отклоняется).
-
+Сборка автоматизирована в [`.github/workflows/triglav-release.yml`](../../.github/workflows/triglav-release.yml).
 На `windows-latest` workflow собирает `triglavcode.exe`, затем установщик, и оба
 файла (`TriglavCode-Setup-*.exe` и переносимый
 `triglavcode-windows-x64-gui.zip`) попадают в GitHub Release.
 Ручной запуск (`workflow_dispatch`) собирает артефакты без публикации релиза;
 релиз публикуется по тегу `triglav-<версия>`.
+
+> Если `git push` отклоняется с «refusing to allow ... workflow without
+> `workflow` scope», обновите права токена: `gh auth refresh -s workflow`
+> (или пушьте SSH-ключом/deploy key).
 
 ## Что делает установщик
 
