@@ -1,4 +1,5 @@
 import { DialogSelectServer } from "@/components/dialog-select-server"
+import { HomePluginsPanel } from "@/components/session-plugins"
 import { useDirectoryPicker } from "@/components/directory-picker"
 import { useGlobal } from "@/context/global"
 import { useLanguage } from "@/context/language"
@@ -137,6 +138,7 @@ export function LegacyHome() {
           </div>
         </Match>
       </Switch>
+      <HomePluginsPanel />
     </div>
   )
 }
