@@ -69,14 +69,15 @@ Source: "{#SourceExe}"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Flags: ig
 Source: "{#LauncherName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "TriglavCode.vbs"; DestDir: "{app}"; Flags: ignoreversion
 Source: "TriglavCode-Stop.vbs"; DestDir: "{app}"; Flags: ignoreversion
+Source: "TriglavCode-run.cmd"; DestDir: "{app}"; Flags: ignoreversion
 Source: "QUICKSTART.ru.txt"; DestDir: "{app}"; DestName: "Быстрый старт.txt"; Flags: ignoreversion
 Source: "{#IconFile}"; DestDir: "{app}"; DestName: "triglavcode.ico"; Flags: ignoreversion
 Source: "{#GuideFile}"; DestDir: "{app}"; DestName: "triglavcode-guide.pdf"; Flags: ignoreversion skipifsourcedoesntexist
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\TriglavCode.vbs"""; WorkingDir: "{%USERPROFILE}"; IconFilename: "{app}\triglavcode.ico"; Comment: "Открыть веб-интерфейс {#MyAppName}"
-Name: "{group}\{#MyAppName} (TUI)"; Filename: "{app}\{#LauncherName}"; WorkingDir: "{%USERPROFILE}"; IconFilename: "{app}\triglavcode.ico"; Comment: "Запустить TUI в Windows Terminal"
 Name: "{group}\Остановить {#MyAppName}"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\TriglavCode-Stop.vbs"""; IconFilename: "{app}\triglavcode.ico"; Comment: "Остановить веб-сервер {#MyAppName}"
+Name: "{group}\Лог запуска"; Filename: "{sys}\notepad.exe"; Parameters: """{localappdata}\TriglavCode\web.log"""; Comment: "Открыть лог веб-сервера"
 Name: "{group}\Быстрый старт"; Filename: "{app}\Быстрый старт.txt"
 Name: "{group}\Руководство (PDF)"; Filename: "{app}\triglavcode-guide.pdf"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"

@@ -33,6 +33,10 @@ import { Heap } from "./cli/heap"
 
 const args = hideBin(process.argv)
 
+// Windows ships as a GUI (web UI) build: a bare `triglavcode` opens the web UI
+// instead of the terminal TUI. Explicit subcommands (run/serve/...) are unchanged.
+if (process.platform === "win32" && args.length === 0) args.push("web")
+
 function show(out: string) {
   const text = out.trimStart()
   if (!text.startsWith("triglavcode")) {
@@ -125,7 +129,7 @@ try {
       show(out)
     })
   } else {
-    await cli.parse()
+    await cli.parse(args)
   }
 } catch (e) {
   const formatted = FormatError(e)

@@ -25,6 +25,11 @@ pwsh ./installer/windows/build-installer.ps1 -Version 1.19.0-triglav.1
 
 Результат: `installer/windows/dist/TriglavCode-Setup-1.19.0-triglav.1.exe`.
 
+> Для совместимости со старыми CPU (без AVX2) собирайте **baseline**-бинарник:
+> `script/build.ts --os=win32` → `dist/triglavcode-windows-x64-baseline/bin/triglavcode.exe`,
+> и передайте его в `-SourceExe`. На Windows это GUI-сборка: `triglavcode` без
+> аргументов открывает web UI.
+
 `build-installer.ps1` сам находит `ISCC.exe` (или ставит Inno Setup через
 `winget`/`choco`).
 
