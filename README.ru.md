@@ -128,6 +128,19 @@ ln -s "$PWD/triglavcode" ~/.local/bin/triglavcode
 портативный архив, распаковать и добавить папку в `PATH`, затем запустить
 `triglavcode`. Сборка x64 работает и на Windows on ARM через эмуляцию.
 
+**Аварийный запуск (любая ОС).** Если готовый `.exe`/бинарник не запускается
+(антивирус, старое железо, политики Windows и т.п.), используйте
+кроссплатформенный Python-лаунчер `triglavcode-launcher.py` из релиза — ему
+нужен только Python 3.8+, зависимостей нет. Он сам скачает подходящий бинарник
+из релиза и запустит web UI:
+
+```bash
+python triglavcode-launcher.py              # web UI (откроется браузер)
+python triglavcode-launcher.py --tui        # TUI (Linux/macOS)
+python triglavcode-launcher.py --serve      # headless-сервер
+python triglavcode-launcher.py -- --help    # передать аргументы триглавкоду
+```
+
 Встроенный веб-GUI доступен командой `triglavcode web`.
 
 Сборка из исходников:

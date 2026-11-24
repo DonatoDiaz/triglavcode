@@ -129,6 +129,19 @@ optionally desktop) shortcuts. Alternatively, grab the portable zip, extract
 it, add the folder to `PATH`, and run `triglavcode`. The x64 build also runs on
 Windows on ARM via emulation.
 
+**Fallback launcher (any OS).** If the prebuilt `.exe`/binary will not start
+(antivirus, old CPU, Windows policies, etc.), use the cross-platform
+`triglavcode-launcher.py` from the release — it needs only Python 3.8+, no
+dependencies. It downloads the right binary from the release and launches the
+web UI:
+
+```bash
+python triglavcode-launcher.py              # web UI (opens the browser)
+python triglavcode-launcher.py --tui        # TUI (Linux/macOS)
+python triglavcode-launcher.py --serve      # headless server
+python triglavcode-launcher.py -- --help    # pass args to triglavcode
+```
+
 The GUI/web UI is embedded in the binary — run `triglavcode web` and open the
 printed URL, or just use the terminal TUI (`triglavcode`).
 
