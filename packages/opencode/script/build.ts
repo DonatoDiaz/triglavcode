@@ -209,7 +209,9 @@ for (const item of targets) {
 
   // Smoke test: only run if binary is for current platform
   if (item.os === process.platform && item.arch === process.arch && !item.abi) {
-    const binaryPath = `dist/${name}/bin/${brand}`
+    // Bun appends .exe when compiling for Windows.
+    const ext = item.os === "win32" ? ".exe" : ""
+    const binaryPath = `dist/${name}/bin/${brand}${ext}`
     console.log(`Running smoke test: ${binaryPath} --version`)
     try {
       const versionOutput = await $`${binaryPath} --version`.text()

@@ -106,14 +106,13 @@ bash extras/install.sh
 TriglavCode распространяется в виде готовых бинарников для Linux и Windows на двух локализациях:
 **RU** (по умолчанию) и **ZH** (中文). Последний релиз — [страница релизов](https://github.com/DonatoDiaz/triglavcode/releases).
 
-| Файл | Платформа | Интерфейс / Язык |
+| Файл | Платформа | Что это |
 | --- | --- | --- |
+| `TriglavCode-Setup-<версия>.exe` | Windows x64 | **Установщик (рекомендуется)** — ставит в профиль, добавляет в `PATH`, делает ярлыки |
+| `triglavcode-windows-x64-gui.zip` | Windows x64 | Портативная сборка, TUI+web GUI / RU |
 | `triglavcode` | Linux x64 | TUI+web GUI / RU |
-| `triglavcode-windows-x64-gui.zip` | Windows x64 | TUI+web GUI / RU |
-| `triglavcode-windows-arm64-gui.zip` | Windows arm64 | TUI+web GUI / RU |
 | `triglavcode-linux-x64-zh.zip` | Linux x64 | TUI+web GUI / 中文 |
-| `triglavcode-windows-x64-zh.zip` | Windows x64 | TUI+web GUI / 中文 |
-| `triglavcode-windows-arm64-zh.zip` | Windows arm64 | TUI+web GUI / 中文 |
+| `triglavcode-windows-x64-zh.zip` | Windows x64 | Портативная сборка / 中文 |
 
 В Linux распакуйте и добавьте в `PATH` (например, симлинком):
 
@@ -122,7 +121,12 @@ mkdir -p ~/.local/bin
 ln -s "$PWD/triglavcode" ~/.local/bin/triglavcode
 ```
 
-В Windows распакуйте архив и добавьте папку в `PATH`, запустите `triglavcode`.
+В Windows проще всего скачать `TriglavCode-Setup-<версия>.exe`, запустить и
+следовать подсказкам. Права администратора не нужны: программа ставится в
+профиль пользователя, папка добавляется в `PATH`, появляются ярлыки
+«Пуск → TriglavCode» и (по желанию) на рабочем столе. Можно также взять
+портативный архив, распаковать и добавить папку в `PATH`, затем запустить
+`triglavcode`. Сборка x64 работает и на Windows on ARM через эмуляцию.
 
 Встроенный веб-GUI доступен командой `triglavcode web`.
 
@@ -136,6 +140,15 @@ bun run --cwd packages/opencode build:triglav
 # Китайская сборка:
 bun run --cwd packages/opencode script/build-zh.ts            # Linux
 bun run --cwd packages/opencode script/build-zh.ts --os=win32 # Windows
+```
+
+Windows-установщик собирается из готового бинарника (подробнее —
+[`installer/windows/README.md`](installer/windows/README.md)):
+
+```powershell
+bun run --cwd packages/opencode script/build.ts --single --skip-install
+pwsh ./installer/windows/build-installer.ps1 -Version 1.19.0-triglav.1
+# Результат: installer/windows/dist/TriglavCode-Setup-1.19.0-triglav.1.exe
 ```
 
 ### Использование

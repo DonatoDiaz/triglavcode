@@ -107,14 +107,13 @@ TriglavCode ships as standalone binaries for Linux and Windows, in two locales:
 **RU** (default) and **ZH** (中文). Grab the latest release from the
 [Releases page](https://github.com/DonatoDiaz/triglavcode/releases):
 
-| Asset | Platform | UI / Locale |
+| Asset | Platform | What it is |
 | --- | --- | --- |
+| `TriglavCode-Setup-<version>.exe` | Windows x64 | **Installer (recommended)** — per-user install, adds to `PATH`, creates shortcuts |
+| `triglavcode-windows-x64-gui.zip` | Windows x64 | Portable build, TUI+web GUI / RU |
 | `triglavcode` | Linux x64 | TUI+web GUI / RU |
-| `triglavcode-windows-x64-gui.zip` | Windows x64 | TUI+web GUI / RU |
-| `triglavcode-windows-arm64-gui.zip` | Windows arm64 | TUI+web GUI / RU |
 | `triglavcode-linux-x64-zh.zip` | Linux x64 | TUI+web GUI / 中文 |
-| `triglavcode-windows-x64-zh.zip` | Windows x64 | TUI+web GUI / 中文 |
-| `triglavcode-windows-arm64-zh.zip` | Windows arm64 | TUI+web GUI / 中文 |
+| `triglavcode-windows-x64-zh.zip` | Windows x64 | Portable build / 中文 |
 
 On Linux, unzip and symlink the binary into your `PATH`:
 
@@ -123,7 +122,12 @@ mkdir -p ~/.local/bin
 ln -s "$PWD/triglavcode" ~/.local/bin/triglavcode
 ```
 
-On Windows, unzip and add the folder to `PATH`, then run `triglavcode`.
+On Windows, download `TriglavCode-Setup-<version>.exe`, run it and follow the
+wizard. No administrator rights are required: it installs into your user
+profile, adds the install folder to `PATH`, and creates Start Menu (and
+optionally desktop) shortcuts. Alternatively, grab the portable zip, extract
+it, add the folder to `PATH`, and run `triglavcode`. The x64 build also runs on
+Windows on ARM via emulation.
 
 The GUI/web UI is embedded in the binary — run `triglavcode web` and open the
 printed URL, or just use the terminal TUI (`triglavcode`).
