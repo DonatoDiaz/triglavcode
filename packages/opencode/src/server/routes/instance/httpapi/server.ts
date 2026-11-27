@@ -1,4 +1,4 @@
-import { Config as EffectConfig, Context, Effect, Layer } from "effect"
+import { Config as EffectConfig, Context, Effect, Layer, Option } from "effect"
 import { HttpApiBuilder, OpenApi } from "effect/unstable/httpapi"
 import { HttpClient, HttpMiddleware, HttpRouter, HttpServer, HttpServerResponse } from "effect/unstable/http"
 import * as Socket from "effect/unstable/socket/Socket"
@@ -70,6 +70,7 @@ import { lazy } from "@/util/lazy"
 import { CorsConfig, isAllowedCorsOrigin, type CorsOptions } from "@opencode-ai/server/cors"
 import { serveUIEffect } from "@/server/shared/ui"
 import { ServerAuth } from "@/server/auth"
+import { Pair } from "@/server/pair"
 import { InstanceHttpApi, RootHttpApi } from "./api"
 import { Api } from "@opencode-ai/server/api"
 import { PublicApi } from "./public"
@@ -191,6 +192,33 @@ const docRoute = HttpRouter.use((router) => router.add("GET", "/doc", () => Effe
   Layer.provide(authOnlyRouterLayer),
 )
 
+// One-time pairing links. This route is intentionally NOT wrapped in
+// `authOnlyRouterLayer`: the whole point is that the visitor has no credentials
+// yet. `triglavcode pair` mints a token (see @/server/pair) and prints
+// `/auth/connect/<token>`; redeeming it once redirects to the web UI with the
+// server credentials in the `auth_token` query, which the app already understands.
+const pairRoute = HttpRouter.use((router) =>
+  Effect.gen(function* () {
+    const config = yield* ServerAuth.Config
+    yield* router.add("GET", "/auth/connect/:token", (request) => {
+      const pathname = new URL(request.url, "http://localhost").pathname
+      const token = decodeURIComponent(pathname.slice(pathname.lastIndexOf("/") + 1))
+      const result = Pair.redeem(token)
+      if (!result.ok) {
+        const status = result.reason === "not_found" ? 404 : 410
+        return Effect.succeed(
+          HttpServerResponse.text("Pairing link is invalid, expired or already used.", { status }),
+        )
+      }
+      const password = Option.isSome(config.password) ? config.password.value : undefined
+      const location = password
+        ? `/?auth_token=${encodeURIComponent(Buffer.from(`${config.username}:${password}`).toString("base64"))}`
+        : "/"
+      return Effect.succeed(HttpServerResponse.empty({ status: 302, headers: { location } }))
+    })
+  }),
+).pipe(Layer.provide(ServerAuth.Config.layer))
+
 const uiRoute = HttpRouter.use((router) =>
   Effect.gen(function* () {
     const fs = yield* FSUtil.Service
@@ -280,6 +308,7 @@ export function createRoutes(
     instanceRoutes,
     serverRoutes,
     docRoute,
+    pairRoute,
     uiRoute,
   ).pipe(
     Layer.provide([

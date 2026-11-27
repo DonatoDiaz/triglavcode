@@ -12,8 +12,12 @@
 > `bun run --cwd packages/opencode build:triglav` (требуется Bun 1.3.14, см. [BASELINE.md](BASELINE.md)).
 > Готовые сборки и пакет плагинов публикуются на [странице релизов](https://github.com/DonatoDiaz/triglavcode/releases).
 
-## Что нового в 1.19.0-triglav.1
+## Что нового в 1.19.1-triglav.1
 
+- **Совместная работа**: `triglavcode pair` поднимает сервер и печатает одноразовую ссылку
+  `http://<host>:<port>/auth/connect/<token>` — коллега открывает её в браузере и попадает в тот же
+  живой сервер (общие сессии в реальном времени). Ссылка живёт 5 минут, после первого открытия
+  переводит в веб-UI с уже подставленными учётными данными.
 - **Веб-интерфейс** приведён к стилю TUI: тема **Triglav Hacker** (фиолетовая «хакерская») стала дефолтной; темизированный UI встроен в бинарь.
 - **VSCode-расширение** перебрендировано в TriglavCode и содержит тему Triglav Hacker (`sdks/vscode`).
 - **Пакет плагинов** (`extras/triglav-plugins`, установщик `extras/install.sh`):
@@ -23,12 +27,12 @@
 - **OSINT как MCP-сервер**: отдельный репозиторий на Rust [triglav-osint](https://github.com/DonatoDiaz/triglav-osint) (инструменты `triglav_*`).
 - **Документация**: [PDF-руководство](docs/guides/triglavcode-guide.pdf).
 - **RAG**: отдельный workspace `~/knowledge` со свободными официальными учебниками (Rust, Python, TypeScript, Bash, docs opencode).
-- **Релиз**: [v1.19.0-triglav.1](https://github.com/DonatoDiaz/triglavcode/releases/tag/v1.19.0-triglav.1) — бинарь Linux x64 + пакет плагинов + гайд.
+- **Релиз**: [v1.19.1-triglav.1](https://github.com/DonatoDiaz/triglavcode/releases/tag/v1.19.1-triglav.1) — бинарь Linux x64 + пакет плагинов + гайд.
 
 Установка из релиза (вместо инструкций upstream ниже):
 
 ```bash
-tar -xzf triglavcode-1.19.0-triglav.1-linux-x64.tar.gz -C ~/.local/bin
+tar -xzf triglavcode-1.19.1-triglav.1-linux-x64.tar.gz -C ~/.local/bin
 bash extras/install.sh
 ```
 
@@ -36,7 +40,7 @@ bash extras/install.sh
 
 | Возможность | OpenCode (upstream) | TriglavCode |
 | ------------ | ------------------- | ----------- |
-| Версия | Актуальная | `1.19.0-triglav.1` (форк на базе v1.18.29) |
+| Версия | Актуальная | `1.19.1-triglav.1` (форк на базе v1.18.29) |
 | Бинарник | `opencode` | `triglavcode` |
 | Брендинг / тема | Оригинальный | Triglav Hacker — фиолетовая «хакерская» тема (TUI + web), тема VSCode, ASCII-вордмарк |
 | Русификация TUI/CLI | Отсутствует/минимальная | Полная русификация пользовательских строк TUI и CLI |
@@ -160,8 +164,8 @@ Windows-установщик собирается из готового бина
 
 ```powershell
 bun run --cwd packages/opencode script/build.ts --single --skip-install
-pwsh ./installer/windows/build-installer.ps1 -Version 1.19.0-triglav.1
-# Результат: installer/windows/dist/TriglavCode-Setup-1.19.0-triglav.1.exe
+pwsh ./installer/windows/build-installer.ps1 -Version 1.19.1-triglav.1
+# Результат: installer/windows/dist/TriglavCode-Setup-1.19.1-triglav.1.exe
 ```
 
 ### Использование
@@ -171,10 +175,28 @@ triglavcode                 # запуск TUI
 triglavcode web             # встроенный веб-GUI
 triglavcode run "исправь тесты"   # разовый запуск
 triglavcode serve           # headless-сервер
+triglavcode pair            # поделиться живой сессией (одноразовая ссылка для совместной работы)
 triglavcode env             # показать все переменные TRIGLAV_*
 ```
 
 Нажмите `F2` в TUI для переключения облако ↔ локально (Ollama). Локальные модели помечены `●`.
+
+### Совместная работа
+
+```bash
+triglavcode pair                 # сервер на 0.0.0.0 + одноразовая ссылка (5 мин)
+triglavcode pair --ttl 600       # ссылка на 10 минут
+triglavcode pair --hostname 127.0.0.1   # только локально
+triglavcode pair --session ses_123 --open
+```
+
+Команда печатает ссылку вида `http://<host>:<port>/auth/connect/<token>`. Коллега открывает её
+в браузере — и попадает в веб-UI, подключённый к тому же серверу: вы видите одни и те же сессии и
+сообщения в реальном времени. Ссылка одноразовая и истекает через `--ttl` секунд (по умолчанию 300).
+Если `OPENCODE_SERVER_PASSWORD` не задан, генерируется временный пароль на время запуска.
+
+> ⚠️ Ссылка даёт полный доступ к серверу. Передавайте только доверенным людям и не выставляйте
+> сервер в интернет без обратного прокси и TLS.
 
 ### Agents
 

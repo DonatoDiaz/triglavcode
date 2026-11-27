@@ -12,8 +12,12 @@
 > `bun run --cwd packages/opencode build:triglav` (Bun 1.3.14 required, see [BASELINE.md](BASELINE.md)).
 > Prebuilt binaries and the plugin pack are published on the [releases page](https://github.com/DonatoDiaz/triglavcode/releases).
 
-## What's new in 1.19.0-triglav.1
+## What's new in 1.19.1-triglav.1
 
+- **Collaboration**: `triglavcode pair` starts a server and prints a one-time
+  `http://<host>:<port>/auth/connect/<token>` link. A teammate opens it and lands on the same
+  live server (shared sessions in real time). The link expires in 5 minutes and redirects into the
+  web UI with credentials already applied.
 - **Web UI** now matches the TUI: the **Triglav Hacker** purple theme is the default; the themed UI is embedded into the binary.
 - **VSCode extension** rebranded to TriglavCode and ships the Triglav Hacker theme (`sdks/vscode`).
 - **Plugin pack** (`extras/triglav-plugins`, installer `extras/install.sh`):
@@ -23,12 +27,12 @@
 - **OSINT as an MCP server**: separate Rust repo [triglav-osint](https://github.com/DonatoDiaz/triglav-osint) (`triglav_*` tools).
 - **Docs**: [PDF guide](docs/guides/triglavcode-guide.pdf).
 - **RAG**: dedicated `~/knowledge` workspace with free official textbooks (Rust, Python, TypeScript, Bash, opencode docs).
-- **Release**: [v1.19.0-triglav.1](https://github.com/DonatoDiaz/triglavcode/releases/tag/v1.19.0-triglav.1) — Linux x64 binary + plugin pack + guide.
+- **Release**: [v1.19.1-triglav.1](https://github.com/DonatoDiaz/triglavcode/releases/tag/v1.19.1-triglav.1) — Linux x64 binary + plugin pack + guide.
 
 Install from the release instead of the upstream steps below:
 
 ```bash
-tar -xzf triglavcode-1.19.0-triglav.1-linux-x64.tar.gz -C ~/.local/bin
+tar -xzf triglavcode-1.19.1-triglav.1-linux-x64.tar.gz -C ~/.local/bin
 bash extras/install.sh
 ```
 
@@ -36,7 +40,7 @@ bash extras/install.sh
 
 | Feature | OpenCode (upstream) | TriglavCode |
 | --- | --- | --- |
-| Version | Current | `1.19.0-triglav.1` (fork of v1.18.29) |
+| Version | Current | `1.19.1-triglav.1` (fork of v1.18.29) |
 | Binary | `opencode` | `triglavcode` |
 | Branding / theme | Original | Triglav Hacker — purple hacker theme (TUI + web), VSCode theme, ASCII wordmark |
 | TUI/CLI localization | None/minimal | Full localization of user-facing TUI/CLI strings (Russian) |
@@ -164,11 +168,29 @@ triglavcode                 # start TUI
 triglavcode web             # launch embedded web GUI
 triglavcode run "fix the tests"   # one-shot run
 triglavcode serve           # headless server
+triglavcode pair            # share a live session (one-time collaboration link)
 triglavcode env             # inspect all TRIGLAV_* variables
 ```
 
 Press `F2` inside the TUI to toggle between cloud and local (Ollama) models;
 local models are marked with `●`.
+
+### Collaboration
+
+```bash
+triglavcode pair                          # server on 0.0.0.0 + one-time link (5 min)
+triglavcode pair --ttl 600                # link valid for 10 minutes
+triglavcode pair --hostname 127.0.0.1     # local only
+triglavcode pair --session ses_123 --open
+```
+
+The command prints `http://<host>:<port>/auth/connect/<token>`. A teammate opens it in a browser
+and lands on the web UI connected to the same server: you both see the same sessions and messages in
+real time. The link is single-use and expires after `--ttl` seconds (default 300). If
+`OPENCODE_SERVER_PASSWORD` is unset, a throwaway password is generated for the process.
+
+> ⚠️ The link grants full access to the server. Share it only with people you trust and do not expose
+> the server to the internet without a reverse proxy and TLS.
 
 ### Agents
 

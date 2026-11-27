@@ -1,3 +1,48 @@
+# TriglavCode 1.19.1-triglav.1
+
+Релиз про **совместную работу**: новый режим `triglavcode pair` превращает локальный сервер
+в общую живую сессию для нескольких людей.
+
+## 🇷🇺 Что нового
+
+- **`triglavcode pair` — совместная работа по одноразовой ссылке.** Команда поднимает сервер
+  (по умолчанию на `0.0.0.0`, доступен по локальной сети), генерирует временный пароль, если он
+  не задан, и печатает ссылку `http://<host>:<port>/auth/connect/<token>`. Ссылка одноразовая,
+  живёт 5 минут (`--ttl`), после первого открытия переводит браузер в веб-UI с уже подставленными
+  учётными данными (`?auth_token=...`).
+- **Общая живая сессия.** Все подключившиеся клиенты работают с одним сервером и видят одни и те же
+  сессии в реальном времени (SSE), могут продолжать диалог и следить за действиями друг друга.
+- **Публичный маршрут `GET /auth/connect/:token`** с одноразовым редиректом; повторное использование
+  токена возвращает `410`, неизвестный — `404`, истёкший — `410`. Токены хранятся только в памяти
+  процесса и не пишутся на диск.
+- **`--session <id>`** — заранее указать сессию в ссылке, `--open` — сразу открыть её в браузере.
+- Тесты: `packages/opencode/test/server/pair.test.ts` (одноразовость, TTL, неизвестный токен).
+
+> ⚠️ Ссылка содержит учётные данные сервера и даёт полный доступ к нему. Передавайте её только
+> доверенным людям; сервер по умолчанию слушает всю локальную сеть — не выставляйте его в интернет
+> без обратного прокси и TLS.
+
+## 🇬🇧 What's new
+
+- **`triglavcode pair` — one-time collaboration link.** Starts the server (LAN by default),
+  generates a throwaway password when none is configured, and prints
+  `http://<host>:<port>/auth/connect/<token>`. The link is single-use, expires in 5 minutes
+  (`--ttl`), and redirects to the web UI with credentials already applied (`?auth_token=...`).
+- **Shared live session.** Every connected client talks to the same server and sees the same
+  sessions in real time (SSE); they can continue the conversation and watch each other work.
+- **Public `GET /auth/connect/:token`** route with a one-time redirect; reuse → `410`, unknown →
+  `404`, expired → `410`. Tokens live only in process memory.
+- Tests in `packages/opencode/test/server/pair.test.ts`.
+
+## Установка / Install
+
+```bash
+tar -xzf triglavcode-1.19.1-triglav.1-linux-x64.tar.gz -C ~/.local/bin
+triglavcode pair            # поделиться живой сессией
+```
+
+---
+
 # TriglavCode 1.19.0-triglav.1
 
 Крупный релиз: веб-UI в фирменной теме, пересобранное VSCode-расширение и большой набор
